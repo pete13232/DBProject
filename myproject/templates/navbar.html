@@ -17,18 +17,18 @@
       <ul class="navbar-nav">
         {% if request.user.is_staff %}
         <li>
-          <a class="nav-item nav-link active" href="{% url 'home' %}">Dashboard</a>
+          <a class="nav-item nav-link active" href="">Dashboard</a>
         </li>
         <li>
-          <a class="nav-item nav-link" href="{% url 'products' %}">Products</a>
+          <a class="nav-item nav-link" href="">Products</a>
         </li>
         {% else %}
         <li class = "nav-item">
-          <a class="nav-link" href="{% url 'account' %}">Settings</a>
+          <a class="nav-link" href="">Settings</a>
         </li>
         {% endif %}
       </ul>
     </div>
     <span class = "hello-msg">Hello, {{request.user}}</span>
-    <span><a class = "hello-msg" href="{% url 'logout' %}">Logout</a></span>
+    <span><a class = "hello-msg" href="">Logout</a></span>
   </nav>
