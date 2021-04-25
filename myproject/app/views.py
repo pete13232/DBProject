@@ -1,5 +1,10 @@
 from django.shortcuts import render
 
 # Create your views here.
-def home(request):
-    return render(request, "home.html")
+def card3Col(request):
+    return render(request, "card3Col.html")
+
+
+def test(request):
+
+    return render(request, "test.html")
