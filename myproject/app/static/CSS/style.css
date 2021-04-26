@@ -1,5 +1,17 @@
-img {
-  height: 200px !important;
+.imgBg {
+  width: 98%;
+  max-height: 672px;
   object-fit: cover;
-  border-radius: 20px !important;
+  transform: translate(2%, 0);
+  padding-bottom: 2%;
 }
+.imgCollab {
+  height: 20%;
+  width: 50%;
+  position: absolute;
+  object-fit: cover;
+  border-radius: 20px;
+  transform: translate(0%, 47%);
+  
+}
+

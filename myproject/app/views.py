@@ -8,3 +8,7 @@ def card3Col(request):
 def test(request):
 
     return render(request, "test.html")
+
+
+def queueCard(requset):
+    return render(request, "queueCard.html")
