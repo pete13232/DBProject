@@ -1,4 +1,6 @@
+{% extends 'base.html' %}
 {% load static %}
+{% block content %}
 <div class="row row-cols-1 row-cols-md-4 g-4">
     <div class="col">
         <div class="card p-2 border-0">
@@ -11,7 +13,7 @@
                     <span> 4.2</span>
                     <i class="far fa-clock text-secondary"></i>
                     <span> 15 min</span>
-                    <i class="fas fa-map-marker-alt text-secondary""></i>
+                    <i class="fas fa-map-marker-alt text-secondary"></i>
                     <span> 2 km</span>
                 </p>
             </div>
@@ -28,10 +30,11 @@
                     <span> 4.2</span>
                     <i class="far fa-clock text-secondary"></i>
                     <span> 15 min</span>
-                    <i class="fas fa-map-marker-alt text-secondary""></i>
+                    <i class="fas fa-map-marker-alt text-secondary"></i>
                     <span> 2 km</span>
                 </p>
             </div>
         </div>
     </div>
 </div>
+{% endblock content %}
