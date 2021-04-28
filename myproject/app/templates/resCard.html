@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% comment %} <div class="row justify-content-center"> {% endcomment %}
+    <div class="row justify-content-center">
+        <div class="col-xl-8 ">
+            <div class="card p-3" style="">
+                <div class="row ">
+                    <img src="{% static 'images/foodEx.jpg' %}" class="imgBg" alt="Responsive image">
+                    <img src="{% static 'images/foodEx2.jpg' %}" class="imgCollab " alt="Responsive image">
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card-body">
+                            <h2 class="card-title">ร้านเจ๊โอว</h2>
+                            <p class="card-text">ซีฟู๊ด, อาหารตามสั่ง</p>
+                            <p class="card-text">
+                                <i class="fas fa-star text-warning"></i>
+                                <span> 4.2</span>
+                                <i class="far fa-clock text-secondary"></i>
+                                <span> 15 min</span>
+                                <i class="fas fa-map-marker-alt text-secondary"></i>
+                                <span> 2 km</span>
+                            </p>
+                            <p class="card-text">Openning Hours: 11:00 AM. - 22:00 PM.</p>
+                        </div>
+                    </div>
+                    <div class="col-6 align-self-end">
+                        <div class="text-end card-body ">
+                            <p class="card-text">
+                                <i class="fas fa-users"></i>
+                                <span class="">15 Queue</span>
+                            </p>
+                            <p class="card-text">
+                                <i class="fas fa-hourglass-start"></i>
+                                <span class="card-text">8 Mins.</span>
+                            </p>
+                            <p class="card-text">
+                                <button type="button" class="btn btn-primary btn-sm"> รายการอาหาร</button>
+                                <button type="button" class="btn btn-secondary btn-sm">จองคิว</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+    {% comment %}
+</div> {% endcomment %}
