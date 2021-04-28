@@ -10,5 +10,6 @@ def test(request):
     return render(request, "test.html")
 
 
-def queueCard(requset):
-    return render(request, "queueCard.html")
+def resCard(request):
+
+    return render(request, "resCard.html")
