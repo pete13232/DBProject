@@ -14,5 +14,3 @@ def queueCard(request):
     return render(request, "queueCard.html")
 
 
-def navbar(request) : 
-    return render(request, "navbar.html")
