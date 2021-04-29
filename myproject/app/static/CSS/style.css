@@ -1,7 +1,6 @@
 .imgBg {
   width: 98%;
   max-height: 250px;
-  object-fit: cover;
   transform: translate(2%, 0);
   padding-bottom: 2%;
   border-radius: 24px;
@@ -10,7 +9,13 @@
   height: 40%;
   width: 60%;
   position: absolute;
-  object-fit: cover;
   border-radius: 24px;
   transform: translate(0%, 33%);
+}
+.resImg {
+  border-radius: 24px;
+  height: 130px;
+}
+img {
+  object-fit: cover;
 }
