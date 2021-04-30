@@ -13,3 +13,6 @@ def test(request):
 def resCard(request):
 
     return render(request, "resCard.html")
+
+def login(request):
+    return render(request, "login.html")
