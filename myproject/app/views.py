@@ -14,5 +14,9 @@ def resCard(request):
 
     return render(request, "resCard.html")
 
+def categoryCard(request):
+
+    return render(request, "categoryCard.html")
+
 def login(request):
     return render(request, "login.html")
