@@ -27,12 +27,26 @@
             </div>
             <div class="input-box">
               <span class="details">Email</span>
-              <input type="text" placeholder="Enter your email" required />
+              <input type="email" placeholder="Enter your email" required />
             </div>
             <div class="input-box">
               <span class="details">Phone Number</span>
-              <input type="text" placeholder="Enter your number" required />
+              <input type="tel" placeholder="Enter your number" required />
             </div>
+            <div class = "input-box">
+                <span class="details">Birth Date</span>
+                  <input type="date"id="start"name="trip-start"
+                    value="2018-07-22" 
+                    min="1981-01-01"max="2021-12-31"> <!--value ที่เซ็ดเป็น default เดะแก้ตอน backend อีกที-->
+              </div>
+              <div class = "input-box">
+                <span class="details">Gender : </span>
+                  <select name="Birth Date">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
             <div class="input-box">
               <span class="details">Username</span>
               <input type="text" placeholder="Enter your username" required />
@@ -42,25 +56,12 @@
               <input type="text" placeholder="Enter your password" required />
             </div>
             <div class="input-box">
+              
+            </div>
+            <div class="input-box">
               <span class="details">Confirm Password</span>
               <input type="text" placeholder="Confirm your password" required />
             </div>
-          <div class = "input-box">
-            <span class="details">Birth Date</span>
-              <input type="date"id="start"name="trip-start"
-                value="2018-07-22" 
-                min="1981-01-01"max="2021-12-31"> <!--value ที่เซ็ดเป็น default เดะแก้ตอน backend อีกที-->
-          </div>
-         
-              <div class = "input-box">
-                <span class="details">Gender : </span>
-                  <select name="Birth Date">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-         
           </div>
           <div class="gender-details">
               <!-- <div class="category">

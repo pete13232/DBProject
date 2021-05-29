@@ -1,49 +1,137 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-{% comment %} <div class="row justify-content-center"> {% endcomment %}
-    <div class="row justify-content-center">
-        <div class="col-xl-8 ">
-            <div class="card p-3" style="">
-                <div class="row ">
-                    <img src="{% static 'images/foodEx.jpg' %}" class="imgBg" alt="Responsive image">
-                    <img src="{% static 'images/foodEx2.jpg' %}" class="imgCollab " alt="Responsive image">
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="card-body">
-                            <h2 class="card-title">ร้านเจ๊โอว</h2>
-                            <p class="card-text">ซีฟู๊ด, อาหารตามสั่ง</p>
-                            <p class="card-text">
-                                <i class="fas fa-star text-warning"></i>
-                                <span> 4.2</span>
-                                <i class="far fa-clock text-secondary"></i>
-                                <span> 15 min</span>
-                                <i class="fas fa-map-marker-alt text-secondary"></i>
-                                <span> 2 km</span>
-                            </p>
-                            <p class="card-text">Openning Hours: 11:00 AM. - 22:00 PM.</p>
-                        </div>
-                    </div>
-                    <div class="col-6 align-self-end">
-                        <div class="text-end card-body ">
-                            <p class="card-text">
-                                <i class="fas fa-users"></i>
-                                <span class="">15 Queue</span>
-                            </p>
-                            <p class="card-text">
-                                <i class="fas fa-hourglass-start"></i>
-                                <span class="card-text">8 Mins.</span>
-                            </p>
-                            <p class="card-text">
-                                <button type="button" class="btn btn-primary btn-sm"> รายการอาหาร</button>
-                                <button type="button" class="btn btn-secondary btn-sm">จองคิว</button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+{% extends 'base.html' %} {% load static %} {% block content %} {% comment %}
+<div class="row justify-content-center">
+  {% endcomment %}
+  <div class="row justify-content-center">
+    <div class="col-xl-8">
+      <div class="card p-3" style="">
+        <div class="row">
+          <img src="{% static 'images/foodEx.jpg' %}" class="imgBg" alt="Responsive image" />
+          <img src="{% static 'images/foodEx2.jpg' %}" class="imgCollab" alt="Responsive image" />
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="card-body">
+              <h2 class="card-title">ร้านเจ๊โอว</h2>
+              <p class="card-text">ซีฟู๊ด, อาหารตามสั่ง</p>
+              <p class="card-text">
+                <i class="fas fa-star text-warning"></i>
+                <span> 4.2</span>
+                <i class="far fa-clock text-secondary"></i>
+                <span> 15 min</span>
+                <i class="fas fa-map-marker-alt text-secondary"></i>
+                <span> 2 km</span>
+              </p>
+              <p class="card-text">Openning Hours: 11:00 AM. - 22:00 PM.</p>
+            </div>
+          </div>
+          <div class="col-6 align-self-end">
+            <div class="text-end card-body">
+              <p class="card-text">
+                <i class="fas fa-users"></i>
+                <span class="">15 Queue</span>
+              </p>
+              <p class="card-text">
+                <i class="fas fa-hourglass-start"></i>
+                <span class="card-text">8 Mins.</span>
+              </p>
+              <p class="card-text">
+                <button type="button" class="btn btn-primary btn-sm">
+                  รายการอาหาร
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal">
+                  จองคิว
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            ...
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Understood</button>
             </div>
         </div>
+        </div>
+    </div> -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header border-0 align-self-start">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="card p-3" style="">
+            <div class="row">
+              <img src="{% static 'images/foodEx.jpg' %}" class="imgBg" alt="Responsive image" />
+              <img src="{% static 'images/foodEx2.jpg' %}" class="imgCollab" alt="Responsive image" />
+            </div>
+            <!-- <div class="row">
+                        <div class="col-6">
+                            <div class="card-body">
+                                <h2 class="card-title">ร้านเจ๊โอว</h2>
+                                <p class="card-text">ซีฟู๊ด, อาหารตามสั่ง</p>
+                                <p class="card-text">เวลาที่จอง</p>
+                                <p class="card-text">จำนวนผู้เข้าใช้</p>
+                            </div>
+                        </div>
+                        <div class="col-6 align-self-end">
+                            <div class="text-end card-body ">
+                                <p class="card-text">
+                                    
+                                </p>
+                                <p class="card-text">
+                                    <input type="number">
+                                </p>
+                            </div>
+                        </div>
+                    </div> -->
+            <div class="card-body">
+              <h2 class="card-title">ร้านอาหาร : ร้านเจ๊โอว</h2>
+              <p class="card-text">ประเภท : ซีฟู๊ด, อาหารตามสั่ง</p>
+              <div class="row">
+                <div class="col-6 mb-3">
+                  <p class="card-text">เวลาที่จอง</p>
+                </div>
+                <div class="col-6">
+                  <input type="datetime-local" id="queuetime" name="queuetime" style="max-width: 99%;" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <p class="card-text">จำนวนผู้เข้าใช้</p>
+                </div>
+                <div class="col-6"><input type="number" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+            รายการอาหาร
+          </button>
+          <button type="button" class="btn btn-secondary">ยืนยัน</button>
+        </div>
+      </div>
     </div>
-    {% include 'map.html' %}
-    {% endblock content %}
+  </div>
+
+
+  {% include 'map.html' %} {% endblock content %}
+</div>
