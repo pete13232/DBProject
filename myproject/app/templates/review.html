@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="input-group m-3">
+    <input type="text" class="form-control rounded" style="height: 100px;" placeholder="Enter your review"
+        aria-label="Enter your review" aria-describedby="basic-addon2">
+</div>
+<div class="input-group m-3 d-flex justify-content-between">
+    <div class="score">
+        <i class="fas fa-star text-warning"></i>
+        <i class="fas fa-star text-warning"></i>
+        <i class="fas fa-star text-warning"></i>
+        <i class="fas fa-star text-warning"></i>
+        <i class="fas fa-star text-warning"></i>
+    </div>
+    <button type="button" class="btn btn-info rounded col-md-2" style="color:white;">Summit</button>
+</div>
+
+{% endblock content %}
