@@ -5,9 +5,9 @@ def card3Col(request):
     return render(request, "card3Col.html")
 
 
-def test(request):
+def index(request):
 
-    return render(request, "test.html")
+    return render(request, "index.html")
 
 
 def resCard(request):
@@ -23,3 +23,7 @@ def login(request):
 
 def signup(request):
     return render(request, "signup.html")
+
+def review(request):
+    return render(request, "review.html")
+
