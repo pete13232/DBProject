@@ -1,22 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="row row-cols-4 row-cols-md-3">
+<div class="row row-cols-4 row-cols-md-6">
     <div class="col">
-        <div class="card p-2 border-0">
-            <img src="{% static 'images/foodEx.jpg' %}" class="card-img resImg" alt="...">
-            <div class="card-body">
-                <h2 class="card-title">KFC</h2>
-                <p class="card-text">Fast Food, Fried Chicken</p>
-                <p class="card-text">
-                    <i class="fas fa-star text-warning"></i>
-                    <span> 4.2</span>
-                    <i class="far fa-clock text-secondary"></i>
-                    <span> 15 min</span>
-                    <i class="fas fa-map-marker-alt text-secondary"></i>
-                    <span> 2 km</span>
-                </p>
-            </div>
+        <div class="card p-2 border-0 text-white ">
+            <img src="{% static 'images/foodEx.jpg' %}" class="card-img resImg" style = "filter: contrast(40%);">
+            <div class="card-img-overlay ">
+             <h2 class="text-xl-center py-4" >Italian</h2>
+             </div>
         </div>
     </div>
 
