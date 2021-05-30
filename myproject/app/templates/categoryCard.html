@@ -1,11 +1,11 @@
 {% load static %}
 {% block content %}
-    <div class="col">
-        <div class="card p-2 border-0 text-white ">
-            <img src="{% static 'images/foodEx.jpg' %}" class="card-img resImg" style="filter: contrast(40%);">
-            <div class="card-img-overlay ">
-                <h2 class="text-xl-center py-4">{{title}}</h2>
-            </div>
+<div class="col">
+    <div class="card p-2 border-0 text-white ">
+        <img src="{% static 'images/foodEx.jpg' %}" class="card-img catImg" style="filter: contrast(40%);">
+        <div class="card-img-overlay ">
+            <h2 class="text-xl-center py-4">{{categoryTitle}}</h2>
         </div>
     </div>
+</div>
 {% endblock content %}

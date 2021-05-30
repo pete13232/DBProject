@@ -7,8 +7,13 @@ def card3Col(request):
 
 def index(request):
     myContext = {
-        "titles": ["A", "B", "C", "D", "E", "F"]
-        }
+        "categoryTitles": ["A", "B", "C", "D", "E", "F"],
+        "restaurant": {
+            
+            "resTitle": ["KFC", "MK"],
+            "resDesc": ["Fast Food", "Sukki"],
+        },
+    }
     return render(request, "index.html", myContext)
 
 
