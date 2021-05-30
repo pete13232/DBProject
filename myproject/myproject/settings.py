@@ -86,14 +86,21 @@ WSGI_APPLICATION = "myproject.wsgi.application"
 #         "PASSWORD": config("DB_PASSWORD"),
 #         "PORT": "5432",
 #     }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "yenyen_db",
+#         "USER": "postgres",
+#         "PASSWORD": "password",
+#         "HOST": "localhost",
+#         "PORT": "",
+#     }
+# }
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "yenyen_db",
-        "USER": "postgres",
-        "PASSWORD": "password",
-        "HOST": "localhost",
-        "PORT": "",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
