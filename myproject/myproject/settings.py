@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "app",
+    "users",
+    "restaurants",
 ]
 
 MIDDLEWARE = [
@@ -86,8 +88,12 @@ WSGI_APPLICATION = "myproject.wsgi.application"
 #     }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "yenyen_db",
+        "USER": "postgres",
+        "PASSWORD": "password",
+        "HOST": "localhost",
+        "PORT": "",
     }
 }
 
@@ -128,8 +134,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = "/static/"
-MEDAIA_URL = "/images/"
+STATIC_URL = "static/"
+MEDAIA_URL = "images/"
 STACTIFILES_DIRS = [
     BASE_DIR / "static",
     "/var/www/static/",
