@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-{% include 'categoryCard.html' %}
+<div class="row row-cols-4 row-cols-md-6">
+    {% for title in titles %}
+    {% include 'categoryCard.html' with title=title%}
+    {% endfor %}
+</div>
+{% include 'resCard.html' %}
 
 {% endblock content %}
