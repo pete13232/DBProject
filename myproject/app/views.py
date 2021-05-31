@@ -37,3 +37,10 @@ def signup(request):
 
 def review(request):
     return render(request, "review.html")
+
+def profile(request):
+    return render(request, "profile.html")
+
+def queueManagement(request):
+
+    return render(request, "queueManagement.html")
