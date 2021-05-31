@@ -52,51 +52,6 @@
     </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header border-0 align-self-start">
-          <h5 class="modal-title" id="exampleModalLabel"></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="card p-3" style="">
-            <div class="row">
-              <img src="{% static 'images/foodEx.jpg' %}" class="imgBg" alt="Responsive image" />
-              <img src="{% static 'images/foodEx2.jpg' %}" class="imgCollab" alt="Responsive image" />
-            </div>
- 
-            <div class="card-body">
-              <h2 class="card-title">ร้านอาหาร : ร้านเจ๊โอว</h2>
-              <p class="card-text">ประเภท : ซีฟู๊ด, อาหารตามสั่ง</p>
-              <div class="row">
-                <div class="col-6 mb-3">
-                  <p class="card-text">เวลาที่จอง</p>
-                </div>
-                <div class="col-6">
-                  <input type="datetime-local" id="queuetime" name="queuetime" style="max-width: 99%;" />
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <p class="card-text">จำนวนผู้เข้าใช้</p>
-                </div>
-                <div class="col-6"><input type="number" /></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-            รายการอาหาร
-          </button>
-          <button type="button" class="btn btn-secondary">ยืนยัน</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   {% include 'modal.html' %}
   {% include 'map.html' %} 
   {% endblock content %}

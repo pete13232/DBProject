@@ -3,7 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    # path("", views.card3Col, name="card3Col"),
     path("", views.index, name="index"),
     path("resCard", views.resCard, name="resCard"),
     path("card3Col", views.card3Col, name="card3Col"),
@@ -12,5 +11,6 @@ urlpatterns = [
     path("signup", views.signup, name="signup"),
     path("review", views.review, name="review"),
     path("profile", views.profile, name="profile")
-
+    path("queueManagement", views.queueManagement, name="queueManagement"),
+    
 ]

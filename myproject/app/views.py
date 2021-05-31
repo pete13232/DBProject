@@ -6,23 +6,34 @@ def card3Col(request):
 
 
 def index(request):
-
-    return render(request, "index.html")
+    myContext = {
+        "categoryTitles": ["A", "B", "C", "D", "E", "F"],
+        "restaurant": {
+            
+            "resTitle": ["KFC", "MK"],
+            "resDesc": ["Fast Food", "Sukki"],
+        },
+    }
+    return render(request, "index.html", myContext)
 
 
 def resCard(request):
 
     return render(request, "resCard.html")
 
+
 def categoryCard(request):
 
     return render(request, "categoryCard.html")
 
+
 def login(request):
     return render(request, "login.html")
 
+
 def signup(request):
     return render(request, "signup.html")
+
 
 def review(request):
     return render(request, "review.html")
@@ -30,3 +41,6 @@ def review(request):
 def profile(request):
     return render(request, "profile.html")
 
+def queueManagement(request):
+
+    return render(request, "queueManagement.html")

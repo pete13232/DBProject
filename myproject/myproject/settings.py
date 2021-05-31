@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+
 # from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "app",
+    "users",
+    "restaurants",
 ]
 
 MIDDLEWARE = [
@@ -83,6 +86,17 @@ WSGI_APPLICATION = "myproject.wsgi.application"
 #         "PASSWORD": config("DB_PASSWORD"),
 #         "PORT": "5432",
 #     }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "yenyen_db",
+#         "USER": "postgres",
+#         "PASSWORD": "password",
+#         "HOST": "localhost",
+#         "PORT": "",
+#     }
+# }
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -127,8 +141,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = "/static/"
-MEDAIA_URL = "/images/"
+STATIC_URL = "static/"
+MEDAIA_URL = "images/"
 STACTIFILES_DIRS = [
     BASE_DIR / "static",
     "/var/www/static/",
