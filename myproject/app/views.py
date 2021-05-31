@@ -27,3 +27,6 @@ def signup(request):
 def review(request):
     return render(request, "review.html")
 
+def profile(request):
+    return render(request, "profile.html")
+
