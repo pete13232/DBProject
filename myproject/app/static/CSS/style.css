@@ -14,7 +14,13 @@
 }
 .resImg {
   border-radius: 24px;
-  height: 130px;
+  max-height: 300px;
+  max-width: 330px;
+}
+.catImg {
+  border-radius: 24px;
+  max-height: 150px;
+  max-width: 200px;
 }
 img {
   object-fit: cover;
