@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'app/base.html' %}
 {% block content %}
 <div class="row row-cols-4 row-cols-md-6">
     {% for categoryTitle in categoryTitles %}
-    {% include 'categoryCard.html' with categoryTitle=categoryTitle%}
+    {% include 'app/categoryCard.html' with categoryTitle=categoryTitle%}
     {% endfor %}
 </div>
 <div class="row row-cols-4 row-cols-md-3">
-    {% include 'Card3Col.html' with restaurant=restaurant %}
+    {% include 'app/Card3Col.html' with restaurant=restaurant %}
 </div>
 {% endblock content %}
