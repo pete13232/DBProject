@@ -14,7 +14,7 @@ def index(request):
             "resDesc": ["Fast Food", "Sukki"],
         },
     }
-    return render(request, "index.html", myContext)
+    return render(request, "app/index.html", myContext)
 
 
 def resCard(request):
