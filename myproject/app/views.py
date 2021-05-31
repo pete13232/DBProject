@@ -19,33 +19,33 @@ def index(request):
 
 def resCard(request):
 
-    return render(request, "resCard.html")
+    return render(request, "app/resCard.html")
 
 
 def categoryCard(request):
 
-    return render(request, "categoryCard.html")
+    return render(request, "app/categoryCard.html")
 
 
 def login(request):
-    return render(request, "login.html")
+    return render(request, "app/login.html")
 
 
 def signup(request):
-    return render(request, "signup.html")
+    return render(request, "app/signup.html")
 
 
 def review(request):
-    return render(request, "review.html")
+    return render(request, "app/review.html")
 
 def profile(request):
-    return render(request, "profile.html")
+    return render(request, "app/profile.html")
 
 def queueManagement(request):
 
-    return render(request, "queueManagement.html")
+    return render(request, "app/queueManagement.html")
 
 def foodList(request):
 
-    return render(request, "foodList.html")
+    return render(request, "app/foodList.html")
 
