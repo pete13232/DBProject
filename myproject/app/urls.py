@@ -11,5 +11,5 @@ urlpatterns = [
     path("signup", views.signup, name="signup"),
     path("review", views.review, name="review"),
     path("queueManagement", views.queueManagement, name="queueManagement"),
-    
+    path("foodList", views.foodList, name="foodList"),
 ]

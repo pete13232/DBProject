@@ -1,14 +1,53 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="card text-center mx-auto my-4" style="width: 30rem;">
-  <div class="card-header">
-    Queue List
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item bg-danger text-white">A8610</li>
-    <li class="list-group-item">A8611</li>
-    <li class="list-group-item">A8612</li>
-  </ul>
+<div class="row py-4">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-md">
+				<tr class = "text-center">
+	      	<th>Queue</th>
+					<th>Date Created</th>
+          <th>Reserved Time</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+
+
+
+
+				<tr class = "text-center align-middle">
+					<td>A5621</td>
+					<td>26 January 2021 12:00:17</td>
+          <td class = "text-danger">-</td>
+					<td><h5 class = "card bg-warning text-danger my-0 py-1"> Calling </h5></td>
+					<td><a class="btn btn-sm btn-info" href="">Update</a></td>
+					<td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+				</tr>
+        <tr class = "text-center align-middle">
+					<td>A5622</td>
+					<td>26 January 2021 14:00:54</td>
+          <td class = "text-danger">26 January 2021 17:00:00</td>
+					<td><h5 class = "card bg-primary text-white my-0 py-1"> Waiting </h5></td>
+					<td><a class="btn btn-sm btn-info" href="">Update</a></td>
+					<td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+				</tr>
+        <tr class = "text-center ">
+					<td>A5623</td>
+					<td>26 January 2021 12:00:17</td>
+          <td class = "text-danger">-</td>
+					<td><h5 class = "card bg-primary text-white my-0 py-1"> Waiting </h5></td>
+					<td><a class="btn btn-sm btn-info" href="">Update</a></td>
+					<td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+				</tr>
+
+
+
+
+
+			</table>
+		</div>
+	</div>
 </div>
 {% endblock content %}

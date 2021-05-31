@@ -41,3 +41,8 @@ def review(request):
 def queueManagement(request):
 
     return render(request, "queueManagement.html")
+
+def foodList(request):
+
+    return render(request, "foodList.html")
+
