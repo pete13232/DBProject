@@ -27,3 +27,6 @@ def signup(request):
 def review(request):
     return render(request, "review.html")
 
+def queueManagement(request):
+
+    return render(request, "queueManagement.html")
