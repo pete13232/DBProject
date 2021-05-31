@@ -10,6 +10,7 @@ urlpatterns = [
     path("login", views.login, name="login"),
     path("signup", views.signup, name="signup"),
     path("review", views.review, name="review"),
+    path("profile", views.profile, name="profile"),
     path("queueManagement", views.queueManagement, name="queueManagement"),
     path("foodList", views.foodList, name="foodList"),
 ]

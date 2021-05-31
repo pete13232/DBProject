@@ -14,7 +14,7 @@ def index(request):
             "resDesc": ["Fast Food", "Sukki"],
         },
     }
-    return render(request, "index.html", myContext)
+    return render(request, "app/index.html", myContext)
 
 
 def resCard(request):
@@ -37,6 +37,9 @@ def signup(request):
 
 def review(request):
     return render(request, "review.html")
+
+def profile(request):
+    return render(request, "profile.html")
 
 def queueManagement(request):
 

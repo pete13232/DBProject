@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "app",
     "users",
     "restaurants",
+    "queueSystem",
 ]
 
 MIDDLEWARE = [
@@ -86,23 +87,24 @@ WSGI_APPLICATION = "myproject.wsgi.application"
 #         "PASSWORD": config("DB_PASSWORD"),
 #         "PORT": "5432",
 #     }
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "yenyen_db",
-#         "USER": "postgres",
-#         "PASSWORD": "password",
-#         "HOST": "localhost",
-#         "PORT": "",
-#     }
-# }
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "yenyen_DB",
+        "USER": "root",
+        "PASSWORD": "",
+        "HOST": "localhost",
+        "PORT": "",
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation
@@ -141,13 +143,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = "static/"
-MEDAIA_URL = "images/"
-STACTIFILES_DIRS = [
-    BASE_DIR / "static",
-    "/var/www/static/",
-]
+STATIC_URL = "/static/"
+MEDAIA_URL = "/images/"
 
+STATICFILES_DIRS = (str(BASE_DIR.joinpath("static")),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
