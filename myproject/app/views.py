@@ -19,7 +19,7 @@ def index(request):
 
 def resCard(request):
 
-    return render(request, "resCard.html")
+    return render(request, "app/resCard.html")
 
 
 def categoryCard(request):
@@ -38,8 +38,11 @@ def signup(request):
 def review(request):
     return render(request, "review.html")
 
-def profile(request):
-    return render(request, "profile.html")
+def userprofile(request):
+    return render(request, "app/userProfile.html")
+
+def workerprofile(request):
+    return render(request, "app/workerProfile.html")
 
 def queueManagement(request):
 
