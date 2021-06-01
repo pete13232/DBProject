@@ -40,3 +40,6 @@ class Member(models.Model):
 
     def __str__(self):
         return self.memberID
+
+    def fullName(self):
+        return self.fName + " " + self.lName
