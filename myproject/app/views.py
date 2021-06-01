@@ -24,19 +24,19 @@ def resCard(request):
 
 def categoryCard(request):
 
-    return render(request, "categoryCard.html")
+    return render(request, "app/categoryCard.html")
 
 
 def login(request):
-    return render(request, "login.html")
+    return render(request, "app/login.html")
 
 
 def signup(request):
-    return render(request, "signup.html")
+    return render(request, "app/signup.html")
 
 
 def review(request):
-    return render(request, "review.html")
+    return render(request, "app/review.html")
 
 def userprofile(request):
     return render(request, "app/userProfile.html")
@@ -46,4 +46,9 @@ def workerprofile(request):
 
 def queueManagement(request):
 
-    return render(request, "queueManagement.html")
+    return render(request, "app/queueManagement.html")
+
+def foodList(request):
+
+    return render(request, "app/foodList.html")
+

@@ -13,5 +13,5 @@ urlpatterns = [
     path("userprofile", views.userprofile, name="userprofile"),
     path("workerprofile", views.workerprofile, name="workerprofile"),
     path("queueManagement", views.queueManagement, name="queueManagement"),
-    
+    path("foodList", views.foodList, name="foodList"),
 ]
