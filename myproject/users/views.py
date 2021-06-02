@@ -50,7 +50,7 @@ def registerPage(request):
 
     context = {"form": form}
 
-    return render(request, "users/basicSignup.html", context)
+    return render(request, "users/signup.html", context)
 
 
 # login page

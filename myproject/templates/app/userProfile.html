@@ -7,7 +7,7 @@
             <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%;">
                 <img src="{% static 'images/Ferb.png' %}" class="card-img-top" alt="...">
                 <div class="d-grid">
-                    <button class="btn btn-primary" type="button">Change photo</button>
+                    <a class="btn btn-primary rounded-0" type="button">Change photo</a>
                 </div>
             </div>
         </div>
@@ -26,11 +26,15 @@
             <div class="col-9 mt-4">
                 <div class="profile-head">
                     <h5>
-                        Ferb Fletcher
+                        {{profile.fullName}}
                     </h5>
+                    {{profile.roleID}}
+                    {% if profile.roleID == " 0 " %}
                     <h6>
                         User, Gold member
                     </h6>
+                    {% endif %}
+
                     <p class="proile-rating"> Point : <span>97/100</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -52,11 +56,11 @@
             <div class="tab-content profile-tab" id="myTabContent">
                 <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row">
-                        <div class="col-md-6">
+                        {% comment %} <div class="col-md-6">
                             <label>User Id</label>
-                        </div>
+                        </div> {% endcomment %}
                         <div class="col-md-6">
-                            <p>Ferby123</p>
+                            <p>{{profile.memberID}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -64,7 +68,7 @@
                             <label>Name</label>
                         </div>
                         <div class="col-md-6">
-                            <p>Ferb Fletcher</p>
+                            <p>{{profile.fullName}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -72,7 +76,7 @@
                             <label>Date of birth</label>
                         </div>
                         <div class="col-md-6">
-                            <p>12/02/2021</p>
+                            <p>{{profile.dob}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -80,7 +84,7 @@
                             <label>Gender</label>
                         </div>
                         <div class="col-md-6">
-                            <p>Male</p>
+                            <p>{{profile.gender}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -88,7 +92,7 @@
                             <label>Email</label>
                         </div>
                         <div class="col-md-6">
-                            <p>ferby@gmail.com</p>
+                            <p>{{profile.email}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -96,7 +100,7 @@
                             <label>Phone</label>
                         </div>
                         <div class="col-md-6">
-                            <p>123 456 7890</p>
+                            <p>{{profile.fullPhone}}</p>
                         </div>
                     </div>
                 </div>
@@ -114,9 +118,13 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>11/05/2021</td>
-                                    <td>Bonchon</td>
+                                    <td>{{queue.reserveTime}}</td>
+                                    <td>{{queue.resID.resNameEN}}</td>
+                                    {% if queue.queueIsSuccess == "S"  %}
                                     <td>+3</td>
+
+                                    {% endif %}
+
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>

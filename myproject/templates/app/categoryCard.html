@@ -4,7 +4,9 @@
     <div class="card p-2 border-0 text-white ">
         <img src="{% static 'images/foodEx.jpg' %}" class="card-img catImg" style="filter: contrast(40%);">
         <div class="card-img-overlay ">
-            <h2 class="text-xl-center py-4">{{categoryTitle}}</h2>
+            <div class="d-flex align-items-center justify-content-center h-100">
+                <h2 class="text-center">{{category.categoryName}}</h2>
+            </div>
         </div>
     </div>
 </div>
