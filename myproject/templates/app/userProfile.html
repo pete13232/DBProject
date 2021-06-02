@@ -1,182 +1,180 @@
 {% extends 'app/base.html' %}
 {% load static %}
 {% block content %}
-<div class="border mt-5 pt-3">
-    <div class="row">
-        <div class="col-4 mt-4">
-            <div class="row-md-4">
-                <div class="card ms-5 mb-0" style="width: 18rem;">
-                    <img src="{% static 'images/Ferb.png' %}" class="card-img-top" alt="...">
-                    <div class="d-grid">
-                        <button class="btn btn-primary" type="button">Change Photo</button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md">
-                    <div class="profile-work">
-                        <p>Special</p>
-                        <a href="">Reward</a><br />
-                        <a href="">Offer</a><br />
-                    </div>
+<div class="row border border-3 mt-5 pt-3">
+    <div class="col-4 mt-4">
+        <div class="row-md-4">
+            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%;">
+                <img src="{% static 'images/Ferb.png' %}" class="card-img-top" alt="...">
+                <div class="d-grid">
+                    <button class="btn btn-primary" type="button">Change photo</button>
                 </div>
             </div>
         </div>
-        <div class="col-8">
-            <div class="row">
-                <div class="col-9 mt-4">
-                    <div class="profile-head">
-                        <h5>
-                            Ferb Fletcher
-                        </h5>
-                        <h6>
-                            User, Gold member
-                        </h6>
-                        <p class="proile-rating"> Point : <span>97/100</span></p>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                                    href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
-                                    href="#profile" role="tab" aria-controls="profile" aria-selected="false">History</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-3 mt-4">
-                    <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+        <div class="row">
+            <div class="col-md">
+                <div class="profile-work">
+                    <p>Special</p>
+                    <a href="">Reward</a><br />
+                    <a href="">Offer</a><br />
                 </div>
             </div>
-            <div class="row">
-                <div class="tab-content profile-tab" id="myTabContent">
-                    <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>User Id</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Ferby123</p>
-                            </div>
+        </div>
+    </div>
+    <div class="col-8 ">
+        <div class="row">
+            <div class="col-9 mt-4">
+                <div class="profile-head">
+                    <h5>
+                        Ferb Fletcher
+                    </h5>
+                    <h6>
+                        User, Gold member
+                    </h6>
+                    <p class="proile-rating"> Point : <span>97/100</span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                                href="#profile" role="tab" aria-controls="profile" aria-selected="false">History</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-3 mt-4">
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>User Id</label>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Name</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Ferb Fletcher</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Date of birth</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>12/02/2021</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Gender</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Male</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Email</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>ferby@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Phone</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>123 456 7890</p>
-                            </div>
+                        <div class="col-md-6">
+                            <p>Ferby123</p>
                         </div>
                     </div>
-                    <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <div class="history-container mb-3"
-                            style="overflow-x: hidden; overflow-y : scroll; height : 325px">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Restaurant</th>
-                                        <th scope="col">Point</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>11/05/2021</td>
-                                        <td>Bonchon</td>
-                                        <td>+3</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>13/05/2021</td>
-                                        <td>Yayoi</td>
-                                        <td>-10</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>01/06/2021</td>
-                                        <td>Free point</td>
-                                        <td>+10</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>01/06/2021</td>
-                                        <td>Free point</td>
-                                        <td>+10</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>01/06/2021</td>
-                                        <td>Free point</td>
-                                        <td>+10</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>01/06/2021</td>
-                                        <td>Free point</td>
-                                        <td>+10</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>01/06/2021</td>
-                                        <td>Free point</td>
-                                        <td>+10</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>01/06/2021</td>
-                                        <td>Free point</td>
-                                        <td>+10</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>01/06/2021</td>
-                                        <td>Free point</td>
-                                        <td>+10</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Name</label>
                         </div>
+                        <div class="col-md-6">
+                            <p>Ferb Fletcher</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Date of birth</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>12/02/2021</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Gender</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Male</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>ferby@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>123 456 7890</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="history-container mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 325px">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Restaurant</th>
+                                    <th scope="col">Point</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>11/05/2021</td>
+                                    <td>Bonchon</td>
+                                    <td>+3</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>13/05/2021</td>
+                                    <td>Yayoi</td>
+                                    <td>-10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 {% endblock content %}
