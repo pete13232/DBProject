@@ -9,7 +9,6 @@ def index(request):
     myContext = {
         "categoryTitles": ["A", "B", "C", "D", "E", "F"],
         "restaurant": {
-            
             "resTitle": ["KFC", "MK"],
             "resDesc": ["Fast Food", "Sukki"],
         },
@@ -44,9 +43,11 @@ def userprofile(request):
 def workerprofile(request):
     return render(request, "app/workerProfile.html")
 
+
 def queueManagement(request):
 
     return render(request, "app/queueManagement.html")
+
 
 def foodList(request):
 
