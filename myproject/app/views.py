@@ -37,17 +37,11 @@ def signup(request):
 def review(request):
     return render(request, "app/review.html")
 
-<<<<<<< HEAD
-
-def profile(request):
-    return render(request, "profile.html")
-=======
 def userprofile(request):
     return render(request, "app/userProfile.html")
 
 def workerprofile(request):
     return render(request, "app/workerProfile.html")
->>>>>>> 7dab4fd21edd690b1baffacfd22e23acaf66eb5a
 
 
 def queueManagement(request):
@@ -57,9 +51,5 @@ def queueManagement(request):
 
 def foodList(request):
 
-<<<<<<< HEAD
-    return render(request, "foodList.html")
-=======
     return render(request, "app/foodList.html")
 
->>>>>>> 7dab4fd21edd690b1baffacfd22e23acaf66eb5a

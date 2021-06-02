@@ -1,20 +1,29 @@
-from collections import namedtuple
-from django.db.models import fields
-from django.forms.forms import Form
-from django.forms.widgets import TextInput, Textarea
-from django.template.defaultfilters import title
-from admin import models
-from crispy_forms.layout import Column, Div, MultiField, Row, Submit
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.db.models.fields import Field, TextField
+from django.forms.widgets import (
+    DateInput,
+    EmailInput,
+    PasswordInput,
+    Select,
+    TextInput,
+)
+from django import forms
 from users.models import Member
-from crispy_forms.helper import FormHelper, Layout
-from crispy_forms.bootstrap import AppendedText, FormActions, PrependedText
+from django.contrib.auth import password_validation
+from django.contrib.auth.forms import UserCreationForm
 
 
 class MemberForm(forms.ModelForm):
+    error_messages = {
+        "password_mismatch": ("The two password fields didn't match."),
+    }
+
+    confirmPassword = forms.CharField(
+        max_length=20,
+        widget=forms.PasswordInput(
+            attrs={"id": "confirmPassword", "class": "form-control"}
+        ),
+    )
+
     class Meta:
         model = Member
         fields = (
@@ -23,55 +32,84 @@ class MemberForm(forms.ModelForm):
             "fName",
             "lName",
             "gender",
+            "tel",
             "dob",
         )
         widgets = {
-            "email": TextInput(attrs={"placeholder": "superYenYen@getAdatabase.com"}),
-            'fName': TextInput(attrs={'placeholder':'xxxxxx'}),
-            'lName': TextInput(attrs={'placeholder':'xxxxxx'})
+            "fName": TextInput(
+                attrs={
+                    "id": "fName",
+                    "class": "form-control",
+                    "placeholder": "xxxxxx",
+                }
+            ),
+            "lName": TextInput(
+                attrs={"id": "lName", "class": "form-control", "placeholder": "xxxxxx"}
+            ),
+            "password": PasswordInput(
+                attrs={"id": "password", "class": "form-control"}
+            ),
+            "email": EmailInput(
+                attrs={
+                    "id": "email",
+                    "class": "form-control",
+                    "placeholder": "superYenYen@getAdatabase.com",
+                }
+            ),
+            "tel": TextInput(
+                attrs={
+                    "id": "tel",
+                    "class": "form-control",
+                    "placeholder": "086-485-8875",
+                }
+            ),
+            "gender": Select(
+                attrs={
+                    "id": "gender",
+                    "class": "form-select",
+                },
+            ),
+            "dob": DateInput(
+                attrs={
+                    "type": "date",
+                    "id": "dob",
+                    "class": "form-control",
+                }
+            ),
+        }
+
+    def clean(self):
+        cleaned_data = super(MemberForm, self).clean()
+        password = cleaned_data.get("password")
+        confirmPassword = cleaned_data.get("confirmPassword")
+
+        if password != confirmPassword:
+            raise forms.ValidationError("password and confirmPassword does not match")
+
+    def _post_clean(self):
+        super()._post_clean()
+        # Validate the password after self.instance is updated with form data
+        # by super().
+        password = self.cleaned_data.get("password")
+        if password:
+            try:
+                password_validation.validate_password(password, self.instance)
+            except forms.ValidationError as error:
+                self.add_error("password", error)
 
 
-            }
+class CreateUserForm(UserCreationForm):
+    fName = forms.CharField(max_length=30)
+    lName = forms.CharField(max_length=30)
+    tel = forms.CharField(max_length=10)
+    dob = forms.DateField()
+    GENDER = (
+        ("M", "Male"),
+        ("F", "Female"),
+        ("O", "Other"),
+    )
+    gender = forms.ChoiceField(choices=GENDER)
 
-
-# class UserForm(forms.Form):
-#     fName = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "weerawat"}))
-#     lName = forms.CharField(
-#         widget=forms.TextInput(attrs={"placeholder": "Lappermthawee"})
-#     )
-#     password1 = forms.CharField(widget=forms.PasswordInput())
-#     password2 = forms.CharField(widget=forms.PasswordInput())
-#     email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email"}))
-#     Phone = forms.CharField(widget=forms.TextInput())
-#     GENDER = (
-#         ("M", "Male"),
-#         ("F", "Female"),
-#         ("O", "Other"),
-#     )
-#     gender = forms.ChoiceField(choices=GENDER)
-#     dob = forms.DateField(widget=forms.DateInput(), label="DOB")
-#     # class Meta:
-#     #     model = User
-#     #     fields = "__all__"
-
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.helper = FormHelper()
-#         self.helper._form_method = "post"
-#         self.helper.layout = Layout(
-#             Row(
-#                 Column("fName", css_class="form-group col-md-6 mb-0"),
-#                 Column("lName", css_class="form-group col-md-6 mb-0"),
-#                 css_class="form-row",
-#             ),
-#             Row(
-#                 Column("password1", css_class="form-group col-md-6 mb-0"),
-#                 Column("password2", css_class="form-group col-md-6 mb-0"),
-#                 css_class="form-row",
-#             ),
-#             "email",
-#             "phone",
-#             "gender",
-#             "dob",
-#             Submit("submit", "Sign in"),
-#         )
+    class Meta:
+        model = User
+        fields = ["username", "email", "password1", "password2"]

@@ -14,7 +14,14 @@ class Role(models.Model):
 
 
 class Member(models.Model):
-    memberID = models.CharField(max_length=10, primary_key=True)
+    def genID():
+        n = Member.objects.count()
+        if n == None:
+            return "M001"
+        else:
+            return "M" + str(n).zfill(3)
+
+    memberID = models.CharField(max_length=10, default=genID, primary_key=True)
     roleID = models.ForeignKey(Role, null=True, blank=True, on_delete=models.SET_NULL)
     resID = models.ForeignKey(
         Restaurant, null=True, blank=True, on_delete=models.SET_NULL
