@@ -1,5 +1,6 @@
 from django.db import models
 from restaurants.models import Restaurant
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Role(models.Model):
@@ -13,7 +14,7 @@ class Role(models.Model):
         return self.roleID
 
 
-class Member(models.Model):
+class Member(AbstractUser):
     def genID():
         n = Member.objects.count()
         if n == 0:
@@ -26,8 +27,6 @@ class Member(models.Model):
     resID = models.ForeignKey(
         Restaurant, null=True, blank=True, on_delete=models.SET_NULL
     )
-    userName = models.CharField(max_length=15)
-    password = models.CharField(max_length=20)
     fName = models.CharField(max_length=30)
     lName = models.CharField(max_length=30)
     email = models.CharField(max_length=50)
