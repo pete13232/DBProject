@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from restaurants.models import Category, Restaurant
+from restaurants.models import Category, Restaurant, Menu
 from users.models import Member
 from queueSystem.models import Queue
 
@@ -40,9 +40,9 @@ def review(request):
     return render(request, "app/review.html")
 
 
-def userprofile(request):
-    profile = Member.objects.get(memberID="M001")
-    queue = Queue.objects.get(memberID="M001")
+def userprofile(request, pk):
+    profile = Member.objects.get(memberID=pk)
+    queue = Queue.objects.get(memberID=pk)
     context = {"profile": profile, "queue": queue}
     return render(request, "app/userProfile.html", context)
 
@@ -57,9 +57,9 @@ def queueManagement(request):
     return render(request, "app/queueManagement.html")
 
 
-def foodList(request):
+# def foodList(request):
 
-    return render(request, "app/foodList.html")
+#     return render(request, "app/foodList.html")
 
 def admin(request):
     return render(request, "app/admin.html")
@@ -67,3 +67,8 @@ def admin(request):
 
 def usermanage(request):
     return render(request, "app/requestRegistration.html")
+def foodList(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    menus = Menu.objects.filter(resID=pk)
+    context = {"menus": menus, "restaurant": restaurant}
+    return render(request, "app/foodList.html", context)

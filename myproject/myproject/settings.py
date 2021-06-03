@@ -146,7 +146,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-MEDAIA_URL = "/images/"
+MEDAIA_URL = "/images"
 
 STATICFILES_DIRS = (str(BASE_DIR.joinpath("static")),)
 

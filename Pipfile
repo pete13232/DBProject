@@ -10,6 +10,7 @@ decouple = "*"
 psycopg2 = "*"
 mysqlclient = "*"
 crispy-bootstrap5 = "*"
+pillow = "*"
 
 [dev-packages]
 
