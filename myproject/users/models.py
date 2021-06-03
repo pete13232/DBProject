@@ -20,6 +20,8 @@ class Role(models.Model):
 
 
 class Member(AbstractUser):
+    # class Meta:
+    #     db_table = "member"
     def genID():
         n = Member.objects.count()
         if n == 0:
@@ -45,8 +47,7 @@ class Member(AbstractUser):
     gender = models.CharField(max_length=1, choices=GENDER)
     picture = models.ImageField(upload_to="static/images/", blank=True, null=True)
 
-    class Meta:
-        db_table = "member"
+
 
     def __str__(self):
         return self.memberID
@@ -66,16 +67,3 @@ class Member(AbstractUser):
             return "Other"
 
 
-# class CustomUser(AbstractBaseUser, PermissionsMixin):
-#     email = models.EmailField(_("email address"), unique=True)
-#     is_staff = models.BooleanField(default=False)
-#     is_active = models.BooleanField(default=True)
-#     date_joined = models.DateTimeField(default=timezone.now)
-
-#     USERNAME_FIELD = "email"
-#     REQUIRED_FIELDS = []
-
-#     objects = CustomUserManager()
-
-#     def __str__(self):
-#         return self.email
