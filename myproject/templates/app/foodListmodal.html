@@ -7,19 +7,33 @@
          <h5 class="modal-title" id="exampleModalLabel"></h5>
        </div>
        <div class="modal-body">
-         <div class="card p-3" style="">
+         <div class="card pe-3 ps-3 pb-3" style="">
            <table class="table table-md">
              <tr class="text-center">
                <th>Menu</th>
+               <th>Edit</th>
                <th>Remove</th>
              </tr>
-
+             {% for menu in menus %}
              <tr>
-               <td class="text-start ">Burger</td>
-               <td class="text-center "><a class="btn btn-sm btn-danger" data-bs-target="#DeletingfoodListmodal"
-                   data-bs-toggle="modal" data-bs-dismiss="modal">Delete</a></td>
+               <td class="text-start ">{{menu.menuNameEN}}</td>
+               <td class="text-center ">
+                 <a class="btn btn-sm btn-warning" data-bs-target="#DeletingfoodListmodal" data-bs-toggle="modal"
+                   data-bs-dismiss="modal">
+                   Edit
+                 </a>
+               </td>
+               <td class="text-center ">
+                 <a class="btn btn-sm btn-danger" data-bs-target="#DeletingfoodListmodal" data-bs-toggle="modal"
+                   data-bs-dismiss="modal">
+                   Delete
+                 </a>
+               </td>
              </tr>
-             <tr>
+
+             {% endfor %}
+
+             {% comment %} <tr>
                <td class="text-start ">Lasagna</td>
                <td class="text-center "><a class="btn btn-sm btn-danger" data-bs-target="#DeletingfoodListmodal"
                    data-bs-toggle="modal" data-bs-dismiss="modal">Delete</a></td>
@@ -63,7 +77,7 @@
                <td class="text-start ">Spaghetti Squid Ink pasta seafood2</td>
                <td class="text-center "><a class="btn btn-sm btn-danger" data-bs-target="#DeletingfoodListmodal"
                    data-bs-toggle="modal" data-bs-dismiss="modal">Delete</a></td>
-             </tr>
+             </tr> {% endcomment %}
 
            </table>
            <button class="btn btn-primary" type="button" data-bs-target="#AddingfoodListmodal" data-bs-toggle="modal"
@@ -156,13 +170,15 @@
          <h5 class="modal-title" id="exampleModalLabe3"></h5>
        </div>
        <div class="modal-body">
-         <h5>Are you sure you wat to delete Menu:... ?</h5>
+         <h5>Are you sure you wat to delete Menu:{{menu.menuNameEN}} ?</h5>
        </div>
        <div class="modal-footer">
          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
            Cancel
          </button>
-         <button type="button" class="btn btn-danger" data-bs-target="#foodListmodal" data-bs-toggle="modal" data-bs-dismiss="modal">Confirm</button>
+         <a href="{% url 'foodList' restaurant.resID %}">
+           <button type="button" class="btn btn-danger">Confirm</button>
+         </a>
        </div>
      </div>
    </div>

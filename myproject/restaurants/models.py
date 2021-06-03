@@ -82,7 +82,7 @@ class Menu(models.Model):
     description = models.TextField(null=True)
     price = models.FloatField()
     avaliable = models.BooleanField()
-    picture = models.URLField(max_length=200, blank=True, null=True)
+    picture = models.ImageField(upload_to="static/images/", blank=True, null=True)
 
     class Meta:
         db_table = "menu"
