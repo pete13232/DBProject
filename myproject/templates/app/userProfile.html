@@ -5,10 +5,10 @@
     <div class="col-4 mt-4">
         <div class="row-md-4">
             <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%;">
-                <img src="{% static 'images/Ferb.png' %}" class="card-img-top" alt="...">
+                <img src="{{profile.picture.url}}" class="card-img-top" alt="...">
                 <div class="d-grid">
-                        <label for="files" class="btn btn-primary rounded-0">Change Photo</label>
-                        <input id="files" style="visibility:hidden; height:0" type="file" >
+                    <label for="files" class="btn btn-primary rounded-0">Change Photo</label>
+                    <input id="files" style="visibility:hidden; height:0" type="file">
                 </div>
             </div>
         </div>
@@ -83,7 +83,7 @@
                             <label>Gender</label>
                         </div>
                         <div class="col-md-6">
-                            <p>{{profile.gender}}</p>
+                            <p>{{profile.showGender}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -183,5 +183,5 @@
 </div>
 
 
-{% include 'app/modal_editProfile.html' %}
+{% include 'app/modalEditProfile.html' %}
 {% endblock content %}

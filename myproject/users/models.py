@@ -52,3 +52,11 @@ class Member(models.Model):
 
     def fullPhone(self):
         return self.tel[0:3] + "-" + self.tel[3:6] + "-" + self.tel[6:10]
+
+    def showGender(self):
+        if self.gender == "M":
+            return "Male"
+        elif self.gender == "F":
+            return "Female"
+        else:
+            return "Other"

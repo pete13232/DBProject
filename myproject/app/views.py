@@ -47,7 +47,6 @@ def userprofile(request, pk):
     return render(request, "app/userProfile.html", context)
 
 
-
 def workerprofile(request):
     return render(request, "app/workerProfile.html")
 
@@ -61,12 +60,15 @@ def queueManagement(request):
 
 #     return render(request, "app/foodList.html")
 
+
 def admin(request):
     return render(request, "app/admin.html")
 
 
 def usermanage(request):
     return render(request, "app/requestRegistration.html")
+
+
 def foodList(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=pk)
