@@ -2,6 +2,8 @@
 {% load static %}
 {% block content %}
 <div class="row  g-4 d-flex justify-content-left m-3">
+  {% for message in messages %}
+  <p id="messages">{{message}}</p>{% endfor %}
   {% for menu in menus %}
   <div class="col-3">
     <div class="card h-100">
@@ -37,5 +39,5 @@
     </div>
   </div>
   {% include 'app/foodListmodal.html' with menus=menus %}
-  
+
   {% endblock content %}

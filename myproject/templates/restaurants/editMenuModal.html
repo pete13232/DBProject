@@ -10,7 +10,9 @@
                 <div class="card pe-3 ps-3 pb-3" style="">
                     <form method="POST" action="{% url 'editMenu' %}">
                         {% csrf_token %}
-                        <div class="row mb-3">
+                        <input type="text" class="form-control" id="name" name="menuID" hidden value="{{menu.menuID}}">
+                        <input type="text" class="form-control" id="name" name="resID" hidden value="{{menu.resID}}">
+                        <div class="row mb-3 mt-3">
                             <label for="name" class="col-sm-2 col-form-label">Name :</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="name" name="menuName"

@@ -13,6 +13,7 @@ from restaurants.models import Category, Restaurant, Menu
 from users.models import Member
 from queueSystem.models import Queue
 from users.decorators import unauthenticated_user, allowed_users, admin_only
+
 # Create your views here.
 
 
@@ -82,17 +83,7 @@ def usermanage(request):
 def foodList(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=pk)
-    if request.method == "POST":
-        form = editMenuForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.info(request, "Success")
-            redirect("foodList")
-        else:
-            messages.info(request, form.errors)
-            redirect("foodList")
-    else:
-        form = editMenuForm()
+    form = editMenuForm()
     context = {"menus": menus, "restaurant": restaurant, "form": form}
     return render(request, "app/foodList.html", context)
 
