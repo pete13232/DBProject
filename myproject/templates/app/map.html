@@ -3,7 +3,10 @@
     <div class="col-xl-8 ">
         <div class="card p-3" style="">
             <div class="row ">
-                <img src="{% static 'images/foodEx.jpg' %}" class="imgBg" alt="Responsive image">
+                <button id="" class="" onclick="showPosition({{restaurant.location}})">Test</button>
+                <div id="mapholder">
+                <img id="mapholder" src="" class="imgBg " alt="Responsive image">
+                </div>
             </div>
             <div class="card-body">
                 <h4 class="card-title">
@@ -36,3 +39,4 @@
         </div>
     </div>
 </div>
+<script src="{% static 'js/map.js' %}"></script>

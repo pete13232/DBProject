@@ -10,8 +10,11 @@ urlpatterns = [
     path("login", views.login, name="login"),
     path("signup", views.signup, name="signup"),
     path("review", views.review, name="review"),
-    path("userprofile", views.userprofile, name="userprofile"),
+    path("userprofile/<str:pk>", views.userprofile, name="userprofile"),
     path("workerprofile", views.workerprofile, name="workerprofile"),
     path("queueManagement", views.queueManagement, name="queueManagement"),
-    path("foodList", views.foodList, name="foodList"),
+    # path("foodList", views.foodList, name="foodList"),
+    path("admin", views.admin, name="adminpage"),
+    path("usermanage", views.usermanage, name="usermanage"),
+    path("foodList/<str:pk>", views.foodList, name="foodList"),
 ]

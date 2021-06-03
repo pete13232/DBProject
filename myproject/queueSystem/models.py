@@ -4,7 +4,14 @@ from restaurants.models import Restaurant
 
 # Create your models here.
 class Queue(models.Model):
-    queueID = models.CharField(max_length=10, primary_key=True)
+    def genID():
+        n = Queue.objects.count()
+        if n == 0:
+            return "Q001"
+        else:
+            return "Q" + str(n + 1).zfill(3)
+
+    queueID = models.CharField(max_length=10, primary_key=True, default=genID)
     memberID = models.ForeignKey(Member, on_delete=models.CASCADE)
     resID = models.ForeignKey(
         Restaurant, blank=True, null=True, on_delete=models.CASCADE
@@ -29,7 +36,14 @@ class Queue(models.Model):
 
 
 class Review(models.Model):
-    reviewID = models.CharField(max_length=10, primary_key=True)
+    def genID():
+        n = Review.objects.count()
+        if n == 0:
+            return "RV001"
+        else:
+            return "RV" + str(n + 1).zfill(3)
+
+    reviewID = models.CharField(max_length=10, primary_key=True, default=genID)
     memberID = models.ForeignKey(Member, on_delete=models.CASCADE)
     resID = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     detail = models.CharField(max_length=200)
