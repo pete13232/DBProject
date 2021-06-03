@@ -7,11 +7,10 @@
             <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%;">
                 <img src="{% static 'images/Ferb.png' %}" class="card-img-top" alt="...">
                 <div class="d-grid">
-                    <a class="btn btn-primary rounded-0" type="button">Change photo</a>
+                        <label for="files" class="btn btn-primary rounded-0">Change Photo</label>
+                        <input id="files" style="visibility:hidden; height:0" type="file" >
                 </div>
             </div>
-
-
         </div>
         <div class="row">
             <div class="col-md">
@@ -59,9 +58,6 @@
             <div class="tab-content profile-tab" id="myTabContent">
                 <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row">
-                        {% comment %} <div class="col-md-6">
-                            <label>User Id</label>
-                        </div> {% endcomment %}
                         <div class="col-md-6">
                             <p>{{profile.memberID}}</p>
                         </div>
