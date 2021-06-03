@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from django.contrib.auth.models import Group
 from restaurants.models import Category, Restaurant
 from users.models import Member
 from queueSystem.models import Queue
-
+from users.decorators import unauthenticated_user, allowed_users, admin_only
 # Create your views here.
 def card3Col(request):
     return render(request, "card3Col.html")

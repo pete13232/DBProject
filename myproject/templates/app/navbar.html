@@ -12,7 +12,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-YENYEN">
     <div class="navbar-inner container-fluid">
-        <div class="d-flex justify-content-start d-flex align-items-center">
+        <div class="d-flex justify-content-start d-flex align-items-center col-4">
             <a class="navbar-brand" style="margin: 0px 15px" href="/">YENYEN</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -33,7 +33,7 @@
                 </li>
             </ul>
         </div>
-        <div class="nav-item">
+        <div class="nav-item col-4">
             <div class="card" style="width: 27rem">
                 <div class="card-body" style="padding: 16px 25px">
                     <h5 class="card-title">Queue Number : -</h5>
@@ -41,7 +41,20 @@
                 </div>
             </div>
         </div>
-        <div>
+
+
+        {% if request.user.is_authenticated %}
+        <table class="col-4 d-flex justify-content-end">
+            <tr>
+                <td class="me-4 text-center text-white h5 pe-4">Welcome, {{request.user.first_name}}</td>
+                <td href="{%url 'users_logout'%}">
+                    <button type="button" class="btn btn-primary btn-lg"
+                        style="background-color:#E91E63; margin: 0px 15px">Logout</button>
+                </td>
+            </tr>
+        </table>
+        {% else %}
+        <div class="col-4 d-flex justify-content-end">
             <a href="{%url 'users_signup'%}">
                 <button type="button" class="btn btn-primary btn-lg"
                     style="background-color:#D0BDF4; margin: 0px 15px">Sign up</button>
@@ -50,5 +63,9 @@
                 <button type="button" class="btn btn-outline-success btn-lg" style="margin: 0px 15px">Login</button>
             </a>
         </div>
+        {% endif %}
+
+
+
     </div>
 </nav>
