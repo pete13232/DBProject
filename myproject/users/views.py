@@ -5,7 +5,8 @@ from django.shortcuts import redirect, render
 from .models import Member, Role
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib.auth.models import Group
+from users.decorators import unauthenticated_user, allowed_users, admin_only
 
 from .forms import MemberForm, CreateUserForm
 
@@ -15,7 +16,7 @@ def index(request):
     # Context = {"members": members}
     return render(request, "users/usersIndex.html")
 
-
+@unauthenticated_user
 def signup(request):
     if request.method == "POST":
         form = MemberForm(request.POST)
@@ -37,6 +38,7 @@ def signup(request):
 
 
 # register page
+@unauthenticated_user
 def registerPage(request):
     form = CreateUserForm()
 
@@ -70,7 +72,7 @@ def loginPage(request):
     return render(request, "users/basicLogin.html", context)
 
 
-def logoutUser(request):
+def logoutPage(request):
     logout(request)
     return redirect("users_login")
 
