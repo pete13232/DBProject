@@ -65,10 +65,4 @@ class Member(AbstractUser):
         elif self.gender == "F":
             return "Female"
         else:
-<<<<<<< HEAD
             return "Other"
-
-
-=======
-            return "Other"
->>>>>>> 6ef0f59835c3ff229cc4252de05a4644da5e3b09
