@@ -58,9 +58,11 @@ class MemberForm(forms.ModelForm):
             ),
             "tel": TextInput(
                 attrs={
+                    "type": "tel",
                     "id": "tel",
                     "class": "form-control",
-                    "placeholder": "086-485-8875",
+                    "placeholder": "0864858875",
+                    "pattern": "^0[0-9]{9}",
                 }
             ),
             "gender": Select(
@@ -101,8 +103,27 @@ class MemberForm(forms.ModelForm):
 class CreateUserForm(UserCreationForm):
     fName = forms.CharField(max_length=30)
     lName = forms.CharField(max_length=30)
-    tel = forms.CharField(max_length=10)
-    dob = forms.DateField()
+    tel = forms.CharField(
+        max_length=10,
+        widget=forms.TextInput(
+            attrs={
+                "type": "tel",
+                "id": "tel",
+                "class": "form-control",
+                "placeholder": "0864858875",
+                "pattern": "^0[0-9]{9}",
+            }
+        ),
+    )
+    dob = forms.DateField(
+        widget=forms.DateInput(
+            attrs={
+                "type": "date",
+                "id": "dob",
+                "class": "form-control",
+            }
+        ),
+    )
     GENDER = (
         ("M", "Male"),
         ("F", "Female"),

@@ -50,3 +50,6 @@ class Member(models.Model):
 
     def fullName(self):
         return self.fName + " " + self.lName
+
+    def fullPhone(self):
+        return self.tel[0:3] + "-" + self.tel[3:6] + "-" + self.tel[6:10]

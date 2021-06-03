@@ -16,8 +16,8 @@ class Category(models.Model):
 
 class Company(models.Model):
     companyID = models.CharField(max_length=10, primary_key=True)
-    categoryNameTH = models.CharField(max_length=30)
-    categoryNameEN = models.CharField(max_length=30)
+    companyNameTH = models.CharField(max_length=30)
+    companyNameEN = models.CharField(max_length=30)
     address = models.CharField(max_length=20)
     subDistrict = models.CharField(max_length=20, blank=True)
     district = models.CharField(max_length=20, blank=True)
@@ -56,6 +56,22 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.resID
+
+    def fullAddress(self):
+        return (
+            self.address
+            + " "
+            + self.subDistrict
+            + " "
+            + self.district
+            + " "
+            + self.province
+            + " "
+            + self.postalCode
+        )
+
+    def fullPhone(self):
+        return self.tel[0:3] + "-" + self.tel[3:6] + "-" + self.tel[6:10]
 
 
 class Menu(models.Model):

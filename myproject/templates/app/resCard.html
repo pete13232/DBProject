@@ -1,5 +1,5 @@
-{% extends 'app/base.html' %} 
-{% load static %} 
+{% extends 'app/base.html' %}
+{% load static %}
 {% block content %} {% comment %}
 <div class="row justify-content-center">
   {% endcomment %}
@@ -13,8 +13,8 @@
         <div class="row">
           <div class="col-6">
             <div class="card-body">
-              <h2 class="card-title">ร้านเจ๊โอว</h2>
-              <p class="card-text">ซีฟู๊ด, อาหารตามสั่ง</p>
+              <h2 class="card-title">{{restaurant.resNameTH}}</h2>
+              <p class="card-text">{{restaurant.categoryID.categoryName}}</p>
               <p class="card-text">
                 <i class="fas fa-star text-warning"></i>
                 <span> 4.2</span>
@@ -37,9 +37,11 @@
                 <span class="card-text">8 Mins.</span>
               </p>
               <p class="card-text">
-                <button type="button" class="btn btn-primary btn-sm">
-                  รายการอาหาร
-                </button>
+                <a href="{%url 'foodList'%}">
+                  <button type="button" class="btn btn-primary btn-sm">
+                    รายการอาหาร
+                  </button>
+                </a>
                 <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
                   data-bs-target="#exampleModal">
                   จองคิว
@@ -52,7 +54,7 @@
     </div>
   </div>
 
-  {% include 'app/modal_resCard.html' %}
-  {% include 'app/map.html' %} 
+  {% include 'app/modal.html' with restaurant=restaurant %}
+  {% include 'app/map.html' with restaurant=restaurant %}
   {% endblock content %}
 </div>
