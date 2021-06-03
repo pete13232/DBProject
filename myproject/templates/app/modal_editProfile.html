@@ -1,0 +1,46 @@
+ {% load static %}
+ <!-- Modal -->
+ <div class="modal fade" id="editprofile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+             <div class="modal-header border-0 align-self-start">
+                 <h5 class="modal-title" id="exampleModalLabel"></h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+             <h1>Edit Profile</h1>
+                 <div class="card p-3" style="">
+                     <form>
+                         <div class="form-row">
+                             <div class="col-md-6">
+                                 <label >Name</label>
+                                 <input type="text" class="form-control" placeholder="Ferb">
+                             </div>
+                             <div class="col-md-6">
+                                 <label>Lastname</label>
+                                 <input type="text" class="form-control" id="inputPassword4" placeholder="Fletcher" >
+                             </div>
+                         </div>
+                         <div class="form-row">
+                             <div class="col">
+                                 <label>Email</label>
+                                 <input type="email" class="form-control" id="inputPassword4"
+                                     placeholder="ferby@gmail.com">
+                             </div>
+                         </div>
+                         <div class="form-row">
+                             <div class="col">
+                                 <label for="inputPassword4">Phone</label>
+                                 <input type="tel" class="form-control" id="inputPassword4"
+                                     placeholder="132 456 7890">
+                             </div>
+                         </div>
+                     </form>
+                 </div>
+             </div>
+             <div class="modal-footer">
+                 <input type="submit" value = "Submit" class="btn btn-primary" data-bs-dismiss="modal">
+             </div>
+         </div>
+     </div>
+ </div>

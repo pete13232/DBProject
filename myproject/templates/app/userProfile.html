@@ -7,9 +7,13 @@
             <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%;">
                 <img src="{% static 'images/Ferb.png' %}" class="card-img-top" alt="...">
                 <div class="d-grid">
-                    <button class="btn btn-primary" type="button">Change photo</button>
+                    <button class="btn btn-primary rounded-0" type="button">
+                        Change photo
+                    </button>
                 </div>
             </div>
+
+
         </div>
         <div class="row">
             <div class="col-md">
@@ -45,7 +49,8 @@
                 </div>
             </div>
             <div class="col-3 mt-4">
-                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+                <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editprofile"
+                    name="btnAddMore" value="Edit Profile" />
             </div>
         </div>
         <div class="row">
@@ -176,5 +181,5 @@
 </div>
 
 
-
+{% include 'app/modal_editProfile.html' %}
 {% endblock content %}

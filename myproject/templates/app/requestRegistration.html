@@ -1,0 +1,150 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+<script src="{% static 'js/main.js' %}"></script>
+
+
+<div class="container mt-5">
+    <div class="row">
+        <h2>Register request</h2>
+        <input class="form-control mt-4 mb-3" id="myInput" type="text" placeholder="Search..">
+        <br>
+        <div class="mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Type</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>
+                            <a href="#">Ferb123</a> {% comment %} (optional) สามารถดูกดไปดูข้อมูลส่วนบุคคล user ได้ {% endcomment %}
+                        </td>
+                        <td>Company</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>
+                            <a href="#">phineas55</a>
+                        </td>
+                        <td>Store</td>
+                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <a href="#" class="btn btn-primary mt-4">Confirm</a>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
+
+
 def card3Col(request):
     return render(request, "card3Col.html")
 
@@ -37,8 +39,10 @@ def signup(request):
 def review(request):
     return render(request, "app/review.html")
 
+
 def userprofile(request):
     return render(request, "app/userProfile.html")
+
 
 def workerprofile(request):
     return render(request, "app/workerProfile.html")
@@ -53,3 +57,9 @@ def foodList(request):
 
     return render(request, "app/foodList.html")
 
+def admin(request):
+    return render(request, "app/admin.html")
+
+
+def usermanage(request):
+    return render(request, "app/requestRegistration.html")
