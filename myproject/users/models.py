@@ -20,14 +20,9 @@ class Role(models.Model):
 
 
 class Member(AbstractUser):
-<<<<<<< HEAD
     class Meta:
         db_table = "member"
 
-=======
-     class Meta:
-         db_table = "member"
->>>>>>> 856f7b612d0889c7ec09aaba1893149fa63477e8
     def genID():
         n = Member.objects.count()
         if n == 0:
@@ -73,10 +68,6 @@ class Member(AbstractUser):
         elif self.gender == "F":
             return "Female"
         else:
-<<<<<<< HEAD
             return "Other"
 
 
-=======
-            return "Other"
->>>>>>> 6ef0f59835c3ff229cc4252de05a4644da5e3b09
