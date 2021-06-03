@@ -20,8 +20,8 @@ class Role(models.Model):
 
 
 class Member(AbstractUser):
-    # class Meta:
-    #     db_table = "member"
+     class Meta:
+         db_table = "member"
     def genID():
         n = Member.objects.count()
         if n == 0:
@@ -29,28 +29,29 @@ class Member(AbstractUser):
         else:
             return "M" + str(n + 1).zfill(3)
 
-    memberID = models.CharField(max_length=10, default=genID, primary_key=True)
     roleID = models.ForeignKey(Role, null=True, blank=True, on_delete=models.SET_NULL)
     resID = models.ForeignKey(
         Restaurant, null=True, blank=True, on_delete=models.SET_NULL
     )
+    username = None
     fName = models.CharField(max_length=30)
     lName = models.CharField(max_length=30)
-    email = models.CharField(max_length=50)
+    email = models.CharField(max_length=50, unique=True)
     tel = models.CharField(max_length=10)
-    dob = models.DateField()
+    dob = models.DateField(null=True)
     GENDER = (
         ("M", "Male"),
         ("F", "Female"),
         ("O", "Other"),
     )
-    gender = models.CharField(max_length=1, choices=GENDER)
+    gender = models.CharField(max_length=1, choices=GENDER, null=True)
     picture = models.ImageField(upload_to="static/images/", blank=True, null=True)
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
-
-    def __str__(self):
-        return self.memberID
+    # def __str__(self):
+    #     return self.fName
 
     def fullName(self):
         return self.fName + " " + self.lName
@@ -64,6 +65,10 @@ class Member(AbstractUser):
         elif self.gender == "F":
             return "Female"
         else:
+<<<<<<< HEAD
             return "Other"
 
 
+=======
+            return "Other"
+>>>>>>> 6ef0f59835c3ff229cc4252de05a4644da5e3b09
