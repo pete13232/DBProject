@@ -23,10 +23,10 @@ def editMenu(
         if form.is_valid():
             form.save()
             messages.info(request, "Success")
-            return redirect("/foodlist" + "/" + str(form.cleaned_data["resID"]))
+            return render(request, "/foodlist" + "/" + str(form.cleaned_data["resID"]))
         else:
             messages.info(request, form.errors)
-            return redirect("foodList" + "/R001")
+            return render(request, "foodList" + "/R001")
     else:
         form = editMenuForm()
     context = {"form": form}

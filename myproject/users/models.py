@@ -20,7 +20,6 @@ class Role(models.Model):
 
 
 class Member(AbstractUser):
-
     class Meta:
         db_table = "member"
 
@@ -49,11 +48,13 @@ class Member(AbstractUser):
     gender = models.CharField(max_length=1, choices=GENDER, null=True)
     picture = models.ImageField(upload_to="static/images/", blank=True, null=True)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
-    # def __str__(self):
-    #     return self.fName
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
 
     def fullName(self):
         return self.fName + " " + self.lName
