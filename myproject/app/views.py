@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django import forms
+from django.contrib import messages
+from django.shortcuts import redirect, render
 from restaurants.models import Category, Restaurant, Menu
 from users.models import Member
 from queueSystem.models import Queue
+from .forms import editMenuForm
 
 # Create your views here.
 
@@ -72,5 +75,32 @@ def usermanage(request):
 def foodList(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=pk)
-    context = {"menus": menus, "restaurant": restaurant}
+    if request.method == "POST":
+        form = editMenuForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Success")
+            redirect("foodList")
+        else:
+            messages.info(request, form.errors)
+            redirect("foodList")
+    else:
+        form = editMenuForm()
+    context = {"menus": menus, "restaurant": restaurant, "form": form}
     return render(request, "app/foodList.html", context)
+
+
+def editMenu(request):
+    if request.method == "POST":
+        form = editMenuForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Success")
+            redirect("foodList")
+        else:
+            messages.info(request, form.errors)
+            redirect("foodList")
+    else:
+        form = editMenuForm()
+    context = {"form": form}
+    return render(request, "restaurants/editMenu.html", context)
