@@ -3,7 +3,14 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
-    categoryID = models.CharField(max_length=10, primary_key=True)
+    def genID():
+        n = Category.objects.count()
+        if n == 0:
+            return "CT001"
+        else:
+            return "CT" + str(n + 1).zfill(3)
+
+    categoryID = models.CharField(max_length=10, primary_key=True, default=genID)
     categoryName = models.CharField(max_length=20)
     minuteWait = models.IntegerField()
 
@@ -15,9 +22,15 @@ class Category(models.Model):
 
 
 class Company(models.Model):
-    companyID = models.CharField(max_length=10, primary_key=True)
-    companyNameTH = models.CharField(max_length=30)
-    companyNameEN = models.CharField(max_length=30)
+    def genID():
+        n = Company.objects.count()
+        if n == 0:
+            return "C001"
+        else:
+            return "C" + str(n + 1).zfill(3)
+
+    companyID = models.CharField(max_length=10, primary_key=True, default=genID)
+    companyName = models.CharField(max_length=30)
     address = models.CharField(max_length=20)
     subDistrict = models.CharField(max_length=20, blank=True)
     district = models.CharField(max_length=20, blank=True)
@@ -25,7 +38,8 @@ class Company(models.Model):
     postalCode = models.CharField(max_length=5)
     email = models.CharField(max_length=50)
     tel = models.CharField(max_length=10)
-    picture = models.URLField(max_length=200, blank=True)
+    profilePic = models.ImageField(upload_to="static/images/", blank=True, null=True)
+    coverPic = models.ImageField(upload_to="static/images/", blank=True, null=True)
 
     class Meta:
         db_table = "company"
@@ -35,13 +49,19 @@ class Company(models.Model):
 
 
 class Restaurant(models.Model):
-    resID = models.CharField(max_length=10, primary_key=True)
+    def genID():
+        n = Restaurant.objects.count()
+        if n == 0:
+            return "R001"
+        else:
+            return "R" + str(n + 1).zfill(3)
+
+    resID = models.CharField(max_length=10, primary_key=True, default=genID)
     companyID = models.ForeignKey(
         Company, blank=True, null=True, on_delete=models.SET_NULL
     )
     categoryID = models.ForeignKey(Category, on_delete=models.CASCADE)
-    resNameTH = models.CharField(max_length=30)
-    resNameEN = models.CharField(max_length=30)
+    resName = models.CharField(max_length=30)
     address = models.CharField(max_length=20)
     subDistrict = models.CharField(max_length=20, blank=True)
     district = models.CharField(max_length=20, blank=True)
@@ -49,7 +69,10 @@ class Restaurant(models.Model):
     postalCode = models.CharField(max_length=5)
     email = models.CharField(max_length=50)
     tel = models.CharField(max_length=10)
-    picture = models.URLField(max_length=200, blank=True, null=True)
+    mapLon = models.CharField(max_length=10, default=0)
+    mapLAT = models.CharField(max_length=10, default=0)
+    profilePic = models.ImageField(upload_to="static/images/", blank=True, null=True)
+    coverPic = models.ImageField(upload_to="static/images/", blank=True, null=True)
 
     class Meta:
         db_table = "Restaurant"
@@ -73,12 +96,21 @@ class Restaurant(models.Model):
     def fullPhone(self):
         return self.tel[0:3] + "-" + self.tel[3:6] + "-" + self.tel[6:10]
 
+    def location(self):
+        return self.mapLon + "," + self.mapLAT
+
 
 class Menu(models.Model):
-    menuID = models.CharField(max_length=15, primary_key=True)
+    def genID():
+        n = Menu.objects.count()
+        if n == 0:
+            return "MU001"
+        else:
+            return "MU" + str(n + 1).zfill(3)
+
+    menuID = models.CharField(max_length=15, primary_key=True, default=genID)
     resID = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    menuNameTH = models.CharField(max_length=20)
-    menuNameEN = models.CharField(max_length=20)
+    menuName = models.CharField(max_length=20)
     description = models.TextField(null=True)
     price = models.FloatField()
     avaliable = models.BooleanField()

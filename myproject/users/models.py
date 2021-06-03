@@ -16,10 +16,10 @@ class Role(models.Model):
 class Member(models.Model):
     def genID():
         n = Member.objects.count()
-        if n == None:
+        if n == 0:
             return "M001"
         else:
-            return "M" + str(n).zfill(3)
+            return "M" + str(n + 1).zfill(3)
 
     memberID = models.CharField(max_length=10, default=genID, primary_key=True)
     roleID = models.ForeignKey(Role, null=True, blank=True, on_delete=models.SET_NULL)
@@ -29,7 +29,6 @@ class Member(models.Model):
     userName = models.CharField(max_length=15)
     password = models.CharField(max_length=20)
     fName = models.CharField(max_length=30)
-    mName = models.CharField(max_length=30, blank=True)
     lName = models.CharField(max_length=30)
     email = models.CharField(max_length=50)
     tel = models.CharField(max_length=10)
@@ -40,7 +39,7 @@ class Member(models.Model):
         ("O", "Other"),
     )
     gender = models.CharField(max_length=1, choices=GENDER)
-    picture = models.URLField(max_length=200, blank=True)
+    picture = models.ImageField(upload_to="static/images/", blank=True, null=True)
 
     class Meta:
         db_table = "member"

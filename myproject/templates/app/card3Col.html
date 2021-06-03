@@ -5,7 +5,7 @@
     <div class="card p-3 mb-2 ">
         <div class="d-flex justify-content-between">
             <a href="{% url 'resCard' restaurant.resID %}">
-                <img src="{% static 'images/foodEx.jpg' %}" class="card-img resImg mx-auto d-block">
+                <img src="{{restaurant.profilePic.url}}" class="card-img resImg mx-auto d-block">
             </a>
         </div>
         <div class="mt-2">

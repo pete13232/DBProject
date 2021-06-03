@@ -8,12 +8,18 @@
       <img src="{{menu.picture.url}}" class="card-img-top" style="height:50%;">
       <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{menu.menuNameEN}}</h5>
+        <p class="card-text">
+          {{menu.description}}
+        </p>
+        <p class="card-text mt-auto">
+          {{menu.price}} Bath
+        </p>
         {% if menu.avaliable %}
-        <div class="alert alert-success mt-auto" role="alert">
+        <div class="alert alert-success mt-auto text-center" role="alert">
           Avaliable
         </div>
         {% else %}
-        <div class="alert alert-danger mt-auto" role="alert">
+        <div class="alert alert-danger mt-auto text-center" role="alert">
           Not avaliable
         </div>
         {% endif %}
@@ -22,192 +28,13 @@
   </div>
   {% endfor %}
 
-  {% comment %} <div class="col-3">
-    <div class="card h-100">
-      <img src="{% static 'images/Lasagna.jpg' %}" class="card-img-top" style="height:50%;" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Lasagna</h5>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Food Status
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Available</a></li>
-            <li><a class="dropdown-item" href="#">Not Avalable</a></li>
-            <li><a class="dropdown-item" href="#">Not Shown</a></li>
-          </ul>
-        </div>
-      </div>
+  <div class="row  g-4 d-flex justify-content-end m-3">
+    <div class="col-3">
+      <button type="button" class="btn btn-warning btn-lg me-3" data-bs-toggle="modal" data-bs-target="#foodListmodal">
+        Edit
+      </button>
+      <button type="button" class="btn btn-primary btn-lg">Submit</button>
     </div>
   </div>
-
-  <div class="col-3">
-    <div class="card h-100">
-      <img src="{% static 'images/bolognese.jpg' %}" class="card-img-top" style="height:50%;" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Spaghetti Bolognese</h5>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Food Status
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Available</a></li>
-            <li><a class="dropdown-item" href="#">Not Avalable</a></li>
-            <li><a class="dropdown-item" href="#">Not Shown</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-3">
-    <div class="card h-100">
-      <img src="{% static 'images/carbonara.jpg' %}" class="card-img-top" style="height:50%;" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Spaghetti Carbonara</h5>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Food Status
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Available</a></li>
-            <li><a class="dropdown-item" href="#">Not Avalable</a></li>
-            <li><a class="dropdown-item" href="#">Not Shown</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-3">
-    <div class="card h-100">
-      <img src="{% static 'images/SquidInkPasta.jpg' %}" class="card-img-top" style="height:50%;" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Squid Ink pasta seafood</h5>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Food Status
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Available</a></li>
-            <li><a class="dropdown-item" href="#">Not Avalable</a></li>
-            <li><a class="dropdown-item" href="#">Not Shown</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-3">
-    <div class="card h-100">
-      <img src="{% static 'images/Burger.jpg' %}" class="card-img-top" style="height:50%;">
-      <div class="card-body">
-        <h5 class="card-title">Burger2</h5>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Food Status
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Available</a></li>
-            <li><a class="dropdown-item" href="#">Not Avalable</a></li>
-            <li><a class="dropdown-item" href="#">Not Shown</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-3">
-    <div class="card h-100">
-      <img src="{% static 'images/Lasagna.jpg' %}" class="card-img-top" style="height:50%;" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Lasagna2</h5>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Food Status
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Available</a></li>
-            <li><a class="dropdown-item" href="#">Not Avalable</a></li>
-            <li><a class="dropdown-item" href="#">Not Shown</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-3">
-    <div class="card h-100">
-      <img src="{% static 'images/bolognese.jpg' %}" class="card-img-top" style="height:50%;" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Spaghetti Bolognese2</h5>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Food Status
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Available</a></li>
-            <li><a class="dropdown-item" href="#">Not Avalable</a></li>
-            <li><a class="dropdown-item" href="#">Not Shown</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-3">
-    <div class="card h-100">
-      <img src="{% static 'images/carbonara.jpg' %}" class="card-img-top" style="height:50%;" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Spaghetti Carbonara2</h5>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Food Status
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Available</a></li>
-            <li><a class="dropdown-item" href="#">Not Avalable</a></li>
-            <li><a class="dropdown-item" href="#">Not Shown</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-3">
-    <div class="card h-100">
-      <img src="{% static 'images/SquidInkPasta.jpg' %}" class="card-img-top" style="height:50%;" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Squid Ink pasta seafood2</h5>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Food Status
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Available</a></li>
-            <li><a class="dropdown-item" href="#">Not Avalable</a></li>
-            <li><a class="dropdown-item" href="#">Not Shown</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> {% endcomment %}
-<div class="row  g-4 d-flex justify-content-end m-3">
-  <div class="col-3">
-    <button type="button" class="btn btn-warning btn-lg me-3" data-bs-toggle="modal" data-bs-target="#foodListmodal">
-      Edit
-    </button>
-    <button type="button" class="btn btn-primary btn-lg">Submit</button>
-  </div>
-</div>
-{% include 'app/foodListmodal.html' with menus=menus %}
-{% endblock content %}
+  {% include 'app/foodListmodal.html' with menus=menus %}
+  {% endblock content %}
