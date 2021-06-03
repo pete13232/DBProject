@@ -47,9 +47,12 @@
         <table class="col-4 d-flex justify-content-end">
             <tr>
                 <td class="me-4 text-center text-white h5 pe-4">Welcome, {{request.user.first_name}}</td>
-                <td href="{%url 'users_logout'%}">
-                    <button type="button" class="btn btn-primary btn-lg"
-                        style="background-color:#E91E63; margin: 0px 15px">Logout</button>
+                <td>
+                    <a href="{%url 'users_logout'%}">
+                        <button type="button" class="btn btn-primary btn-lg"
+                            style="background-color:#E91E63; margin: 0px 15px">Logout</button>
+                    </a>
+
                 </td>
             </tr>
         </table>
