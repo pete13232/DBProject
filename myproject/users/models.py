@@ -20,8 +20,9 @@ class Role(models.Model):
 
 
 class Member(AbstractUser):
-     class Meta:
-         db_table = "member"
+    class Meta:
+        db_table = "member"
+
     def genID():
         n = Member.objects.count()
         if n == 0:
@@ -47,11 +48,13 @@ class Member(AbstractUser):
     gender = models.CharField(max_length=1, choices=GENDER, null=True)
     picture = models.ImageField(upload_to="static/images/", blank=True, null=True)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
-    # def __str__(self):
-    #     return self.fName
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
 
     def fullName(self):
         return self.fName + " " + self.lName
@@ -65,10 +68,6 @@ class Member(AbstractUser):
         elif self.gender == "F":
             return "Female"
         else:
-<<<<<<< HEAD
             return "Other"
 
 
-=======
-            return "Other"
->>>>>>> 6ef0f59835c3ff229cc4252de05a4644da5e3b09
