@@ -1,18 +1,16 @@
 from django import forms
 from django.contrib import messages
-from django.shortcuts import redirect, render
-from restaurants.models import Category, Restaurant, Menu
-from users.models import Member
-from queueSystem.models import Queue
-from .forms import editMenuForm
-
-from django.shortcuts import render
 from django.contrib.auth.models import Group
-from restaurants.models import Category, Restaurant
-from restaurants.models import Category, Restaurant, Menu
+from django.shortcuts import redirect, render
 from users.models import Member
-from queueSystem.models import Queue
+
 from users.decorators import unauthenticated_user, allowed_users, admin_only
+from users.models import Member
+from restaurants.models import Category, Restaurant, Menu
+from queueSystem.models import Queue
+
+from .forms import createQueueForm
+from restaurants.forms import editMenuForm
 
 # Create your views here.
 
@@ -24,19 +22,31 @@ def card3Col(request):
 def index(request):
     categorys = Category.objects.all()
     restaurants = Restaurant.objects.all()
-    myContext = {"categorys": categorys, "restaurants": restaurants}
-    return render(request, "app/index.html", myContext)
+    context = {"categorys": categorys, "restaurants": restaurants}
+    return render(request, "app/index.html", context)
 
 
 def resCard(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
-    myContext = {"restaurant": restaurant}
-    return render(request, "app/resCard.html", myContext)
+
+    if request.method == "POST":
+        form = createQueueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Success")
+            redirect("resCard/" + pk)
+        else:
+            messages.info(request, form.errors)
+            redirect("resCard/" + pk)
+    else:
+        form = createQueueForm()
+    context = {"restaurant": restaurant, "form": form}
+    return render(request, "app/resCard.html", context)
 
 
-def categoryCard(request):
+def category(request):
 
-    return render(request, "app/categoryCard.html")
+    return render(request, "app/category.html")
 
 
 def login(request):
@@ -86,19 +96,3 @@ def foodList(request, pk):
     form = editMenuForm()
     context = {"menus": menus, "restaurant": restaurant, "form": form}
     return render(request, "app/foodList.html", context)
-
-
-def editMenu(request):
-    if request.method == "POST":
-        form = editMenuForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.info(request, "Success")
-            redirect("foodList")
-        else:
-            messages.info(request, form.errors)
-            redirect("foodList")
-    else:
-        form = editMenuForm()
-    context = {"form": form}
-    return render(request, "restaurants/editMenu.html", context)

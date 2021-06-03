@@ -1,11 +1,12 @@
 {% load static %}
 {% block content %}
 
-<div class="col-md-4">
+<div class="col-md-4 All {{restaurant.categoryID.fullCate}}">
     <div class="card p-3 mb-2 ">
         <div class="d-flex justify-content-between">
             <a href="{% url 'resCard' restaurant.resID %}">
-                <img src="{{restaurant.profilePic.url}}" class="card-img resImg mx-auto d-block " style="height: 200px;">
+                <img src="{{restaurant.profilePic.url}}" class="card-img resImg mx-auto d-block "
+                    style="height: 200px;">
             </a>
         </div>
         <div class="mt-2">

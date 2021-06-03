@@ -10,26 +10,31 @@
        <div class="modal-body">
          <div class="card p-3" style="">
            <div class="row">
-             <img src="{% static 'images/foodEx.jpg' %}" class="imgBg" alt="Responsive image" />
-             <img src="{% static 'images/foodEx2.jpg' %}" class="imgCollab" alt="Responsive image" />
+             <img src="{{restaurant.coverPic.url}}" class="imgBg" alt="Responsive image" />
+             <img src="{{restaurant.profilePic.url}}" class="imgCollab" alt="Responsive image" />
            </div>
            <div class="card-body">
-             <h2 class="card-title">ร้านอาหาร : {{restaurant.resNameTH}}</h2>
-             <p class="card-text">ประเภท : {{restaurant.categoryID.categoryName}}</p>
-             <div class="row">
-               <div class="col-6 mb-3">
-                 <p class="card-text">เวลาที่จอง</p>
+             <form method="post">
+               {% csrf_token %}
+               <h2 class="card-title">ร้านอาหาร : {{restaurant.resName}}</h2>
+               <p class="card-text">ประเภท : {{restaurant.categoryID.categoryName}}</p>
+               <input type="text" id="resID" name="resID" value="{{restaurant.resID}}" hidden />
+               <input type="text" id="queueID" name="queueID" value="{{queue.getID}}" hidden />
+               <input type="text" id="memberID" name="memberID" value="{{member.id}}" hidden />
+               <div class="row">
+                 <div class="col-6 mb-3">
+                   <p class="card-text">เวลาที่จอง</p>
+                 </div>
+                 <div class="col-6">
+                   <input type="datetime-local" id="reserveTime" name="reserveTime" style="max-width: 99%;" />
+                 </div>
                </div>
-               <div class="col-6">
-                 <input type="datetime-local" id="queuetime" name="queuetime" style="max-width: 99%;" />
+               <div class="row">
+                 <div class="col-6">
+                   <p class="card-text">จำนวนผู้เข้าใช้</p>
+                 </div>
+                 <div class="col-6"><input type="number" name="peopleNum" min="1" max="100" /></div>
                </div>
-             </div>
-             <div class="row">
-               <div class="col-6">
-                 <p class="card-text">จำนวนผู้เข้าใช้</p>
-               </div>
-               <div class="col-6"><input type="number" min="1" max="100" /></div>
-             </div>
            </div>
          </div>
        </div>
@@ -39,8 +44,9 @@
              รายการอาหาร
            </button>
          </a>
-         <button type="button" class="btn btn-secondary">ยืนยัน</button>
+         <button type="submit" class="btn btn-secondary">ยืนยัน</button>
        </div>
+       </form>
      </div>
    </div>
  </div>

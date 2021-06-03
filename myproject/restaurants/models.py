@@ -1,8 +1,12 @@
+from re import split
 from typing import Text
 from django.db import models
 
 # Create your models here.
 class Category(models.Model):
+    class Meta:
+        db_table = "category"
+
     def genID():
         n = Category.objects.count()
         if n == 0:
@@ -14,14 +18,19 @@ class Category(models.Model):
     categoryName = models.CharField(max_length=20)
     minuteWait = models.IntegerField()
 
-    class Meta:
-        db_table = "category"
-
     def __str__(self):
         return self.categoryID
 
+    def fullCate(self):
+        list_string = self.categoryName.split(" ")
+        string = "_".join(list_string)
+        return string
+
 
 class Company(models.Model):
+    class Meta:
+        db_table = "company"
+
     def genID():
         n = Company.objects.count()
         if n == 0:
@@ -41,14 +50,14 @@ class Company(models.Model):
     profilePic = models.ImageField(upload_to="static/images/", blank=True, null=True)
     coverPic = models.ImageField(upload_to="static/images/", blank=True, null=True)
 
-    class Meta:
-        db_table = "company"
-
     def __str__(self):
         return self.companyID
 
 
 class Restaurant(models.Model):
+    class Meta:
+        db_table = "Restaurant"
+
     def genID():
         n = Restaurant.objects.count()
         if n == 0:
@@ -74,9 +83,6 @@ class Restaurant(models.Model):
     profilePic = models.ImageField(upload_to="static/images/", blank=True, null=True)
     coverPic = models.ImageField(upload_to="static/images/", blank=True, null=True)
 
-    class Meta:
-        db_table = "Restaurant"
-
     def __str__(self):
         return self.resID
 
@@ -101,6 +107,9 @@ class Restaurant(models.Model):
 
 
 class Menu(models.Model):
+    class Meta:
+        db_table = "menu"
+
     def genID():
         n = Menu.objects.count()
         if n == 0:
@@ -115,9 +124,6 @@ class Menu(models.Model):
     price = models.FloatField()
     avaliable = models.BooleanField()
     picture = models.ImageField(upload_to="static/images/", blank=True, null=True)
-
-    class Meta:
-        db_table = "menu"
 
     def __str__(self):
         return self.menuID
