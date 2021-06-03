@@ -1,0 +1,58 @@
+{% for menu in menus %}
+<div class="modal fade" id="editMenuModal{{menu.menuID}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0 align-self-center">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Menu</h5>
+            </div>
+            <div class="modal-body">
+                <div class="card pe-3 ps-3 pb-3" style="">
+                    <form method="POST" action="{% url 'editMenu' %}">
+                        {% csrf_token %}
+                        <input type="text" class="form-control" id="name" name="menuID" hidden value="{{menu.menuID}}">
+                        <input type="text" class="form-control" id="name" name="resID" hidden value="{{menu.resID}}">
+                        <div class="row mb-3 mt-3">
+                            <label for="name" class="col-sm-2 col-form-label">Name :</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" name="menuName"
+                                    value="{{menu.menuName}}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="desc" class="col-sm-2 col-form-label">Description :</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="desc" rows="3"
+                                    name="description">{{menu.description}}</textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="pirce" class="col-sm-2 col-form-label">Price :</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="price" name="price"
+                                    value="{{menu.price}}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="avaliable" id="avaliable"
+                                    {% if menu.avaliable %}checked{% endif %}>
+                                <label class="form-check-label" for="avaliable">
+                                    Avaliable
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-success">Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

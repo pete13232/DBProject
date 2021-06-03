@@ -16,9 +16,9 @@
              </tr>
              {% for menu in menus %}
              <tr>
-               <td class="text-start ">{{menu.menuNameEN}}</td>
+               <td class="text-start ">{{menu.menuName}}</td>
                <td class="text-center ">
-                 <a class="btn btn-sm btn-warning" data-bs-target="#DeletingfoodListmodal" data-bs-toggle="modal"
+                 <a class="btn btn-sm btn-warning" data-bs-target="#editMenuModal{{menu.menuID}}" data-bs-toggle="modal"
                    data-bs-dismiss="modal">
                    Edit
                  </a>
@@ -38,8 +38,6 @@
            </table>
            <button class="btn btn-primary" type="button" data-bs-target="#AddingfoodListmodal" data-bs-toggle="modal"
              data-bs-dismiss="modal">+</button>
-
-
          </div>
        </div>
        <div class="modal-footer">
@@ -87,8 +85,6 @@
  </div>
 
 
-
-
  <div class="modal fade " id="DeletingfoodListmodal" tabindex="-1" aria-labelledby="exampleModalLabe3"
    aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered">
@@ -97,7 +93,7 @@
          <h5 class="modal-title" id="exampleModalLabe3">Delete Confirmation</h5>
        </div>
        <div class="modal-body">
-         <h5>Are you sure you wat to delete Menu:{{menu.menuNameEN}} ?</h5>
+         <h5>Are you sure you wat to delete Menu:{{menu.menuName}} ?</h5>
        </div>
        <div class="modal-footer">
          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -110,3 +106,5 @@
      </div>
    </div>
  </div>
+
+ {% include 'restaurants/editMenuModal.html' %}
