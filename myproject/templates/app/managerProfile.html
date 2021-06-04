@@ -16,7 +16,7 @@
             <div class="col-md">
                 <div class="profile-work">
                     <p>Company / Restaurant</p>
-                    <a href="{% url 'managerControl' %}">Detail</a><br />
+                    <a href="{% url 'managerControl' restaurant.resID%}">Detail</a><br />
                     <a href="{% static 'app/modalBusiness.html' %}" data-bs-toggle="modal" data-bs-target="#business">Start my own</a><br />
                 </div>
             </div>

@@ -1,7 +1,7 @@
 {% load static %}
 {% block content %}
 
-<div class="col-md-4 All {{restaurant.categoryID.fullCate}}">
+<div class="col-md-4 All {{restaurant.categoryID.fullCate}}" id="card-filter">
     <div class="card p-3 mb-2 ">
         <div class="d-flex justify-content-between">
             <a href="{% url 'resCard' restaurant.resID %}">

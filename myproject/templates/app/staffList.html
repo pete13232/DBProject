@@ -4,10 +4,16 @@
 <script src="{% static 'js/main.js' %}"></script>
 <div class="container mt-5">
 
-    <h2>Company / Store</h2>
-    <input class="form-control mt-3 mb-3 ms-2" id="myInput" type="text" placeholder="Search.." style="width : 50%">
+    <h2>Member List</h2>
+    <div class="d-flex">
+        <input class="form-control mt-3 mb-3 ms-3" id="Search" type="text" placeholder="Search.." style="width : 50%">
+        <a href="{%url 'executiveControl' restaurant.resID%}" type="button" class="btn btn-secondary mt-3"
+            style="height: 10%; margin-left : 1%">
+            <i class="bi bi-house-door-fill fa-lg"></i>
+        </a>
+    </div>
     <br>
-    <div class="mb-5 border" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
+    <div class="mb-5" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
         <table class="table">
             <thead>
                 <tr>
@@ -18,25 +24,40 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody id="myTable">
+            <tbody id="Table">
                 <tr>
                     <th scope="row">1</th>
                     <td>
                         <a href="#">Phineas Flyn</a>
                     </td>
                     <td>Staff</td>
-                    <td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" href="#">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="#">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>
+                        <a href="#">Art Chawanrut</a>
+                    </td>
+                    <td>Manager</td> <!--เฉพาะ executive ที่จะเห็น manager-->
+                    <td><a class="btn btn-sm btn-warning" href="#">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="#">Delete</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="row border" style="margin-left : 1px; margin-right : 1px;">
         <h2 class="mt-3">Invite</h2>
-        <div>
-            <input class="form-control m-3" id="myInput" type="text"
-                placeholder="input email / username / name" style="width : 50%">
-            <a class="btn btn-lg btn-info align-items-end" href="#">Invite</a>
+        <div class="col-md-6">
+            <input class="form-control m-3" id="myInput" type="text" placeholder="input email / username / name">
         </div>
+        <div class="col-md-6">
+            <input class="btn btn-primary mt-3 ms-2" type="submit" value="invite">
+        </div>
+
     </div>
 
     {% comment %} <div class="row  justify-content-end">
