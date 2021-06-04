@@ -14,7 +14,8 @@ def index(request):
 
     return render(request, "restaurants/resIndex.html")
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin','manager'])
 def editMenu(request):
     if request.method == "POST":
         instance = get_object_or_404(Menu, menuID=request.POST["menuID"])

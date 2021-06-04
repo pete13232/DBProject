@@ -38,7 +38,7 @@ def signup(request):
 
 
 # register page
-
+@unauthenticated_user
 def registerPage(request):
     form = CreateUserForm()
 
@@ -56,6 +56,7 @@ def registerPage(request):
 
 
 # login page
+@unauthenticated_user
 def loginPage(request):
     if request.method == "POST":
         email = request.POST.get("email")
