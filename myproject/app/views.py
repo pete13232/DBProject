@@ -157,9 +157,7 @@ def editMenu(request, pk):
     else:
         form = editMenuForm()
 
-<<<<<<< HEAD
 
-=======
 @login_required(login_url='users/login')
 @allowed_users(allowed_roles=['admin','executive','manager'])
 def createMenu(request, pk):
@@ -197,6 +195,5 @@ def createMenu(request, pk):
 
 @login_required(login_url='users/login')
 @allowed_users(allowed_roles=['admin','executive','manager'])
->>>>>>> fe9838bc92dace6ddef35208ec43f313ea434204
 def staffList(request):
     return render(request, "app/staffList.html")
