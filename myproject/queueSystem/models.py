@@ -22,10 +22,11 @@ class Queue(models.Model):
     queueType = (
         ("S", "Success"),
         ("F", "Fail"),
+        ("W", "Waiting"),
         ("C", "Cancel"),
         ("P", "Point"),
     )
-    queueIsSuccess = models.CharField(max_length=10, choices=queueType)
+    queueIsSuccess = models.CharField(max_length=10, choices=queueType, default="W")
     queueIsCome = models.BooleanField()
 
     class Meta:

@@ -2,6 +2,9 @@
 {% load static %}
 {% block content %}
 <div class="row justify-content-center">
+  {% for message in messages %}
+  <p id="messages">{{message}}</p>
+  {% endfor %}
   <div class="col-xl-8">
     <div class="card p-3" style="">
       <div class="row">
