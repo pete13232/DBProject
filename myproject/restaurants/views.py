@@ -14,19 +14,17 @@ def index(request):
     return render(request, "restaurants/resIndex.html")
 
 
-def editMenu(
-    request,
-):
+def editMenu(request):
     if request.method == "POST":
         instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
         form = editMenuForm(request.POST or None, instance=instance)
         if form.is_valid():
             form.save()
             messages.info(request, "Success")
-            return render(request, "/foodlist" + "/" + str(form.cleaned_data["resID"]))
+            return redirect("/foodlist/" + form.cleaned_data["resID"])
         else:
             messages.info(request, form.errors)
-            return render(request, "foodList" + "/R001")
+            return redirect("foodList" + "/R001")
     else:
         form = editMenuForm()
     context = {"form": form}
