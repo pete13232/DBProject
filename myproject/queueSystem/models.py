@@ -27,7 +27,7 @@ class Queue(models.Model):
         ("P", "Point"),
     )
     queueIsSuccess = models.CharField(max_length=10, choices=queueType, default="W")
-    queueIsCome = models.BooleanField()
+    queueIsPass = models.BooleanField(default=False)
 
     class Meta:
         db_table = "queue"
