@@ -23,5 +23,6 @@ urlpatterns = [
     path("staffList/<str:pk>", views.staffList, name="staffList"),
     path("profileDetail/", views.profileDetail, name="profileDetail"),
     path("executiveControl/<str:pk>", views.executiveControl, name="executiveControl"),
+    path("resProfile", views.resProfile, name="resProfile"),
 
 ]

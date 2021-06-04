@@ -32,7 +32,7 @@
                     </td>
                     <td>Staff</td>
                     <td>
-                        <a class="btn btn-sm btn-warning" href="#">Edit</a>
+                        <a class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editRole">Edit</a>
                         <a class="btn btn-sm btn-danger" href="#">Delete</a>
                     </td>
                 </tr>
@@ -42,7 +42,7 @@
                         <a href="#">Art Chawanrut</a>
                     </td>
                     <td>Manager</td> <!--เฉพาะ executive ที่จะเห็น manager-->
-                    <td><a class="btn btn-sm btn-warning" href="#">Edit</a>
+                    <td><a class="btn btn-sm btn-warning " data-bs-toggle="modal" data-bs-target="#editRole">Edit</a>
                         <a class="btn btn-sm btn-danger" href="#">Delete</a>
                     </td>
                 </tr>
@@ -64,5 +64,5 @@
         <a href="{%url 'usermanage'%}" class="btn btn-warning mt-4" style="width : 30%">Registration request</a>
     </div> {% endcomment %}
 </div>
-
+{% include 'app/modalEditRole.html' %}
 {% endblock content %}

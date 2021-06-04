@@ -223,3 +223,7 @@ def staffList(request,pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/staffList.html",context)
+
+
+def resProfile(request):
+    return render(request, "app/resProfile.html")
