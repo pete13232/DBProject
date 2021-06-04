@@ -12,8 +12,8 @@ from .managers import CustomUserManager
 class Role(Group):
     class Meta:
         proxy = True
-        app_label = 'auth'
-        verbose_name = _('Role')
+        app_label = "auth"
+        verbose_name = _("Role")
 
 
 class Member(AbstractUser):
@@ -43,7 +43,9 @@ class Member(AbstractUser):
         ("O", "Other"),
     )
     gender = models.CharField(max_length=1, choices=GENDER, null=True)
-    picture = models.ImageField(upload_to="static/images/", blank=True, null=True)
+    picture = models.ImageField(
+        upload_to="static/images/", default="static/images/defaultProfile.png"
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
