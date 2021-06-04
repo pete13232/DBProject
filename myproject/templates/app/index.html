@@ -14,18 +14,8 @@
     {% include 'app/categoryCard.html' with category=category%}
     {% endfor %}
 </div>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="#">Data</a></li>
-            </ol>
-        </nav>
-    </div>
-</nav>
-<div class="row"  id = "Table-main">
+{% include 'components/breadcrumb.html' %}
+<div class="row" id="Table-main">
     {% for restaurant in restaurants %}
     {% include 'app/card3Col.html' with restaurant=restaurant %}
     {% endfor %}
