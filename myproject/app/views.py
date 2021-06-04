@@ -8,6 +8,7 @@ from .forms import editMenuForm
 
 from django.shortcuts import render
 from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 from restaurants.models import Category, Restaurant
 from restaurants.models import Category, Restaurant, Menu
 from users.models import Member
@@ -50,18 +51,18 @@ def signup(request):
 def review(request):
     return render(request, "app/review.html")
 
-
+@login_required(login_url='login')
 def userprofile(request, pk):
     profile = Member.objects.get(memberID=pk)
     queue = Queue.objects.get(memberID=pk)
     context = {"profile": profile, "queue": queue}
     return render(request, "app/userProfile.html", context)
 
-
+@login_required(login_url='login')
 def workerprofile(request):
     return render(request, "app/workerProfile.html")
 
-
+@login_required(login_url='login')
 def queueManagement(request):
 
     return render(request, "app/queueManagement.html")
