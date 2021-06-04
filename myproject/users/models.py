@@ -26,8 +26,6 @@ class Member(AbstractUser):
             return "M001"
         else:
             return "M" + str(n + 1).zfill(3)
-
-    roleID = models.ForeignKey(Role, null=True, blank=True, on_delete=models.SET_NULL)
     resID = models.ForeignKey(
         Restaurant, null=True, blank=True, on_delete=models.SET_NULL
     )
