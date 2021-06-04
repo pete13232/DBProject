@@ -18,4 +18,6 @@ urlpatterns = [
     path("requestRegistration", views.requestRegistration, name="requestRegistration"),
     path("foodList/<str:pk>", views.foodList, name="foodList"),
     path("category/<str:pk>", views.category, name="category"),
+    path("managerControl/<str:pk>", views.managerControl, name="managerControl"),
+    path("staffList", views.staffList, name="staffList"),
 ]
