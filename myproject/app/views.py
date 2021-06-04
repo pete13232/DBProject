@@ -96,8 +96,9 @@ def requestRegistration(request):
 def menu(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
-    form = editMenuForm()
-    context = {"menus": menus, "restaurant": restaurant, "form": form}
+    edit = editMenuForm()
+    create = createMenuForm()
+    context = {"menus": menus, "restaurant": restaurant, "edit": edit, "create": create}
     return render(request, "app/menu.html", context)
 
 
@@ -139,40 +140,6 @@ def editMenu(request, pk):
             return redirect("/menu/" + pk)
     else:
         form = editMenuForm()
-
-
-def createMenu(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    menus = Menu.objects.filter(resID=restaurant)
-    if request.method == "POST":
-        instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
-        form = createMenuForm(request.POST or None, instance=instance)
-        menu = request.POST["menuName"]
-        if form.is_valid():
-            form.save()
-            sweetify.success(
-                request,
-                icon="success",
-                title="DONE !",
-                text="Menu " + menu + " was updated",
-                timer=1500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-            )
-            return redirect("/foodList/" + pk)
-        else:
-            sweetify.success(
-                request,
-                icon="error",
-                title="Oops !",
-                text="Something went wrong! Try again",
-                timer=2500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-            )
-            return redirect("/foodList/" + pk)
-    else:
-        form = createMenuForm()
 
 
 def staffList(request):
