@@ -1,7 +1,6 @@
 {% extends 'app/base.html' %}
 {% load static %}
 {% block content %}
-<script src="{% static 'js/main.js' %}"></script>
 <div class="container mt-5">
 
     <h2>Member List</h2>
@@ -25,6 +24,19 @@
                 </tr>
             </thead>
             <tbody id="Table">
+                {% for  in  %}
+                <tr>
+                    <th scope="row">1</th>
+                    <td>
+                        <a href="#">Phineas Flyn</a>
+                    </td>
+                    <td>Staff</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editRole">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="#">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
                 <tr>
                     <th scope="row">1</th>
                     <td>
@@ -41,7 +53,8 @@
                     <td>
                         <a href="#">Art Chawanrut</a>
                     </td>
-                    <td>Manager</td> <!--เฉพาะ executive ที่จะเห็น manager-->
+                    <td>Manager</td>
+                    <!--เฉพาะ executive ที่จะเห็น manager-->
                     <td><a class="btn btn-sm btn-warning " data-bs-toggle="modal" data-bs-target="#editRole">Edit</a>
                         <a class="btn btn-sm btn-danger" href="#">Delete</a>
                     </td>
