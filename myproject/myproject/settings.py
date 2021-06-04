@@ -39,12 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_forms",
-    "crispy_bootstrap5",
     "app",
     "users",
     "restaurants",
     "queueSystem",
+    "sweetify",
 ]
 
 MIDDLEWARE = [
@@ -76,6 +75,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "myproject.wsgi.application"
+
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
+SWEETIFY_SWEETALERT_LIBRARY = "sweetalert2"
+
 
 AUTH_USER_MODEL = "users.Member"
 
@@ -155,7 +159,3 @@ STATICFILES_DIRS = (str(BASE_DIR.joinpath("static")),)
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
-CRISPY_TEMPLATE_PACK = "bootstrap5"

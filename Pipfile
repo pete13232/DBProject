@@ -5,12 +5,9 @@ name = "pypi"
 
 [packages]
 django = "*"
-python-decouple = "*"
-decouple = "*"
-psycopg2 = "*"
 mysqlclient = "*"
-crispy-bootstrap5 = "*"
 pillow = "*"
+sweetify = "*"
 
 [dev-packages]
 

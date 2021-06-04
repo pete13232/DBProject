@@ -6,8 +6,15 @@
 
 <div class="container mt-5">
     <div class="row">
-        <h2>Register request</h2>
-        <input class="form-control mt-4 mb-3" id="myInput" type="text" placeholder="Search..">
+        <div class="col-10">
+            <h2>Register request</h2>
+        </div>
+        <div class="col-2 text-end">
+            <a href = "{%url 'adminpage'%}" type="button" class="btn btn-secondary mt-1" >
+                <i class="bi bi-house-door-fill fa-lg"></i>
+            </a>
+        </div>
+        <input class="form-control mt-3 mb-3 ms-3" id="myInput" type="text" placeholder="Search.." style="width : 95%">
         <br>
         <div class="mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
             <table class="table">
@@ -24,7 +31,8 @@
                     <tr>
                         <th scope="row">1</th>
                         <td>
-                            <a href="#">Ferb123</a> {% comment %} (optional) สามารถดูกดไปดูข้อมูลส่วนบุคคล user ได้ {% endcomment %}
+                            <a href="#">Ferb123</a> {% comment %} (optional) สามารถดูกดไปดูข้อมูลส่วนบุคคล user ได้
+                            {% endcomment %}
                         </td>
                         <td>Company</td>
                         <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>

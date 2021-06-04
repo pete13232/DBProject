@@ -2,8 +2,7 @@ console.log("Hello World");
 
 const categoryTitle = document.querySelectorAll(".category-title");
 const allCategoryPosts = document.querySelectorAll(".All");
-console.log(categoryTitle);
-console.log(allCategoryPosts);
+
 for (let i = 0; i < categoryTitle.length; i++) {
   categoryTitle[i].addEventListener(
     "click",
@@ -31,8 +30,17 @@ function changeActivePosition(activeItem) {
 
 $(document).ready(function () {
   $("#myInput").on("keyup", function () {
+    // console.log("input1");
     var value = $(this).val().toLowerCase();
     $("#myTable tr").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+  });
+
+  $("#myInput2").on("keyup", function () {
+    // console.log("input2");
+    var value = $(this).val().toLowerCase();
+    $("#myTable2 tr").filter(function () {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
     });
   });

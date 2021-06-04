@@ -16,7 +16,7 @@
             <div class="col-md">
                 <div class="profile-work">
                     <p>Company / Restaurant</p>
-                    <a href="">Detail</a><br />
+                    <a href="{% url 'managerControl' %}">Detail</a><br />
                     <a href="{% static 'app/modalBusiness.html' %}" data-bs-toggle="modal" data-bs-target="#business">Start my own</a><br />
                 </div>
             </div>
@@ -30,7 +30,7 @@
                         Ferb Fletcher
                     </h5>
                     <h6>
-                        Worker, FAPORATTE Co.
+                        Manager, Bar-B-Q
                     </h6>
                     <p class="proile-rating"> Rating : <span>8.3/10</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -70,6 +70,22 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
+                            <label>Workplace</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Bar-B-Q</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Position</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Manager</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <label>Date of birth</label>
                         </div>
                         <div class="col-md-6">
@@ -98,14 +114,6 @@
                         </div>
                         <div class="col-md-6">
                             <p>123 456 7890</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Position</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>Staff</p>
                         </div>
                     </div>
                 </div>

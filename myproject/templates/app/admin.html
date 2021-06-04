@@ -2,8 +2,6 @@
 {% load static %}
 {% block content %}
 <script src="{% static 'js/main.js' %}"></script>
-
-
 <div class="container mt-5">
   <div class="row">
     <h2>Company / Store</h2>
@@ -184,8 +182,8 @@
       </table>
     </div>
   </div>
-  <div class="row">
-    <a href="{%url 'usermanage'%}" class = "btn btn-primary mt-4">Registration request</a>
+  <div class="row  justify-content-end">
+    <a href="{%url 'requestRegistration'%}" class="btn btn-warning mt-4" style="width : 30%">Registration request</a>
   </div>
 </div>
 
