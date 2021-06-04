@@ -217,8 +217,9 @@ def executiveControl(request, pk):  # ยังไม่ได้เชื่อ
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 def staffList(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
-    context = {"restaurant": restaurant}
-    return render(request, "app/staffList.html",context)
+    staff = Member.objects.get(resID=restaurant)
+    context = {"restaurant": restaurant, "staff": staff}
+    return render(request, "app/staffList.html", context)
 
 
 def resProfile(request):
