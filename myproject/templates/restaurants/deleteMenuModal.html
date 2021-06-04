@@ -1,0 +1,27 @@
+{% for menu in menus %}
+
+<div class="modal fade " id="DeletingMenuModal{{menu.menuID}}" tabindex="-1" aria-labelledby="exampleModalLabe3"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-header pb-0 border-0 align-self-center">
+                <h5 class="modal-title" id="exampleModalLabe3">Delete Confirmation</h5>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure you wat to delete Menu:{{menu.menuName}} ?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <form action="{% url 'deleteMenu' menu.menuID %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" id="name" name="resID" hidden value="{{menu.resID}}">
+                    <button type="submit" class="btn btn-danger">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}

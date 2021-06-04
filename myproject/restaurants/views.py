@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Menu
-from .forms import editMenuForm
+from .models import Menu, Restaurant
+from .forms import createMenuForm
 
 from django.shortcuts import render
 from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 from users.decorators import unauthenticated_user, allowed_users, admin_only
 from django.shortcuts import get_list_or_404, get_object_or_404
+
+import sweetify
 
 # Create your views here.
 def index(request):
@@ -14,18 +17,52 @@ def index(request):
     return render(request, "restaurants/resIndex.html")
 
 
-def editMenu(request):
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin", "manager"])
+def createMenu(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    menus = Menu.objects.filter(resID=restaurant)
     if request.method == "POST":
-        instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
-        form = editMenuForm(request.POST or None, instance=instance)
+        form = createMenuForm(request.POST or None, request.FILES)
+        menu = request.POST["menuName"]
         if form.is_valid():
             form.save()
-            messages.info(request, "Success")
-            return redirect("/foodlist/" + form.cleaned_data["resID"])
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Menu " + menu + " was created",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/menu/" + pk)
         else:
-            messages.info(request, form.errors)
-            return redirect("foodList" + "/R001")
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/menu/" + pk)
     else:
-        form = editMenuForm()
-    context = {"form": form}
-    return render(request, "restaurants/editMenuModal.html", context)
+        form = createMenuForm()
+
+
+def deleteMenu(request, pk):
+    menu = Menu.objects.get(menuID=pk)
+    if request.method == "POST":
+        menu.delete()
+        sweetify.success(
+            request,
+            icon="success",
+            title="Deleted!",
+            text="Menu " + menu.menuName + " was Delete",
+            timer=1500,
+            timerProgressBar=True,
+            allowOutsideClick=True,
+        )
+        return redirect("/menu/" + str(menu.resID))

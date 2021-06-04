@@ -33,11 +33,27 @@
                 </li>
             </ul>
         </div>
-        <div class="nav-item col-4">
-            <div class="card" style="width: 27rem">
+        <div class="nav-item col-4 d-flex justify-content-center">
+            <div class="card col-9">
                 <div class="card-body" style="padding: 16px 25px">
-                    <h5 class="card-title">Queue Number : -</h5>
-                    <class class="card-subtitle mb-2 text-muted">Status : No queue</class>
+                    <table class = "col-12 justify-content-between">
+                        <tr>
+                            <td>
+                                <h5 class="card-title d-flex justify-content-start">Queue Number : </h5>
+                            </td>
+                            <td >
+                                <h5 class="card-title d-flex justify-content-center">None</h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-start">Status :</h6>
+                            </td>
+                            <td >
+                                <h5 class="card-subtitle mb-2 text-muted d-flex justify-content-center"> No queue</h5>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -46,7 +62,7 @@
         {% if request.user.is_authenticated %}
         <table class="col-4 d-flex justify-content-end">
             <tr>
-                <td class="me-4 text-center text-white h5 pe-4">Welcome, {{request.user.first_name}}</td>
+                <td class="me-4 text-center text-white h5 pe-4">Welcome, {{request.user.fullName}}</td>
                 <td>
                     <a href="{%url 'users_logout'%}">
                         <button type="button" class="btn btn-primary btn-lg"

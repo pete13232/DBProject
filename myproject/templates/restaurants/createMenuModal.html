@@ -1,0 +1,58 @@
+<div class="modal fade " id="AddingMenuModal" tabindex="-1" aria-labelledby="exampleModalLabe2" aria-hidden="true">
+    <div class="modal-lg modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-header pb-0 border-0 align-self-center">
+                <h5 class="modal-title" id="exampleModalLabe2">Add Menu</h5>
+            </div>
+            <div class="modal-body">
+                <div class="card pe-3 ps-3 pb-3" style="">
+                    <form method="POST" action="{% url 'createMenu' restaurant.resID %} " enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="text" class="form-control" id="name" name="resID" value="{{restaurant.resID}}"
+                            hidden>
+                        <div class="row mb-3 mt-3">
+                            <label for="name" class="col-sm-2 col-form-label">Name :</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" name="menuName">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="desc" class="col-sm-2 col-form-label">Description :</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="desc" rows="3" name="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="price" class="col-sm-2 col-form-label">Price :</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="price" name="price">
+                            </div>
+                        </div>
+                        <div class="row mb-3 ps-3 justify-content-end">
+                            <div class="form-check col-sm-10 align-self-end">
+                                <input class="form-check-input" type="checkbox" name="avaliable" id="avaliable">
+                                <label class="form-check-label" for="avaliable">
+                                    Avaliable
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="image" class="col-sm-2 col-form-label">Image :</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="file" name="picture" id="image"> </div>
+                        </div>
+                        <div class="row mb-3 justify-content-end">
+                            <button type="button" class="btn btn-danger col-2 align-self-end me-4"
+                                data-bs-dismiss="modal">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-success col-2 align-self-end me-4">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

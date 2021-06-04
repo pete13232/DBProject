@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    # path("editMenu", views.editMenu, name="editMenu"),
+    path("createMenu/<str:pk>", views.createMenu, name="createMenu"),
+    path("deleteMenu/<str:pk>", views.deleteMenu, name="deleteMenu"),
 ]

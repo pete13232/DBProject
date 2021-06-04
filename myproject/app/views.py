@@ -5,9 +5,12 @@ from django.shortcuts import redirect, render, get_object_or_404
 
 from users.models import Member
 
+from django.shortcuts import render
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+from restaurants.models import Category, Restaurant, Menu
 from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
-from restaurants.models import Category, Restaurant, Menu
 from queueSystem.models import Queue
 
 from .forms import createQueueForm
@@ -63,20 +66,26 @@ def signup(request):
 def review(request):
     return render(request, "app/review.html")
 
-
+@login_required(login_url='users/login')
+@allowed_users(allowed_roles=['admin','member'])
 def userprofile(request, pk):
     profile = Member.objects.get(id=pk)
     queue = Queue.objects.get(memberID=pk)
     context = {"profile": profile, "queue": queue}
     return render(request, "app/userProfile.html", context)
 
+@login_required(login_url='users/login')
+@allowed_users(allowed_roles=['admin','executive','manager','staff'])
+def workerprofile(request):
+    return render(request, "app/workerProfile.html")
 
-def managerprofile(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    context = {"restaurant": restaurant}
-    return render(request, "app/managerProfile.html", context)
+@login_required(login_url='users/login')
+@allowed_users(allowed_roles=['admin','executive','manager'])
+def managerprofile(request):
+    return render(request, "app/managerProfile.html")
 
-
+@login_required(login_url='users/login')
+@allowed_users(allowed_roles=['admin','manager','staff'])
 def queueManagement(request):
 
     return render(request, "app/queueManagement.html")
@@ -86,29 +95,35 @@ def queueManagement(request):
 
 #     return render(request, "app/foodList.html")
 
-
+@login_required(login_url='users/login')
+@allowed_users(allowed_roles=['admin'])
 def admin(request):
     return render(request, "app/admin.html")
 
-
+@login_required(login_url='users/login')
+@allowed_users(allowed_roles=['admin'])
 def requestRegistration(request):
     return render(request, "app/requestRegistration.html")
 
-
-def foodList(request, pk):
+@login_required(login_url='users/login')
+@allowed_users(allowed_roles=['admin','member'])
+def menu(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
-    form = editMenuForm()
-    context = {"menus": menus, "restaurant": restaurant, "form": form}
-    return render(request, "app/foodList.html", context)
+    edit = editMenuForm()
+    create = createMenuForm()
+    context = {"menus": menus, "restaurant": restaurant, "edit": edit, "create": create}
+    return render(request, "app/menu.html", context)
 
-
+@login_required(login_url='users/login')
+@allowed_users(allowed_roles=['admin','manager'])
 def managerControl(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/managerControl.html", context)
 
-
+@login_required(login_url='users/login')
+@allowed_users(allowed_roles=['admin','manager','staff'])
 def editMenu(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
@@ -127,7 +142,7 @@ def editMenu(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/foodList/" + pk)
+            return redirect("/menu/" + pk)
         else:
             sweetify.success(
                 request,
@@ -138,11 +153,13 @@ def editMenu(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/foodList/" + pk)
+            return redirect("/menu/" + pk)
     else:
         form = editMenuForm()
 
 
+@login_required(login_url='users/login')
+@allowed_users(allowed_roles=['admin','executive','manager'])
 def createMenu(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
@@ -197,3 +214,7 @@ def executiveControl(request, pk): # ยังไม่ได้เชื่อ�
 
 
 
+@login_required(login_url='users/login')
+@allowed_users(allowed_roles=['admin','executive','manager'])
+def staffList(request):
+    return render(request, "app/staffList.html")

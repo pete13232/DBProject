@@ -1,0 +1,57 @@
+ {% load static %}
+
+ <div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header border-0 pb-0 align-self-center">
+         <h5 class="modal-title" id="exampleModalLabel">Edit Menu</h5>
+       </div>
+       <div class="modal-body">
+         <div class="card pe-3 ps-3 pb-3" style="">
+           <table class="table table-md">
+             <tr class="text-center">
+               <th>Menu</th>
+               <th>Edit</th>
+               <th>Remove</th>
+             </tr>
+             {% for menu in menus %}
+             <tr>
+               <td class="text-start ">{{menu.menuName}}</td>
+               <td class="text-center ">
+                 <a class="btn btn-sm btn-warning" data-bs-target="#editMenuModal{{menu.menuID}}" data-bs-toggle="modal"
+                   data-bs-dismiss="modal">
+                   Edit
+                 </a>
+               </td>
+               <td class="text-center ">
+                 <a class="btn btn-sm btn-danger" data-bs-target="#DeletingMenuModal{{menu.menuID}}"
+                   data-bs-toggle="modal" data-bs-dismiss="modal">
+                   Delete
+                 </a>
+               </td>
+             </tr>
+
+             {% endfor %}
+
+
+
+           </table>
+           <button class="btn btn-primary" type="button" data-bs-target="#AddingMenuModal" data-bs-toggle="modal"
+             data-bs-dismiss="modal">+</button>
+         </div>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+           Cancel
+         </button>
+         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Save</button>
+       </div>
+     </div>
+   </div>
+ </div>
+
+
+
+ {% include 'restaurants/createMenuModal.html'  %}
+ {% include 'restaurants/editMenuModal.html' %}
+ {% include 'restaurants/deleteMenuModal.html' %}
