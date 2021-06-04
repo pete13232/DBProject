@@ -7,6 +7,7 @@ from .models import Member, Role
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 from users.decorators import unauthenticated_user, allowed_users, admin_only
 
 from .forms import CreateMemberForm, MemberForm, CreateUserForm
@@ -37,7 +38,7 @@ def signup(request):
 
 
 # register page
-@unauthenticated_user
+
 def registerPage(request):
     form = CreateUserForm()
 
@@ -73,4 +74,5 @@ def loginPage(request):
 
 def logoutPage(request):
     logout(request)
-    return redirect("users_login")
+    return redirect("/")
+

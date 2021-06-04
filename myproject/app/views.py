@@ -5,9 +5,12 @@ from django.shortcuts import redirect, render, get_object_or_404
 
 from users.models import Member
 
+from django.shortcuts import render
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+from restaurants.models import Category, Restaurant, Menu
 from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
-from restaurants.models import Category, Restaurant, Menu
 from queueSystem.models import Queue
 
 from .forms import createQueueForm
@@ -63,18 +66,21 @@ def signup(request):
 def review(request):
     return render(request, "app/review.html")
 
-
+@login_required(login_url='login')
 def userprofile(request, pk):
     profile = Member.objects.get(id=pk)
     queue = Queue.objects.get(memberID=pk)
     context = {"profile": profile, "queue": queue}
     return render(request, "app/userProfile.html", context)
 
+@login_required(login_url='login')
+def workerprofile(request):
+    return render(request, "app/workerProfile.html")
 
 def managerprofile(request):
     return render(request, "app/managerProfile.html")
 
-
+@login_required(login_url='login')
 def queueManagement(request):
 
     return render(request, "app/queueManagement.html")

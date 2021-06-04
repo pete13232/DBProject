@@ -4,19 +4,16 @@ from django.utils import timezone
 from django.db import models
 from restaurants.models import Restaurant
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import Group
 
 from .managers import CustomUserManager
 
 # Create your models here.
-class Role(models.Model):
-    roleID = models.CharField(max_length=1, primary_key=True)
-    roleName = models.CharField(max_length=10)
-
+class Role(Group):
     class Meta:
-        db_table = "role"
-
-    def __str__(self):
-        return self.roleID
+        proxy = True
+        app_label = 'auth'
+        verbose_name = _('Role')
 
 
 class Member(AbstractUser):
