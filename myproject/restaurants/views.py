@@ -17,6 +17,8 @@ def index(request):
     return render(request, "restaurants/resIndex.html")
 
 
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin", "manager"])
 def createMenu(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
