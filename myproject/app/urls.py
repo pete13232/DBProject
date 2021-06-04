@@ -15,7 +15,8 @@ urlpatterns = [
     path("queueManagement", views.queueManagement, name="queueManagement"),
     # path("foodList", views.foodList, name="foodList"),
     path("admin", views.admin, name="adminpage"),
-    path("usermanage", views.usermanage, name="usermanage"),
+    path("requestRegistration", views.requestRegistration, name="requestRegistration"),
     path("foodList/<str:pk>", views.foodList, name="foodList"),
-    path("managerControl", views.managerControl, name="managerControl"),
+    path("managerControl/<str:pk>", views.managerControl, name="managerControl"),
+    path("stafflist", views.staffList, name="staffList"),
 ]

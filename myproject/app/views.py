@@ -52,11 +52,10 @@ def review(request):
 
 
 def userprofile(request, pk):
-    profile = Member.objects.get(memberID=pk)
+    profile = Member.objects.get(id=pk)
     queue = Queue.objects.get(memberID=pk)
     context = {"profile": profile, "queue": queue}
     return render(request, "app/userProfile.html", context)
-
 
 def managerprofile(request):
     return render(request, "app/managerProfile.html")
@@ -76,7 +75,7 @@ def admin(request):
     return render(request, "app/admin.html")
 
 
-def usermanage(request):
+def requestRegistration(request):
     return render(request, "app/requestRegistration.html")
 
 
@@ -87,8 +86,11 @@ def foodList(request, pk):
     context = {"menus": menus, "restaurant": restaurant, "form": form}
     return render(request, "app/foodList.html", context)
 
-def managerControl(request):
-    return render(request, "app/managerControl.html")
+
+def managerControl(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    context = {"restaurant": restaurant}
+    return render(request, "app/managerControl.html", context)
 
 def editMenu(request):
     if request.method == "POST":
@@ -104,3 +106,7 @@ def editMenu(request):
         form = editMenuForm()
     context = {"form": form}
     return render(request, "restaurants/editMenu.html", context)
+
+def staffList(request):
+    return render(request, "app/staffList.html")
+
