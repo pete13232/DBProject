@@ -17,5 +17,6 @@ urlpatterns = [
     path("admin", views.admin, name="adminpage"),
     path("requestRegistration", views.requestRegistration, name="requestRegistration"),
     path("foodList/<str:pk>", views.foodList, name="foodList"),
+    path("editMenu/<str:pk>", views.editMenu, name="editMenu"),
     path("category/<str:pk>", views.category, name="category"),
 ]
