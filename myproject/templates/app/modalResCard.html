@@ -14,13 +14,12 @@
              <img src="{{restaurant.profilePic.url}}" class="imgCollab" alt="Responsive image" />
            </div>
            <div class="card-body">
-             <form method="post">
+             <form method="POST" action="{% url 'createQueue' restaurant.resID %}">
                {% csrf_token %}
                <h2 class="card-title">ร้านอาหาร : {{restaurant.resName}}</h2>
                <p class="card-text">ประเภท : {{restaurant.categoryID.categoryName}}</p>
                <input type="text" id="resID" name="resID" value="{{restaurant.resID}}" hidden />
-               <input type="text" id="queueID" name="queueID" value="{{queue.getID}}" hidden />
-               <input type="text" id="memberID" name="memberID" value="{{member.id}}" hidden />
+               <input type="text" id="memberID" name="memberID" value="{{request.user.id}}" hidden />
                <div class="row">
                  <div class="col-6 mb-3">
                    <p class="card-text">เวลาที่จอง</p>
