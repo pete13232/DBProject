@@ -67,6 +67,7 @@ def userprofile(request, pk):
     context = {"profile": profile, "queue": queue}
     return render(request, "app/userProfile.html", context)
 
+
 def managerprofile(request):
     return render(request, "app/managerProfile.html")
 
@@ -102,6 +103,7 @@ def managerControl(request, pk):
     context = {"restaurant": restaurant}
     return render(request, "app/managerControl.html", context)
 
+
 def editMenu(request):
     if request.method == "POST":
         form = editMenuForm(request.POST)
@@ -117,6 +119,16 @@ def editMenu(request):
     context = {"form": form}
     return render(request, "restaurants/editMenu.html", context)
 
-def staffList(request):
-    return render(request, "app/staffList.html")
+
+def staffList(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    context = {"restaurant": restaurant}
+    return render(request, "app/staffList.html", context)
+
+def profileDetail(request,pk):
+    profile = Member.objects.get(id=pk)
+    queue = Queue.objects.get(memberID=pk)
+    context = {"profile": profile, "queue": queue}
+    return render(request, "app/profileDetail.html", context)
+
 

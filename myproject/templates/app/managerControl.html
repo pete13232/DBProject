@@ -1,7 +1,7 @@
 {% extends 'app/base.html' %}
 {% load static %}
 {% block content %}
-<script src="{% static 'js/main.js' %}"></script>
+{% comment %} <script src="{% static 'js/main.js' %}"></script> {% endcomment %}
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
@@ -17,7 +17,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Access</th>
                             <th scope="col">Leaving</th>
-                            <th scope="col">Waiting</th>
+                            <th scope="col">Queue</th>
                             <th scope="col">Point</th>
                         </tr>
                     </thead>
@@ -30,7 +30,7 @@
                             </td>
                             <td>15:00:12</td>
                             <td>16:00:37</td>
-                            <td>15 min</td>
+                            <td>A3210</td>
                             <td>+3</td>
                         </tr>
                         <tr>
@@ -52,62 +52,21 @@
             <h2>Queue</h2>
             <input class="form-control mt-4" id="myInput2" type="text" placeholder="Search..">
             <br>
-            <div class="row py-4">
-                <div class="col-md">
-                    <div class="card card-body">
-                        <table class="table table-md">
-                            <thead>
-                                <tr class="text-center">
-                                    <th scope="col">Queue</th>
-                                    <th scope="col">Date Created</th>
-                                    <th scope="col">Reserved Time</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Update</th>
-                                    <th scope="col">Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody id="myTable2">
-                                <tr class="text-center align-middle">
-                                    <th>A5621</th>
-                                    <td>26 January 2021 12:00:17</td>
-                                    <td class="text-danger">-</td>
-                                    <td>
-                                        <h5 class="card bg-warning text-danger my-0 py-1"> Calling </h5>
-                                    </td>
-                                    <td><a class="btn btn-sm btn-info" href="">Update</a></td>
-                                    <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
-                                </tr>
-                                <tr class="text-center align-middle">
-                                    <th>A5622</th>
-                                    <td>26 January 2021 14:00:54</td>
-                                    <td class="text-danger">26 January 2021 17:00:00</td>
-                                    <td>
-                                        <h5 class="card bg-primary text-white my-0 py-1"> Waiting </h5>
-                                    </td>
-                                    <td><a class="btn btn-sm btn-info" href="">Update</a></td>
-                                    <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
-                                </tr>
-                                <tr class="text-center ">
-                                    <th>A5623</th>
-                                    <td>26 January 2021 12:00:17</td>
-                                    <td class="text-danger">-</td>
-                                    <td>
-                                        <h5 class="card bg-primary text-white my-0 py-1"> Waiting </h5>
-                                    </td>
-                                    <td><a class="btn btn-sm btn-info" href="">Update</a></td>
-                                    <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
+                <div class="row py-4">
+                    <div class="col-md">
+                        {% include 'app/queue.html'%}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row justify-content-end">
-        <a href="{%url 'staffList'%}" class="btn btn-primary mt-4 me-2" style="width : 25%">Staff member</a>
+        <a href="{%url 'staffList' restaurant.resID%}" class="btn btn-primary mt-4 me-2" style="width : 25%">Staff
+            member</a>
         <!--รอใส่ navbar-->
-        <a href="{%url 'foodList' restaurant.resID %}" class="btn btn-secondary mt-4" style="width : 25%">Menu edit</a>
+        <a href="{%url 'foodList' restaurant.resID %}" class="btn btn-secondary mt-4" style="width : 25%">Menu
+            edit</a>
         <!--รอใส่ navbar-->
     </div>
 </div>

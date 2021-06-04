@@ -1,0 +1,97 @@
+<!--หน้าเหมือน userprofile ตัดบางส่วน รอแบ่ง role เสร็จ-->
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row border border-3 mt-5 pt-3">
+    <div class="col-4 mt-4">
+        <div class="row-md-4">
+            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%;">
+                <img src="{{profile.picture.url}}" class="card-img-top" alt="...">
+            </div>
+        </div>
+    </div>
+    <div class="col-8 ">
+        <div class="row">
+            <div class="col-9 mt-4">
+                <div class="profile-head">
+                    <h5>
+                        {{profile.fullName}}
+                    </h5>
+                    {{profile.roleID}}
+                    {% if profile.roleID == " 0 " %}
+                    <h6>
+                        User, Gold member
+                    </h6>
+                    {% endif %}
+
+                    <p class="proile-rating"> Point : <span>97/100</span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                                href="#profile" role="tab" aria-controls="profile" aria-selected="false">History</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-3 mt-4">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>{{profile.id}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.fullName}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Date of birth</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.dob}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Gender</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.showGender}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.email}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.fullPhone}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

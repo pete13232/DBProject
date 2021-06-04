@@ -19,5 +19,7 @@ urlpatterns = [
     path("foodList/<str:pk>", views.foodList, name="foodList"),
     path("category/<str:pk>", views.category, name="category"),
     path("managerControl/<str:pk>", views.managerControl, name="managerControl"),
-    path("staffList", views.staffList, name="staffList"),
+    path("staffList/<str:pk>", views.staffList, name="staffList"),
+    path("profileDetail/", views.profileDetail, name="profileDetail"),
+
 ]
