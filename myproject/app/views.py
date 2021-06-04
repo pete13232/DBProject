@@ -99,12 +99,12 @@ def requestRegistration(request):
     return render(request, "app/requestRegistration.html")
 
 
-def foodList(request, pk):
+def menu(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
     form = editMenuForm()
     context = {"menus": menus, "restaurant": restaurant, "form": form}
-    return render(request, "app/foodList.html", context)
+    return render(request, "app/menu.html", context)
 
 
 def managerControl(request, pk):
@@ -131,7 +131,7 @@ def editMenu(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/foodList/" + pk)
+            return redirect("/menu/" + pk)
         else:
             sweetify.success(
                 request,
@@ -142,7 +142,7 @@ def editMenu(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/foodList/" + pk)
+            return redirect("/menu/" + pk)
     else:
         form = editMenuForm()
 

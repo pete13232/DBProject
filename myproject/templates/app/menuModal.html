@@ -1,6 +1,6 @@
  {% load static %}
 
- <div class="modal fade" id="foodListmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header border-0 pb-0 align-self-center">
@@ -24,7 +24,7 @@
                  </a>
                </td>
                <td class="text-center ">
-                 <a class="btn btn-sm btn-danger" data-bs-target="#DeletingfoodListmodal" data-bs-toggle="modal"
+                 <a class="btn btn-sm btn-danger" data-bs-target="#DeletingMenuModal" data-bs-toggle="modal"
                    data-bs-dismiss="modal">
                    Delete
                  </a>
@@ -36,7 +36,7 @@
 
 
            </table>
-           <button class="btn btn-primary" type="button" data-bs-target="#AddingfoodListmodal" data-bs-toggle="modal"
+           <button class="btn btn-primary" type="button" data-bs-target="#AddingMenuModal" data-bs-toggle="modal"
              data-bs-dismiss="modal">+</button>
          </div>
        </div>
@@ -50,7 +50,7 @@
    </div>
  </div>
 
- <div class="modal fade " id="AddingfoodListmodal" tabindex="-1" aria-labelledby="exampleModalLabe2" aria-hidden="true">
+ <div class="modal fade " id="AddingMenuModal" tabindex="-1" aria-labelledby="exampleModalLabe2" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered">
      <div class="modal-content ">
        <div class="modal-header pb-0 border-0 align-self-center">
@@ -85,8 +85,7 @@
  </div>
 
 
- <div class="modal fade " id="DeletingfoodListmodal" tabindex="-1" aria-labelledby="exampleModalLabe3"
-   aria-hidden="true">
+ <div class="modal fade " id="DeletingMenuModal" tabindex="-1" aria-labelledby="exampleModalLabe3" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered">
      <div class="modal-content ">
        <div class="modal-header pb-0 border-0 align-self-center">
@@ -99,7 +98,7 @@
          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
            Cancel
          </button>
-         <a href="{% url 'foodList' restaurant.resID %}">
+         <a href="{% url 'menu' restaurant.resID %}">
            <button type="button" class="btn btn-danger">Confirm</button>
          </a>
        </div>

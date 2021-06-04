@@ -16,7 +16,7 @@ urlpatterns = [
     # path("foodList", views.foodList, name="foodList"),
     path("admin", views.admin, name="adminpage"),
     path("requestRegistration", views.requestRegistration, name="requestRegistration"),
-    path("foodList/<str:pk>", views.foodList, name="foodList"),
+    path("menu/<str:pk>", views.menu, name="menu"),
     path("editMenu/<str:pk>", views.editMenu, name="editMenu"),
     path("category/<str:pk>", views.category, name="category"),
 ]

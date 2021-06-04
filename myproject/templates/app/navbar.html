@@ -62,7 +62,11 @@
         {% if request.user.is_authenticated %}
         <table class="col-4 d-flex justify-content-end">
             <tr>
+<<<<<<< HEAD
                 <td class="me-4 text-center text-white h5 pe-4">Welcome, {{request.user.fName}}</td>
+=======
+                <td class="me-4 text-center text-white h5 pe-4">Welcome, {{request.user.fullName}}</td>
+>>>>>>> 20f3002837aab73dbb79d98563c0ddfa25a99b09
                 <td>
                     <a href="{%url 'users_logout'%}">
                         <button type="button" class="btn btn-primary btn-lg"

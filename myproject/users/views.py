@@ -1,3 +1,4 @@
+import email
 from django import forms
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
@@ -9,7 +10,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from users.decorators import unauthenticated_user, allowed_users, admin_only
 
-from .forms import MemberForm, CreateUserForm
+from .forms import CreateMemberForm, MemberForm, CreateUserForm
 
 # Create your views here.
 def index(request):
@@ -18,22 +19,20 @@ def index(request):
     return render(request, "users/usersIndex.html")
 
 
+@unauthenticated_user
 def signup(request):
-    if request.method == "POST":
-        form = MemberForm(request.POST)
-        if form.is_valid():
-            fName = form.cleaned_data["fName"]
-            lName = form.cleaned_data["lName"]
-            email = form.cleaned_data["email"]
-            password = form.cleaned_data["password"]
-            tel = form.cleaned_data["tel"]
-            gender = form.cleaned_data["gender"]
-            dob = form.cleaned_data["dob"]
 
+    if request.method == "POST":
+        form = CreateMemberForm(request.POST)
+        if form.is_valid():
             form.save()
-            return HttpResponseRedirect("signup")
+            user = request.POST["fName"] + " " + request.POST["lName"]
+            messages.success(request, "Account was created for " + user)
+            return redirect("users_login")
+        else:
+            messages.info(request, form.errors)
     else:
-        form = MemberForm()
+        form = CreateMemberForm()
     context = {"form": form}
     return render(request, "users/signup.html", context)
 
@@ -59,10 +58,10 @@ def registerPage(request):
 # login page
 def loginPage(request):
     if request.method == "POST":
-        username = request.POST.get("username")
+        email = request.POST.get("email")
         password = request.POST.get("password")
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
 
         if user is not None:
             login(request, user)

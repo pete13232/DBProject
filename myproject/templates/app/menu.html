@@ -2,8 +2,6 @@
 {% load static %}
 {% block content %}
 <div class="row  g-4 d-flex justify-content-left m-3">
-  {% for message in messages %}
-  <p id="messages">{{message}}</p>{% endfor %}
   {% for menu in menus %}
   <div class="col-3">
     <div class="card h-100">
@@ -32,13 +30,13 @@
 
   <div class="row  g-4 d-flex justify-content-end m-3">
     <div class="col-3">
-      <button type="button" class="btn btn-warning btn-lg me-3" data-bs-toggle="modal" data-bs-target="#foodListmodal">
+      <button type="button" class="btn btn-warning btn-lg me-3" data-bs-toggle="modal" data-bs-target="#menuModal">
         Edit
       </button>
       <button type="button" class="btn btn-primary btn-lg">Submit</button>
     </div>
   </div>
 </div>
-{% include 'app/foodListmodal.html' with menus=menus %}
+{% include 'app/menuModal.html' with menus=menus %}
 
 {% endblock content %}
