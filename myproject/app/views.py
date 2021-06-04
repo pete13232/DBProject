@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib import messages
 from django.contrib.auth.models import Group
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
+
 from users.models import Member
 
 from users.decorators import unauthenticated_user, allowed_users, admin_only
@@ -10,7 +11,9 @@ from restaurants.models import Category, Restaurant, Menu
 from queueSystem.models import Queue
 
 from .forms import createQueueForm
-from restaurants.forms import editMenuForm
+from restaurants.forms import editMenuForm, createMenuForm
+
+import sweetify
 
 # Create your views here.
 
@@ -68,8 +71,10 @@ def userprofile(request, pk):
     return render(request, "app/userProfile.html", context)
 
 
-def managerprofile(request):
-    return render(request, "app/managerProfile.html")
+def managerprofile(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    context = {"restaurant": restaurant}
+    return render(request, "app/managerProfile.html", context)
 
 
 def queueManagement(request):
@@ -92,7 +97,7 @@ def requestRegistration(request):
 
 def foodList(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
-    menus = Menu.objects.filter(resID=pk)
+    menus = Menu.objects.filter(resID=restaurant)
     form = editMenuForm()
     context = {"menus": menus, "restaurant": restaurant, "form": form}
     return render(request, "app/foodList.html", context)
@@ -104,31 +109,91 @@ def managerControl(request, pk):
     return render(request, "app/managerControl.html", context)
 
 
-def editMenu(request):
+def editMenu(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    menus = Menu.objects.filter(resID=restaurant)
     if request.method == "POST":
-        form = editMenuForm(request.POST)
+        instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
+        form = editMenuForm(request.POST or None, instance=instance)
+        menu = request.POST["menuName"]
         if form.is_valid():
             form.save()
-            messages.info(request, "Success")
-            redirect("foodList")
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Menu " + menu + " was updated",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/foodList/" + pk)
         else:
-            messages.info(request, form.errors)
-            redirect("foodList")
+            sweetify.success(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/foodList/" + pk)
     else:
         form = editMenuForm()
-    context = {"form": form}
-    return render(request, "restaurants/editMenu.html", context)
 
 
-def staffList(request, pk):
+def createMenu(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    menus = Menu.objects.filter(resID=restaurant)
+    if request.method == "POST":
+        instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
+        form = createMenuForm(request.POST or None, instance=instance)
+        menu = request.POST["menuName"]
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Menu " + menu + " was updated",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/foodList/" + pk)
+        else:
+            sweetify.success(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/foodList/" + pk)
+    else:
+        form = createMenuForm()
+
+
+def staffList(request, pk): # check ให้หน่อย
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/staffList.html", context)
 
-def profileDetail(request,pk):
+
+def profileDetail(request, pk): # check ให้หน่อย
     profile = Member.objects.get(id=pk)
     queue = Queue.objects.get(memberID=pk)
     context = {"profile": profile, "queue": queue}
     return render(request, "app/profileDetail.html", context)
+
+
+def executiveControl(request, pk): # ยังไม่ได้เชื่อมผ่าน company
+    restaurant = Restaurant.objects.get(resID=pk)
+    context = {"restaurant": restaurant}
+    return render(request, "app/executiveControl.html",context)
+
 
 

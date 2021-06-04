@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-6">
             <h2>Customer Log</h2>
-            <input class="form-control mt-4 mb-3" id="myInput" type="text" placeholder="Search..">
+            <input class="form-control mt-4 mb-3" id="Search" type="text" placeholder="Search..">
             <br>
             <div class="mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
                 <table class="table">
@@ -21,7 +21,7 @@
                             <th scope="col">Point</th>
                         </tr>
                     </thead>
-                    <tbody id="myTable">
+                    <tbody id="Table">
                         <tr>
                             <th scope="row">1</th>
                             <td scope="row">12 Febuary 2020 </td>
@@ -50,14 +50,10 @@
         </div>
         <div class="col-md-6">
             <h2>Queue</h2>
-            <input class="form-control mt-4" id="myInput2" type="text" placeholder="Search..">
+            <input class="form-control mt-4" id="queueSearch" type="text" placeholder="Search..">
             <br>
             <div class="mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
-                <div class="row py-4">
-                    <div class="col-md">
-                        {% include 'app/queue.html'%}
-                    </div>
-                </div>
+                {% include 'app/queue.html'%}
             </div>
         </div>
     </div>

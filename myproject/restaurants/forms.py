@@ -15,3 +15,9 @@ class editMenuForm(forms.ModelForm):
     class Meta:
         model = Menu
         fields = "__all__"
+
+
+class createMenuForm(forms.ModelForm):
+    class Meta:
+        model = Menu
+        fields = "__all__"

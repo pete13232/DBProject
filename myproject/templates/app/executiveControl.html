@@ -1,0 +1,47 @@
+ {% extends 'app/base.html' %}
+ {% load static %}
+ {% block content %}
+ <div class="row mt-5">
+    <div class="d-flex">
+     <h2>Branch</h2>
+     <a href="{%url 'staffList' restaurant.resID%}" class = "btn btn-primary" style = "margin-left : 77%">Member</a>
+     <a href="{%url 'foodList' restaurant.resID %}" class = "btn btn-secondary ms-2">Menu edit</a>
+    </div>
+     <input class="form-control mt-4 mb-3" id="Search" type="text" placeholder="Search..">
+     <br>
+     <div class="mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
+         <table class="table">
+             <thead>
+                 <tr>
+                     <th scope="col">#</th>
+                     <th scope="col">Restaurant</th>
+                     <th scope="col">Address</th>
+                 </tr>
+             </thead>
+             <tbody id="Table">
+                 <tr>
+                     <th scope="row">1</th>
+                     <td>
+                         <a href="#">AAA</a>
+                     </td>
+                     <td>123 บางมด</td>
+                 </tr>
+                 <tr>
+                     <th scope="row">2</th>
+                     <td>
+                         <a href="#">BBB</a>
+                     </td>
+                     <td>123 บางมด</td>
+                 </tr>
+                 <tr>
+                     <th scope="row">3</th>
+                     <td>
+                         <a href="#">CCC</a>
+                     </td>
+                     <td>123 บางมด</td>
+                 </tr>
+             </tbody>
+         </table>
+     </div>
+ </div>
+ {% endblock content %}

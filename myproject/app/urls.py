@@ -11,15 +11,17 @@ urlpatterns = [
     path("signup", views.signup, name="signup"),
     path("review", views.review, name="review"),
     path("userprofile/<str:pk>", views.userprofile, name="userprofile"),
-    path("manager", views.managerprofile, name="workerprofile"),
+    path("manager/<str:pk>", views.managerprofile, name="workerprofile"),
     path("queueManagement", views.queueManagement, name="queueManagement"),
     # path("foodList", views.foodList, name="foodList"),
     path("admin", views.admin, name="adminpage"),
     path("requestRegistration", views.requestRegistration, name="requestRegistration"),
     path("foodList/<str:pk>", views.foodList, name="foodList"),
+    path("editMenu/<str:pk>", views.editMenu, name="editMenu"),
     path("category/<str:pk>", views.category, name="category"),
     path("managerControl/<str:pk>", views.managerControl, name="managerControl"),
     path("staffList/<str:pk>", views.staffList, name="staffList"),
     path("profileDetail/", views.profileDetail, name="profileDetail"),
+    path("executiveControl/<str:pk>", views.executiveControl, name="executiveControl"),
 
 ]

@@ -6,8 +6,9 @@
 
     <h2>Member List</h2>
     <div class="d-flex">
-        <input class="form-control mt-3 mb-3 ms-3" id="myInput" type="text" placeholder="Search.." style="width : 50%">
-        <a href="{%url 'managerControl' restaurant.resID%}" type="button" class="btn btn-secondary mt-3" style="height: 10%; margin-left : 1%">
+        <input class="form-control mt-3 mb-3 ms-3" id="Search" type="text" placeholder="Search.." style="width : 50%">
+        <a href="{%url 'executiveControl' restaurant.resID%}" type="button" class="btn btn-secondary mt-3"
+            style="height: 10%; margin-left : 1%">
             <i class="bi bi-house-door-fill fa-lg"></i>
         </a>
     </div>
@@ -23,14 +24,27 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody id="myTable">
+            <tbody id="Table">
                 <tr>
                     <th scope="row">1</th>
                     <td>
                         <a href="#">Phineas Flyn</a>
                     </td>
                     <td>Staff</td>
-                    <td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" href="#">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="#">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>
+                        <a href="#">Art Chawanrut</a>
+                    </td>
+                    <td>Manager</td> <!--เฉพาะ executive ที่จะเห็น manager-->
+                    <td><a class="btn btn-sm btn-warning" href="#">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="#">Delete</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
