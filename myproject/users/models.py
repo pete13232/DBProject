@@ -35,9 +35,11 @@ class Member(AbstractUser):
         Restaurant, null=True, blank=True, on_delete=models.SET_NULL
     )
     username = None
+    first_name = None
+    last_name = None
     fName = models.CharField(max_length=30)
     lName = models.CharField(max_length=30)
-    email = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(max_length=50, unique=True)
     tel = models.CharField(max_length=10)
     dob = models.DateField(null=True)
     GENDER = (
@@ -69,5 +71,3 @@ class Member(AbstractUser):
             return "Female"
         else:
             return "Other"
-
-

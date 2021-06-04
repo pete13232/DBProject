@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.forms import widgets
 from django.forms.widgets import (
     DateInput,
     EmailInput,
@@ -134,3 +135,59 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
+
+
+class CreateMemberForm(UserCreationForm):
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"class": "form-control"}),
+    )
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"class": "form-control"}),
+    )
+
+    class Meta:
+        model = Member
+        fields = (
+            "email",
+            "fName",
+            "lName",
+            "gender",
+            "tel",
+            "dob",
+        )
+        widgets = {
+            "fName": TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "xxxxxx",
+                }
+            ),
+            "lName": TextInput(
+                attrs={"class": "form-control", "placeholder": "xxxxxx"}
+            ),
+            "email": EmailInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "superYenYen@getAdatabase.com",
+                }
+            ),
+            "tel": TextInput(
+                attrs={
+                    "type": "tel",
+                    "class": "form-control",
+                    "placeholder": "0864858875",
+                    "pattern": "^0[0-9]{9}",
+                }
+            ),
+            "gender": Select(
+                attrs={
+                    "class": "form-select",
+                },
+            ),
+            "dob": DateInput(
+                attrs={
+                    "type": "date",
+                    "class": "form-control",
+                }
+            ),
+        }

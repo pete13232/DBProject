@@ -1,105 +1,64 @@
+{% extends 'app/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
-        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <title>Signup</title>
-
-</head>
-
-<body>
-    <div class="container">
-        {% for message in messages  %}
-        <div class="alert alert-danger" role="alert">
-            <h1>
-                {{message}}
-            </h1>
+{% block content %}
+{% for message in messages  %}
+{% endfor %}
+<div class="card mt-4 rounded">
+    <h5 class="card-header">Registeration</h5>
+    <form id="userForm" class="mt-2 p-2" action="" method="post">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <label for="fName" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-5">
+                {{form.fName}}
+                <div id="fName" class="form-text">firstname</div>
+            </div>
+            <div class="col-sm-5">
+                {{form.lName}}
+                <div id="lName" class="form-text">lastname</div>
+            </div>
         </div>
-        {% endfor %}
-        <div class="card mt-4 rounded">
-            <h5 class="card-header">Registeration</h5>
-            <form id="userForm" class="mt-2 p-2" action="" method="post">
-                {% csrf_token %}
-                <div class="row mb-3">
-                    <label for="fName" class="col-sm-2 col-form-label">Name</label>
-                    <div class="col-sm-5">
-                        {{form.fName}}
-                        <div id="fName" class="form-text">firstname</div>
-                    </div>
-                    <div class="col-sm-5">
-                        {{form.lName}}
-                        <div id="lName" class="form-text">lastname</div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="password" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-5">
-                        {{form.password}}
-                        <div id="Password" class="form-text">Password</div>
-                    </div>
-                    <div class="col-sm-5">
-                        {{form.confirmPassword}}
-                        <div id="ConfirmPassword" class="form-text">ConfirmPassword</div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="email" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-10">
-                        {{form.email}}
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="tel" class="col-sm-2 col-form-label">tel</label>
-                    <div class="col-sm-10">
-                        {{form.tel}}
-                        <div id="tel" class="form-text">telephone number</div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="gender" class="col-sm-2 col-form-label">Gender</label>
-                    <div class="col-sm-10">
-                        {{form.gender}}
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="dob" class="col-sm-2 col-form-label">DOB</label>
-                    <div class="col-sm-10">
-                        {{form.dob}}
-                    </div>
-                </div>
-                {% if form.errors %}
-                {% for field in form %}
-                {% for error in field.errors %}
-                <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-                {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-                {% endfor %}
-                {% endif %}
-                <div class="row mb-3 justify-content-end">
-                    <button type="cancel" class="btn btn-danger col-2 align-self-end me-4">Cancel</button>
-                    <button type="submit" class="btn btn-primary col-2 align-self-end me-4 ">Register</button>
-                </div>
-            </form>
+        <div class="row mb-3">
+            <label for="password1" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-5">
+                {{form.password1}}
+                <div id="Password1" class="form-text">Password</div>
+            </div>
+            <div class="col-sm-5">
+                {{form.password2}}
+                <div id="password2" class="form-text">Confirm password</div>
+            </div>
         </div>
-    </div>
-</body>
-<script src="{% static 'js/main.js' %}"></script>
+        <div class="row mb-3">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                {{form.email}}
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="tel" class="col-sm-2 col-form-label">Telephone number</label>
+            <div class="col-sm-10">
+                {{form.tel}}
+                <div id="tel" class="form-text">telephone number</div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+            <div class="col-sm-10">
+                {{form.gender}}
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="dob" class="col-sm-2 col-form-label">Date of birth</label>
+            <div class="col-sm-10">
+                {{form.dob}}
+            </div>
+        </div>
 
-</html>
+        <div class="row mb-3 justify-content-end">
+            <button type="cancel" class="btn btn-danger col-2 align-self-end me-4">Cancel</button>
+            <button type="submit" class="btn btn-primary col-2 align-self-end me-4 ">Register</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
