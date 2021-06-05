@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect, render, get_object_or_404
 
-from users.models import Member, Role
+from users.models import Member
 
 from django.shortcuts import render
 from django.contrib.auth.models import Group
@@ -13,7 +13,7 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
 from queueSystem.models import Queue
 
-from .forms import editRoleForm, deleteStaffForm, changeProfileForm
+from .forms import  deleteStaffForm, changeProfileForm
 from restaurants.forms import editMenuForm, createMenuForm
 from queueSystem.forms import createQueueForm
 import sweetify
