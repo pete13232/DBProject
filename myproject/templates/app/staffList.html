@@ -6,7 +6,7 @@
     <h2>Member List</h2>
     <div class="d-flex">
         <input class="form-control mt-3 mb-3 ms-3" id="Search" type="text" placeholder="Search.." style="width : 50%">
-        <a href="{%url 'executiveControl' restaurant.resID%}" type="button" class="btn btn-secondary mt-3"
+        <a href="{%url 'executiveControl' pk %}" type="button" class="btn btn-secondary mt-3"
             style="height: 10%; margin-left : 1%">
             <i class="bi bi-house-door-fill fa-lg"></i>
         </a>
@@ -32,15 +32,16 @@
                     </td>
                     <td>{{staff.groups.get.name}}</td>
                     <td>
-                        
-                            <a class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                data-bs-target="#editRole{{staff.id}}">Edit</a>
-                            <a class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#editRole{{staff.id}}">Delete</a>
+
+                        <a class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                            data-bs-target="#editRole{{staff.id}}">Edit</a>
+                        <a class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteStaff{{staff.id}}">Delete</a>
                         </form>
                     </td>
                 </tr>
-                <tr>
+                {% endfor %}
+                {% comment %} <tr>
                     <th scope="row">1</th>
                     <td>
                         <a href="{% url 'staffProfile' restaurant.resID %}">Ferb Fletcher</a>
@@ -50,7 +51,7 @@
                         <a class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editRole">Edit</a>
                         <a class="btn btn-sm btn-danger" href="#">Delete</a>
                     </td>
-                </tr>
+                </tr> {% endcomment %}
                 <tr>
                     <th scope="row">2</th>
                     <td>
@@ -81,4 +82,5 @@
     </div> {% endcomment %}
 </div>
 {% include 'app/modalEditRole.html' %}
+{% include 'app/modalDeleteStaff.html' %}
 {% endblock content %}

@@ -6,9 +6,12 @@
         <div class="row-md-4">
             <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%;">
                 <img src="{{profile.profile.url}}" class="card-img-top" alt="...">
-                <div class="d-grid">
-                    <label for="files" class="btn btn-primary rounded-0">Change Photo</label>
-                    <input id="files" style="visibility:hidden; height:0" type="file">
+                <div class="d-block">
+                    <form action="changeProfile" method="POST" style="height: 38px">
+                        <label for="files" class="btn btn-primary rounded-0 d-block">Change Photo</label>
+                        <input name="id" hidden type="text" value="{{profile.id}}">
+                        <input id="files" style="visibility:hidden; height:0;" alt="submit" type="file">
+                    </form>
                 </div>
             </div>
         </div>

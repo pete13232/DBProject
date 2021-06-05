@@ -13,7 +13,7 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
 from queueSystem.models import Queue
 
-from .forms import editRoleForm
+from .forms import editRoleForm, deleteStaffForm, changeProfileForm
 from restaurants.forms import editMenuForm, createMenuForm
 from queueSystem.forms import createQueueForm
 import sweetify
@@ -61,8 +61,42 @@ def review(request):
 def userprofile(request, pk):
     profile = Member.objects.get(id=pk)
     # queue = Queue.objects.get(memberID=profile)
-    context = {"profile": profile}
+    form = changeProfileForm()
+    context = {"profile": profile, "form": form}
     return render(request, "app/userProfile.html", context)
+
+
+def changeProfile(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    menus = Menu.objects.filter(resID=restaurant)
+    if request.method == "POST":
+        instance = get_object_or_404(Member, id=request.POST["id"])
+        form = changeProfileForm(request.POST or None, instance=instance)
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Profile changed",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/userprofile/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/userprofile/" + pk)
+    else:
+        form = changeProfileForm()
 
 
 @login_required(login_url="users/login")
@@ -90,11 +124,6 @@ def managerProfile(request, pk):
 def queueManagement(request):
 
     return render(request, "app/queueManagement.html")
-
-
-# def foodList(request):
-
-#     return render(request, "app/foodList.html")
 
 
 @login_required(login_url="users/login")
@@ -150,7 +179,7 @@ def editMenu(request, pk):
             )
             return redirect("/menu/" + pk)
         else:
-            sweetify.success(
+            sweetify.error(
                 request,
                 icon="error",
                 title="Oops !",
@@ -208,19 +237,30 @@ def profileDetail(request, pk):  # check ให้หน่อย
 
 
 def executiveControl(request, pk):  # ยังไม่ได้เชื่อมผ่าน company
-    restaurant = Restaurant.objects.get(resID=pk)
-    context = {"restaurant": restaurant}
+    restaurants = Restaurant.objects.filter(companyID=pk)
+    context = {"restaurants": restaurants}
     return render(request, "app/executiveControl.html", context)
 
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 def staffList(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    staffs = Member.objects.filter(resID=pk)
-    roles = Role.objects.all()
+
+    if pk[0] == "C":
+        restaurant = Restaurant.objects.filter(companyID=pk)
+        print(restaurant)
+        staffs = Member.objects.filter(resID__in=restaurant)
+    elif pk[0] == "R":
+        restaurant = Restaurant.objects.filter(resID=pk)
+        print(restaurant)
+        staffs = Member.objects.filter(resID__in=restaurant)
+
     form = editRoleForm()
-    context = {"restaurant": restaurant, "staffs": staffs, "form": form, "roles": roles}
+    context = {
+        "staffs": staffs,
+        "form": form,
+        "pk": pk,
+    }
     return render(request, "app/staffList.html", context)
 
 
@@ -256,6 +296,40 @@ def editRole(request, pk):
             return redirect("/staffList/" + pk)
     else:
         form = editRoleForm()
+
+
+def deleteStaff(request, pk):
+    if request.method == "POST":
+        id = request.POST["id"]
+        instance = get_object_or_404(Member, id=id)
+        form = deleteStaffForm(request.POST or None, instance=instance)
+        # name = request.POST["fullName"]
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="Deleted!",
+                text="Staff " + str(instance.fullName()) + " was Delete",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/staffList/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            print(form)
+            return redirect("/staffList/" + pk)
+    else:
+        form = deleteStaffForm()
 
 
 def resProfile(request):

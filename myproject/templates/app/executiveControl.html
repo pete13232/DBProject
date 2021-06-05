@@ -2,11 +2,11 @@
  {% load static %}
  {% block content %}
  <div class="row mt-5">
-    <div class="d-flex">
-     <h2>Branch</h2>
-     <a href="{%url 'staffList' restaurant.resID%}" class = "btn btn-primary" style = "margin-left : 77%">Member</a>
-     <a href="{%url 'menu' restaurant.resID %}" class = "btn btn-secondary ms-2">Menu edit</a>
-    </div>
+     <div class="d-flex">
+         <h2>Branch</h2>
+         {% comment %} <a href="{%url 'staffList' pk %}" class="btn btn-primary" style="margin-left : 77%">Member</a>
+         <a href="{%url 'menu' pk %}" class="btn btn-secondary ms-2">Menu edit</a> {% endcomment %}
+     </div>
      <input class="form-control mt-4 mb-3" id="Search" type="text" placeholder="Search..">
      <br>
      <div class="mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
@@ -16,16 +16,26 @@
                      <th scope="col">#</th>
                      <th scope="col">Restaurant</th>
                      <th scope="col">Address</th>
+                     <th scope="col"></th>
                  </tr>
              </thead>
              <tbody id="Table">
+                 {% for restaurant in restaurants %}
                  <tr>
                      <th scope="row">1</th>
                      <td>
-                         <a href="{% url 'resProfile' restaurant.resID %}">Shabushi</a>
+                         <a href="{% url 'resProfile' restaurant.resID %}" class="text-decoration-none text-reset">
+                             {{restaurant.resName}}
+                         </a>
                      </td>
-                     <td>123 บางมด</td>
+                     <td>{{restaurant.fullAddress}}</td>
+                     <td><a class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                             data-bs-target="#editRole{{staff.id}}">Edit</a>
+                         <a class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                             data-bs-target="#deleteStaff{{staff.id}}">Delete</a>
+                     </td>
                  </tr>
+                 {% endfor %}
                  <tr>
                      <th scope="row">2</th>
                      <td>

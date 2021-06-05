@@ -1,0 +1,27 @@
+{% for staff in staffs %}
+<!-- Modal -->
+<div class="modal fade" id="deleteStaff{{staff.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-header pb-0 border-0 align-self-center">
+                <h5 class="modal-title" id="exampleModalLabe3">Delete Confirmation</h5>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure you wat to delete Menu?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <form action="{% url 'deleteStaff' pk %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" id="name" name="id" hidden value="{{staff.id}}">
+                    <input type="text" class="form-control" id="name" name="resID" hidden value="">
+                    <button type="submit" class="btn btn-danger">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

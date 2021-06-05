@@ -3,10 +3,7 @@
     <div class="col-xl-8 ">
         <div class="card p-3" style="">
             <div class="row ">
-                <button id="" class="" onclick="showPosition({{restaurant.location}})">Test</button>
-                <div id="mapholder">
-                    <img id="mapholder" src="" class="imgBg " alt="Responsive image">
-                </div>
+                {% comment %} <div id="map"></div> {% endcomment %}
             </div>
             <div class="card-body">
                 <h4 class="card-title">
@@ -40,3 +37,16 @@
     </div>
 </div>
 <script src="{% static 'js/map.js' %}"></script>
+<script>
+    $(document).ready(() => {
+
+        var map = new longdo.Map({
+            placeholder: document.getElementById('map')
+        });
+        var marker = new longdo.Marker({
+            lon: 100.56,
+            lat: 13.74
+        });
+        map.Overlays.add(marker);
+    })
+</script>

@@ -11,7 +11,7 @@
 
                 <h1>eiei</h1>
                 <div class="card p-3 " style="">
-                    <form action="{% url 'editRole' restaurant.resID %}" method="POST">
+                    <form action="{% url 'editRole' pk %}" method="POST">
                         {% csrf_token %}
                         {{form.as_table}}
                         {% comment %} <input type="text" value="{{staff.id}}" name="id" class="btn btn-primary" hidden>
