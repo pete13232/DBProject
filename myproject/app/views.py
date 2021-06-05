@@ -71,15 +71,15 @@ def workerprofile(request):
     return render(request, "app/workerProfile.html")
 
 
-@login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "executive", "manager"])
-def managerprofile(request):
-    return render(request, "app/managerProfile.html")
+# @login_required(login_url="users/login")
+# @allowed_users(allowed_roles=["admin", "executive", "manager"])
+# def managerprofile(request):
+#     return render(request, "app/managerProfile.html")
 
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
-def managerprofile(request, pk):
+def managerProfile(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/managerProfile.html", context)
@@ -221,5 +221,24 @@ def staffList(request, pk):
     return render(request, "app/staffList.html",context)
 
 
-def resProfile(request):
-    return render(request, "app/resProfile.html")
+
+def staffProfile(request,pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    context = {"restaurant": restaurant}
+    return render(request, "app/staffProfile.html", context)
+
+def executiveProfile(request,pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    context = {"restaurant": restaurant}
+    return render(request, "app/executiveProfile.html",context)
+
+def resProfile(request,pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    context = {"restaurant": restaurant}
+    return render(request, "app/resProfile.html", context)
+
+def companyProfile(request,pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    context = {"restaurant": restaurant}
+    return render(request, "app/companyProfile.html", context)
+
