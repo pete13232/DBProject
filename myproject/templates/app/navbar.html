@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    {% if user.is_authenticated and user.role != "AD"  %}
+    {% if request.user.is_authenticated and user.role != "AD"  %}
     <div class="nav-item col-4 d-flex justify-content-center">
         <div class="card col-9">
             <div class="card-body" style="padding: 16px 25px">
