@@ -266,11 +266,11 @@ def staffList(request, pk):
 
 
 def editRole(request, pk):
+
     if request.method == "POST":
-        instance = get_object_or_404(Member, groups=request.POST["groups"])
-        member = Member.objects.update()
+        instance = get_object_or_404(Member, id=request.POST["id"])
         form = editRoleForm(request.POST or None, instance=instance)
-        # name = request.POST["fullName"]
+        print(instance)
         if form.is_valid():
             form.save()
             sweetify.success(
@@ -293,10 +293,7 @@ def editRole(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            print(form)
             return redirect("/staffList/" + pk)
-    else:
-        form = editRoleForm()
 
 
 def deleteStaff(request, pk):

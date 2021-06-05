@@ -8,6 +8,7 @@ django = "*"
 mysqlclient = "*"
 pillow = "*"
 sweetify = "*"
+django-imagekit = "*"
 
 [dev-packages]
 

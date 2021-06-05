@@ -31,19 +31,21 @@
                         <a href="{% url 'userprofile' staff.id %}">{{staff.fullName}}</a>
                     </td>
                     <td>{{staff.role}}</td>
-                    <td>
-                        <form action="" method="post">
-                            <select class="form-select d-inlineblock" style="width:150px" aria-label="Default select example">
-                                <option selected>{{staff.role}}</option>
+                    <td style="width: 300px;">
+                        <form action="{% url 'editRole' staff.resID %}" method="post" class="d-flex ">
+                            {% csrf_token %}
+                            <input type="text" name="id" value="{{staff.id}}" hidden>
+                            <select class="form-select d-inline me-2" style="width: 150px;" name=role>
+                                <option selected hidden>{{staff.role}}</option>
+                                <option value="manager">executive</option>
                                 <option value="manager">manager</option>
                                 <option value="staff">staff</option>
                             </select>
-                            <a class="btn btn-sm btn-warning d-blcok" data-bs-toggle="modal"
-                                data-bs-target="#editRole{{staff.id}}">Change</a>
+                            <button class="btn btn-warning d-blcok" type="submit">Change</button>
                         </form>
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                        <a class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#deleteStaff{{staff.id}}">Delete</a>
                     </td>
                 </tr>

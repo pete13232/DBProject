@@ -1,6 +1,6 @@
-from re import split
-from typing import Text
 from django.db import models
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 # Create your models here.
 class Category(models.Model):
@@ -47,11 +47,15 @@ class Company(models.Model):
     postalCode = models.CharField(max_length=5)
     email = models.CharField(max_length=50)
     tel = models.CharField(max_length=10)
-    profilePic = models.ImageField(
-        upload_to="static/images/", default="static/images/defaultProfile.png"
+    profilePic = ProcessedImageField(
+        upload_to="static/images/%Y/%m/%d",
+        format="PNG",
+        options={"quality": 60},
     )
-    coverPic = models.ImageField(
-        upload_to="static/images/", default="static/images/defaultProfile.png"
+    coverPic = ProcessedImageField(
+        upload_to="static/images/%Y/%m/%d",
+        format="PNG",
+        options={"quality": 60},
     )
 
     def __str__(self):
