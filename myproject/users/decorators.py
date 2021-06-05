@@ -33,10 +33,10 @@ def admin_only(view_func):
 		if request.user.role != None:
 			role = request.user.role
 
-		if role != 'AD':
+		if role != 'admin':
 			return redirect('/')
 
-		if role == 'AD':
+		if role == 'admin':
 			return view_func(request, *args, **kwargs)
 
 	return wrapper_function

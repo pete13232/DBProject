@@ -30,16 +30,15 @@
                     <td>
                         <a href="{% url 'userprofile' staff.id %}">{{staff.fullName}}</a>
                     </td>
-                    <td><select class="form-select" aria-label="Default select example">
-                            <option selected>O{{staff.role}}</option>
-                            <option value="1">member</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select></td>
+                    <td>{{staff.role}}</td>
                     <td>
                         <form action="" method="post">
-                            {{form.role}}
-                            <a class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                            <select class="form-select d-inlineblock" style="width:150px" aria-label="Default select example">
+                                <option selected>{{staff.role}}</option>
+                                <option value="manager">manager</option>
+                                <option value="staff">staff</option>
+                            </select>
+                            <a class="btn btn-sm btn-warning d-blcok" data-bs-toggle="modal"
                                 data-bs-target="#editRole{{staff.id}}">Change</a>
                         </form>
                     </td>
