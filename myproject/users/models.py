@@ -26,6 +26,7 @@ class Member(AbstractUser):
             return "M001"
         else:
             return "M" + str(n + 1).zfill(3)
+
     resID = models.ForeignKey(
         Restaurant, null=True, blank=True, on_delete=models.SET_NULL
     )
@@ -43,7 +44,7 @@ class Member(AbstractUser):
         ("O", "Other"),
     )
     gender = models.CharField(max_length=1, choices=GENDER, null=True)
-    picture = models.ImageField(
+    profile = models.ImageField(
         upload_to="static/images/", default="static/images/defaultProfile.png"
     )
 

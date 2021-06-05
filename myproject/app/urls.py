@@ -24,5 +24,5 @@ urlpatterns = [
     path("profileDetail/", views.profileDetail, name="profileDetail"),
     path("executiveControl/<str:pk>", views.executiveControl, name="executiveControl"),
     path("resProfile", views.resProfile, name="resProfile"),
-
+    path("editRole/<str:pk>", views.editRole, name="editRole"),
 ]

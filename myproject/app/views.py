@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect, render, get_object_or_404
 
-from users.models import Member
+from users.models import Member, Role
 
 from django.shortcuts import render
 from django.contrib.auth.models import Group
@@ -13,9 +13,9 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
 from queueSystem.models import Queue
 
+from .forms import editRoleForm
 from restaurants.forms import editMenuForm, createMenuForm
 from queueSystem.forms import createQueueForm
-
 import sweetify
 
 # Create your views here.
@@ -60,8 +60,8 @@ def review(request):
 @allowed_users(allowed_roles=["admin", "member"])
 def userprofile(request, pk):
     profile = Member.objects.get(id=pk)
-    queue = Queue.objects.get(memberID=pk)
-    context = {"profile": profile, "queue": queue}
+    # queue = Queue.objects.get(memberID=profile)
+    context = {"profile": profile}
     return render(request, "app/userProfile.html", context)
 
 
@@ -217,10 +217,47 @@ def executiveControl(request, pk):  # ยังไม่ได้เชื่อ
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 def staffList(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
-    staff = Member.objects.get(resID=restaurant)
-    context = {"restaurant": restaurant, "staff": staff}
+    staffs = Member.objects.filter(resID=pk)
+    roles = Role.objects.all()
+    form = editRoleForm()
+    context = {"restaurant": restaurant, "staffs": staffs, "form": form, "roles": roles}
     return render(request, "app/staffList.html", context)
 
 
+def editRole(request, pk):
+    if request.method == "POST":
+        instance = get_object_or_404(Member, groups=request.POST["groups"])
+        member=Member.objects.update()
+        form = editRoleForm(request.POST or None, instance=instance)
+        # name = request.POST["fullName"]
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Member  " + " was updated",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/staffList/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            print(form)
+            return redirect("/staffList/" + pk)
+    else:
+        form = editRoleForm()
+
+
 def resProfile(request):
+
     return render(request, "app/resProfile.html")
