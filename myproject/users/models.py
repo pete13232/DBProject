@@ -27,13 +27,13 @@ class Member(AbstractUser):
     first_name = None
     last_name = None
     ROLE = (
-        ("AD", "admin"),
-        ("EX", "executive"),
-        ("MA", "manager"),
-        ("ST", "staff"),
-        ("ME", "member"),
+        ("admin", "admin"),
+        ("executive", "executive"),
+        ("manager", "manager"),
+        ("staff", "staff"),
+        ("member", "member"),
     )
-    role = models.CharField(max_length=3, choices=ROLE, default = "ME")
+    role = models.CharField(max_length=10, choices=ROLE, default="member")
     fName = models.CharField(max_length=30)
     lName = models.CharField(max_length=30)
     email = models.EmailField(max_length=50, unique=True)

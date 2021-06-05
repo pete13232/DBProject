@@ -19,8 +19,8 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Position</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+                    <th scope="col">Change role</th>
+                    <th scope="col">Remove</th>
                 </tr>
             </thead>
             <tbody id="Table">
@@ -30,14 +30,22 @@
                     <td>
                         <a href="{% url 'userprofile' staff.id %}">{{staff.fullName}}</a>
                     </td>
-                    <td>{{staff.groups.get.name}}</td>
+                    <td><select class="form-select" aria-label="Default select example">
+                            <option selected>O{{staff.role}}</option>
+                            <option value="1">member</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select></td>
                     <td>
-
-                        <a class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                            data-bs-target="#editRole{{staff.id}}">Edit</a>
+                        <form action="" method="post">
+                            {{form.role}}
+                            <a class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#editRole{{staff.id}}">Change</a>
+                        </form>
+                    </td>
+                    <td>
                         <a class="btn btn-sm btn-danger" data-bs-toggle="modal"
                             data-bs-target="#deleteStaff{{staff.id}}">Delete</a>
-                        </form>
                     </td>
                 </tr>
                 {% endfor %}
