@@ -47,8 +47,12 @@ class Company(models.Model):
     postalCode = models.CharField(max_length=5)
     email = models.CharField(max_length=50)
     tel = models.CharField(max_length=10)
-    profilePic = models.ImageField(upload_to="static/images/", blank=True, null=True)
-    coverPic = models.ImageField(upload_to="static/images/", blank=True, null=True)
+    profilePic = models.ImageField(
+        upload_to="static/images/", default="static/images/defaultProfile.png"
+    )
+    coverPic = models.ImageField(
+        upload_to="static/images/", default="static/images/defaultProfile.png"
+    )
 
     def __str__(self):
         return self.companyID
@@ -84,8 +88,12 @@ class Restaurant(models.Model):
     fb = models.CharField(max_length=50, null=True)
     mapLon = models.CharField(max_length=10, default=0)
     mapLAT = models.CharField(max_length=10, default=0)
-    profilePic = models.ImageField(upload_to="static/images/", blank=True, null=True)
-    coverPic = models.ImageField(upload_to="static/images/", blank=True, null=True)
+    profilePic = models.ImageField(
+        upload_to="static/images/", default="static/images/defaultProfile.png"
+    )
+    coverPic = models.ImageField(
+        upload_to="static/images/", default="static/images/defaultProfile.png"
+    )
 
     def __str__(self):
         return self.resID
