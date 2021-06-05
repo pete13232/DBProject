@@ -18,8 +18,12 @@
             <div class="col-md">
                 <div class="profile-work">
                     <p>Company / Restaurant</p>
-                    <a href="{% static 'app/modalBusiness.html' %}" data-bs-toggle="modal"
-                        data-bs-target="#business">Start my own</a><br />
+                    
+                    {% if request.user.role == "ST" and request.user.resID == None %}
+                        <a href="{% static 'app/modalBusiness.html' %}" data-bs-toggle="modal"
+                            data-bs-target="#business">Start my own</a><br />
+                    {% endif %}
+                        
                 </div>
             </div>
         </div>
