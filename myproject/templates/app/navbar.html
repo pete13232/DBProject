@@ -10,7 +10,7 @@
     }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-dark navbar-YENYEN">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-YENYEN " style = "height:113px">
     <div class="navbar-inner container-fluid">
         <div class="d-flex justify-content-start d-flex align-items-center col-4">
             <a class="navbar-brand" style="margin: 0px 15px" href="/">YENYEN</a>
@@ -19,6 +19,7 @@
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            {% if user.groups.get.name !=  "staff" and user.groups.get.name !=  "manager" and user.groups.get.name !=  "executive"%}
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="margin: 0px 15px; font-size: 18px" href="#"
@@ -32,64 +33,94 @@
                     </ul>
                 </li>
             </ul>
+            {% elif user.groups.get.name ==  "staff" or user.groups.get.name ==  "manager" %}
+                <button type="button" class="btn btn-lg text-white h3" style = "margin:0px 15px;background-color:#D0BDF4;">Restaurant</button>
+            {% elif user.groups.get.name ==  "executive" %}
+                <button type="button" class="btn btn-lg text-white h3" style = "margin:0px 15px;background-color:#D0BDF4;">Company</button>
+
+
+
+            {% endif %}
         </div>
-        <div class="nav-item col-4 d-flex justify-content-center">
-            <div class="card col-9">
-                <div class="card-body" style="padding: 16px 25px">
-                    <table class="col-12 justify-content-between">
-                        <tr>
-                            <td>
-                                <h5 class="card-title d-flex justify-content-start">Queue Number : </h5>
-                            </td>
-                            <td>
-                                <h5 class="card-title d-flex justify-content-center">None</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-start">Status :</h6>
-                            </td>
-                            <td>
-                                <h5 class="card-subtitle mb-2 text-muted d-flex justify-content-center"> No queue</h5>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+    </div>
+
+    {% if user.groups.exists %}
+    <div class="nav-item col-4 d-flex justify-content-center">
+        <div class="card col-9">
+            <div class="card-body" style="padding: 16px 25px">
+                <table class="col-12 justify-content-between">
+                {% if user.groups.get.name ==  'member' %}
+                    <tr>
+                        <td>
+                            <h5 class="card-title d-flex justify-content-start">Queue Number : </h5>
+                        </td>
+                        <td>
+                            <h5 class="card-title d-flex justify-content-center">None</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-start">Status :</h6>
+                        </td>
+                        <td>
+                            <h5 class="card-subtitle mb-2 text-muted d-flex justify-content-center"> No queue</h5>
+                        </td>
+                    </tr>
+                    {% elif user.groups.get.name ==  "staff" or user.groups.get.name ==  "manager" or user.groups.get.name ==  "executive" %}
+                     <tr>
+                        <td>
+                            <h5 class="card-title d-flex justify-content-start">Company : </h5>
+                        </td>
+                        <td>
+                            <h5 class="card-title d-flex justify-content-center">None</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-start">Restaurant :</h6>
+                        </td>
+                        <td>
+                            <h5 class="card-subtitle mb-2 text-muted d-flex justify-content-center"> None</h5>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </table>
             </div>
         </div>
+    </div>
+    {% endif %}
 
+    {% if request.user.is_authenticated %}
+    <table class="col-4 d-flex justify-content-end">
+        <tr>
+            <td class="me-4 text-center text-white h5 pe-4">Welcome, {{request.user.fName}}</td>
+            <td>
 
-        {% if request.user.is_authenticated %}
-        <table class="col-4 d-flex justify-content-end">
-            <tr>
-                <td class="me-4 text-center text-white h5 pe-4">Welcome, {{request.user.fName}}</td>
-                <td>
+                <a href="{%url 'userprofile' request.user.id %}">
+                    <img src="{{ request.user.picture.url }}" class="img border border-white"
+                        style="height: 60px; width: 60px;">
+                </a>
 
-                    <a href="{%url 'userprofile' request.user.id %}">
-                        <img src="{{ request.user.picture.url }}" class="border border-white"
-                            style="height: 60px; max-width: 60px;">
-                    </a> 
-                
-                </td>
-                <td>
-                    <a href = "{%url 'users_logout'%}">
-                        <button type="button" class="btn btn-danger btn-lg"
-                            style="background-color:#E91E63; margin: 0px 15px">Logout</button>
-                    </a>
-                </td>
-            </tr>
-        </table>
-        {% else %}
-        <div class="col-4 d-flex justify-content-end">
-            <a href="{%url 'users_signup'%}">
-                <button type="button" class="btn btn-primary btn-lg"
-                    style="background-color:#D0BDF4; margin: 0px 15px">Sign up</button>
-            </a>
-            <a href="{%url 'users_login'%}">
-                <button type="button" class="btn btn-outline-success btn-lg" style="margin: 0px 15px">Login</button>
-            </a>
-        </div>
-        {% endif %}
+            </td>
+            <td>
+                <a href="{%url 'users_logout'%}">
+                    <button type="button" class="btn btn-danger btn-lg"
+                        style="background-color:#E91E63; margin: 0px 15px">Logout</button>
+                </a>
+            </td>
+        </tr>
+    </table>
+    {% else %}
+    <div class="col-4 d-flex justify-content-end">
+        <a href="{%url 'users_signup'%}">
+            <button type="button" class="btn btn-primary btn-lg" style="background-color:#D0BDF4; margin: 0px 15px">Sign
+                up</button>
+        </a>
+        <a href="{%url 'users_login'%}">
+            <button type="button" class="btn btn-outline-success btn-lg" style="margin: 0px 15px">Login</button>
+        </a>
+    </div>
+    {% endif %}
 
 
 
