@@ -5,11 +5,18 @@
     <div class="col-4 mt-4">
         <div class="row-md-4">
             <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
-                <img src="{% static 'images/shabushi-logo.jpg' %}" class="card-img-top" alt="...">
+                <img src="{% static 'images/tonton.jpg' %}" class="card-img-top" alt="...">
                 <div class="d-grid">
                     <label for="files" class="btn btn-primary rounded-0">Change Photo</label>
-                    <!--มีเฉพาะ Manager, Executive-->
                     <input id="files" style="visibility:hidden; height:0" type="file">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="profile-work">
+                    <p>Company / Restaurant</p>
+                    <a href="{% url 'executiveControl' restaurant.resID%}">Detail</a>
                 </div>
             </div>
         </div>
@@ -19,10 +26,10 @@
             <div class="col-9 mt-4">
                 <div class="profile-head">
                     <h5>
-                        Shabushi
+                        Ton Ichitan
                     </h5>
                     <h6>
-                        Rama2
+                        Executive, Oishi
                     </h6>
                     <p class="proile-rating"> Rating : <span>8.3/10</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -31,15 +38,15 @@
                                 href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="company-tab" data-bs-toggle="tab" data-bs-target="#company"
-                                href="#company" role="tab" aria-controls="company" aria-selected="false">Associate</a>
+                            <a class="nav-link" id="owner-tab" data-bs-toggle="tab" data-bs-target="#owner"
+                                href="#owner" role="tab" aria-controls="owner" aria-selected="false">Owner</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col-3 mt-4">
-                <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#edit-res"
-                    name="btnAddMore" value="Edit Restaurant" />
+                <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editprofile"
+                    name="btnAddMore" value="Edit Profile" />
             </div>
         </div>
         <div class="row">
@@ -47,36 +54,42 @@
                 <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Owner</label>
+                            <label>User Id</label>
                         </div>
                         <div class="col-md-6">
-                            <a href="{% url 'managerProfile' restaurant.resID %}">
-                                <p>Phineas Flynn</p>
-                            </a>
+                            <p>ton555</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Restaurant Name</label>
+                            <label>Name</label>
                         </div>
                         <div class="col-md-6">
-                            <p>Shabushi</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Address</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>882 Bangmod Thungkhru Bangkok</p>
+                            <p>Ton Ichitan</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Postal Code</label>
+                            <label>Position</label>
                         </div>
                         <div class="col-md-6">
-                            <p>10140</p>
+                            <p>Executive</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Date of birth</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>07/06/2015</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Gender</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Male</p>
                         </div>
                     </div>
                     <div class="row">
@@ -84,23 +97,7 @@
                             <label>Email</label>
                         </div>
                         <div class="col-md-6">
-                            <p>shabushi@hotmail.com</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Tel.</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>02-0000000</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Category</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>Buffet</p>
+                            <p>tonton@gmail.com</p>
                         </div>
                     </div>
                     <div class="row">
@@ -108,17 +105,17 @@
                             <label>Phone</label>
                         </div>
                         <div class="col-md-6">
-                            <p>123 456 7890</p>
+                            <p>091-4567890</p>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade pb-5" id="company" role="tabpanel" aria-labelledby="company-tab">
+                <div class="tab-pane fade pb-5" id="owner" role="tabpanel" aria-labelledby="owner-tab">
                     <div class="row">
                         <div class="col-md-6">
                             <label>Company</label>
                         </div>
                         <div class="col-md-6">
-                            <a href="{% url 'companyProfile' restaurant.resID %}">
+                            <a href="{% url 'companyProfile' restaurant.resID%} ">
                                 <p>Oishi</p>
                             </a>
                         </div>
@@ -130,6 +127,6 @@
 </div>
 
 
-{% include 'app/modalEditRes.html' %}
+{% include 'app/modalStartBusiness.html' %}
 {% include 'app/modalEditProfile.html' %}
 {% endblock content %}
