@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from users.models import Member
 
 from django.shortcuts import render
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.contrib.auth.decorators import login_required
 from restaurants.models import Category, Restaurant, Menu
 from users.decorators import unauthenticated_user, allowed_users, admin_only
@@ -99,7 +99,7 @@ def changeProfile(request, pk):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "executive", "manager", "staff"])
+@allowed_users(allowed_roles=["AD", "EX", "MA", "ST"])
 def workerprofile(request):
     return render(request, "app/workerProfile.html")
 
@@ -111,7 +111,7 @@ def workerprofile(request):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "executive", "manager"])
+@allowed_users(allowed_roles=["AD", "EX", "MA"])
 def managerProfile(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
@@ -119,7 +119,7 @@ def managerProfile(request, pk):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "manager", "staff"])
+@allowed_users(allowed_roles=["AD", "MA", "ST"])
 def queueManagement(request):
 
     return render(request, "app/queueManagement.html")
