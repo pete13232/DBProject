@@ -9,13 +9,6 @@ from django.contrib.auth.models import Group
 from .managers import CustomUserManager
 
 # Create your models here.
-class Role(Group):
-    class Meta:
-        proxy = True
-        app_label = "auth"
-        verbose_name = _("Role")
-
-
 class Member(AbstractUser):
     class Meta:
         db_table = "member"
@@ -34,13 +27,13 @@ class Member(AbstractUser):
     first_name = None
     last_name = None
     ROLE = (
-        ("AD", "Admin"),
-        ("EX", "Executive"),
-        ("MN", "Manager"),
-        ("ST", "Staff"),
-        ("ME", "Member"),
+        ("AD", "admin"),
+        ("EX", "executive"),
+        ("MA", "manager"),
+        ("ST", "staff"),
+        ("ME", "member"),
     )
-    role = models.CharField(max_length=3, choices=ROLE, default="ME")
+    role = models.CharField(max_length=3, choices=ROLE, default = "ME")
     fName = models.CharField(max_length=30)
     lName = models.CharField(max_length=30)
     email = models.EmailField(max_length=50, unique=True)

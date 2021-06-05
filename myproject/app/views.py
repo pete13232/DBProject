@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect, render, get_object_or_404
 
-from users.models import Member, Role
+from users.models import Member
 
 from django.shortcuts import render
 from django.contrib.auth.models import Group
@@ -13,7 +13,7 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
 from queueSystem.models import Queue
 
-from .forms import editRoleForm, deleteStaffForm, changeProfileForm
+from .forms import  deleteStaffForm, changeProfileForm
 from restaurants.forms import editMenuForm, createMenuForm
 from queueSystem.forms import createQueueForm
 import sweetify
@@ -57,7 +57,6 @@ def review(request):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "member"])
 def userprofile(request, pk):
     profile = Member.objects.get(id=pk)
     # queue = Queue.objects.get(memberID=profile)
@@ -127,19 +126,19 @@ def queueManagement(request):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin"])
+@admin_only
 def admin(request):
     return render(request, "app/admin.html")
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin"])
+@admin_only
 def requestRegistration(request):
     return render(request, "app/requestRegistration.html")
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "member"])
+@allowed_users(allowed_roles=["AD", "MA","ST","ME"])
 def menu(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
@@ -150,7 +149,7 @@ def menu(request, pk):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "manager"])
+@allowed_users(allowed_roles=["AD","MA"])
 def managerControl(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
@@ -158,7 +157,7 @@ def managerControl(request, pk):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "manager", "staff"])
+@allowed_users(allowed_roles=["AD", "MA", "ST","ME"])
 def editMenu(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
@@ -194,7 +193,7 @@ def editMenu(request, pk):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "executive", "manager"])
+@allowed_users(allowed_roles=["AD", "EX", "MA"])
 def createMenu(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
@@ -243,7 +242,7 @@ def executiveControl(request, pk):  # ยังไม่ได้เชื่อ
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "executive", "manager"])
+@allowed_users(allowed_roles=["AD", "EX", "MA"])
 def staffList(request, pk):
 
     if pk[0] == "C":
