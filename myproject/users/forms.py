@@ -191,3 +191,7 @@ class CreateMemberForm(UserCreationForm):
                 }
             ),
         }
+class editMemberForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = "__all__"
