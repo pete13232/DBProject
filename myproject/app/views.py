@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect, render, get_object_or_404
 
-from users.models import Member
+from users.models import Member, Role
 
 from django.shortcuts import render
 from django.contrib.auth.models import Group
@@ -13,9 +13,9 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
 from queueSystem.models import Queue
 
+from .forms import editRoleForm, deleteStaffForm, changeProfileForm
 from restaurants.forms import editMenuForm, createMenuForm
 from queueSystem.forms import createQueueForm
-
 import sweetify
 
 # Create your views here.
@@ -59,9 +59,43 @@ def review(request):
 @login_required(login_url="users/login")
 def userprofile(request, pk):
     profile = Member.objects.get(id=pk)
-    queue = Queue.objects.get(memberID=pk)
-    context = {"profile": profile, "queue": queue}
+    # queue = Queue.objects.get(memberID=profile)
+    form = changeProfileForm()
+    context = {"profile": profile, "form": form}
     return render(request, "app/userProfile.html", context)
+
+
+def changeProfile(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    menus = Menu.objects.filter(resID=restaurant)
+    if request.method == "POST":
+        instance = get_object_or_404(Member, id=request.POST["id"])
+        form = changeProfileForm(request.POST or None, instance=instance)
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Profile changed",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/userprofile/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/userprofile/" + pk)
+    else:
+        form = changeProfileForm()
 
 
 @login_required(login_url="users/login")
@@ -89,11 +123,6 @@ def managerProfile(request, pk):
 def queueManagement(request):
 
     return render(request, "app/queueManagement.html")
-
-
-# def foodList(request):
-
-#     return render(request, "app/foodList.html")
 
 
 @login_required(login_url="users/login")
@@ -149,7 +178,7 @@ def editMenu(request, pk):
             )
             return redirect("/menu/" + pk)
         else:
-            sweetify.success(
+            sweetify.error(
                 request,
                 icon="error",
                 title="Oops !",
@@ -207,38 +236,125 @@ def profileDetail(request, pk):  # check ให้หน่อย
 
 
 def executiveControl(request, pk):  # ยังไม่ได้เชื่อมผ่าน company
-    restaurant = Restaurant.objects.get(resID=pk)
-    context = {"restaurant": restaurant}
+    restaurants = Restaurant.objects.filter(companyID=pk)
+    context = {"restaurants": restaurants}
     return render(request, "app/executiveControl.html", context)
 
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["AD", "EX", "MA"])
 def staffList(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    staff = Member.objects.get(resID=restaurant)
-    context = {"restaurant": restaurant, "staff": staff}
+
+    if pk[0] == "C":
+        restaurant = Restaurant.objects.filter(companyID=pk)
+        print(restaurant)
+        staffs = Member.objects.filter(resID__in=restaurant)
+    elif pk[0] == "R":
+        restaurant = Restaurant.objects.filter(resID=pk)
+        print(restaurant)
+        staffs = Member.objects.filter(resID__in=restaurant)
+
+    form = editRoleForm()
+    context = {
+        "staffs": staffs,
+        "form": form,
+        "pk": pk,
+    }
     return render(request, "app/staffList.html", context)
 
 
+def editRole(request, pk):
+    if request.method == "POST":
+        instance = get_object_or_404(Member, groups=request.POST["groups"])
+        member = Member.objects.update()
+        form = editRoleForm(request.POST or None, instance=instance)
+        # name = request.POST["fullName"]
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Member  " + " was updated",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/staffList/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            print(form)
+            return redirect("/staffList/" + pk)
+    else:
+        form = editRoleForm()
 
-def staffProfile(request,pk):
+
+def deleteStaff(request, pk):
+    if request.method == "POST":
+        id = request.POST["id"]
+        instance = get_object_or_404(Member, id=id)
+        form = deleteStaffForm(request.POST or None, instance=instance)
+        # name = request.POST["fullName"]
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="Deleted!",
+                text="Staff " + str(instance.fullName()) + " was Delete",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/staffList/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            print(form)
+            return redirect("/staffList/" + pk)
+    else:
+        form = deleteStaffForm()
+
+
+def resProfile(request):
+
+    return render(request, "app/resProfile.html")
+
+
+def staffProfile(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/staffProfile.html", context)
 
-def executiveProfile(request,pk):
+
+def executiveProfile(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
-    return render(request, "app/executiveProfile.html",context)
+    return render(request, "app/executiveProfile.html", context)
 
-def resProfile(request,pk):
+
+def resProfile(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/resProfile.html", context)
 
-def companyProfile(request,pk):
+
+def companyProfile(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/companyProfile.html", context)
-

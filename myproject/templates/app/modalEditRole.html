@@ -1,26 +1,34 @@
- {% load static %}
- <!-- Modal -->
- <div class="modal fade" id="editRole" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header border-0 align-self-start">
-                 <h5 class="modal-title" id="exampleModalLabel"></h5>
-                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <div class="modal-body">
-                 <h1>eiei</h1>
-                 <div class="card p-3 " style="">
-                     <select class="form-select" aria-label="Default select example" style="width:50%">
-                         <option value="" disabled selected hidden>Choose role</option>
-                         <option value="Staff">Staff</option>
-                         <option value="Manager">Manager</option>
-                         <option value="Executive">Executive</option>
-                     </select>
-                 </div>
-             </div>
-             <div class="modal-footer">
-                 <input type="submit" value="Submit" class="btn btn-primary" data-bs-dismiss="modal">
-             </div>
-         </div>
-     </div>
- </div>
+{% for staff in staffs %}
+<!-- Modal -->
+<div class="modal fade" id="editRole{{staff.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-0 align-self-start">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <h1>eiei</h1>
+                <div class="card p-3 " style="">
+                    <form action="{% url 'editRole' pk %}" method="POST">
+                        {% csrf_token %}
+                        {{form.as_table}}
+                        {% comment %} <input type="text" value="{{staff.id}}" name="id" class="btn btn-primary" hidden>
+                        <select class="form-select d-inline " name="groups" aria-label="Default select example"
+                            style="width: 50%;">
+                            <option value="" disabled selected hidden>{{staff.groups.get.name}}</option>
+                            {% for role in roles %}
+                            <option value="">{{role}}</option>
+                            {% endfor%}
+                        </select> {% endcomment %}
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

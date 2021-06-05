@@ -10,7 +10,7 @@
     }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-dark navbar-YENYEN " style = "height:113px">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-YENYEN " style="height:113px">
     <div class="navbar-inner container-fluid">
         <div class="d-flex justify-content-start d-flex align-items-center col-4">
             <a class="navbar-brand" style="margin: 0px 15px" href="/">YENYEN</a>
@@ -33,10 +33,19 @@
                     </ul>
                 </li>
             </ul>
+<<<<<<< HEAD
             {% elif user.role ==  "ST" or user.role ==  "MA" %}
                 <button type="button" class="btn btn-lg text-white h3" style = "margin:0px 15px;background-color:#D0BDF4;">Restaurant</button>
             {% elif user.role ==  "EX" %}
                 <button type="button" class="btn btn-lg text-white h3" style = "margin:0px 15px;background-color:#D0BDF4;">Company</button>
+=======
+            {% elif user.groups.get.name ==  "staff" or user.groups.get.name ==  "manager" %}
+            <button type="button" class="btn btn-lg text-white h3"
+                style="margin:0px 15px;background-color:#D0BDF4;">Restaurant</button>
+            {% elif user.groups.get.name ==  "executive" %}
+            <button type="button" class="btn btn-lg text-white h3"
+                style="margin:0px 15px;background-color:#D0BDF4;">Company</button>
+>>>>>>> 81ae72d6e4f735dc426855af354e59c0e2e15088
 
 
 
@@ -49,7 +58,11 @@
         <div class="card col-9">
             <div class="card-body" style="padding: 16px 25px">
                 <table class="col-12 justify-content-between">
+<<<<<<< HEAD
                 {% if user.role ==  'ME' %}
+=======
+                    {% if user.groups.get.name ==  'member' %}
+>>>>>>> 81ae72d6e4f735dc426855af354e59c0e2e15088
                     <tr>
                         <td>
                             <h5 class="card-title d-flex justify-content-start">Queue Number : </h5>
@@ -97,7 +110,7 @@
             <td>
 
                 <a href="{%url 'userprofile' request.user.id %}">
-                    <img src="{{ request.user.picture.url }}" class="img border border-white rounded-3"
+                    <img src="{{ request.user.profile.url }}" class="img border border-white rounded-3"
                         style="height: 60px; width: 60px;">
                 </a>
 
