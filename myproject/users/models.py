@@ -1,12 +1,10 @@
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 from django.db import models
 from restaurants.models import Restaurant
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import Group
-
 from .managers import CustomUserManager
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 # Create your models here.
 class Member(AbstractUser):
@@ -45,8 +43,10 @@ class Member(AbstractUser):
         ("O", "Other"),
     )
     gender = models.CharField(max_length=1, choices=GENDER, null=True)
-    profile = models.ImageField(
-        upload_to="static/images/", default="static/images/defaultProfile.png"
+    profile = ProcessedImageField(
+        upload_to="static/images/%Y/%m/%d",
+        format="PNG",
+        options={"quality": 60},
     )
 
     USERNAME_FIELD = "email"
@@ -70,3 +70,13 @@ class Member(AbstractUser):
             return "Female"
         else:
             return "Other"
+
+
+class Profile(models.Model):
+    avatar = models.ImageField(upload_to="avatars")
+    avatar_thumbnail = ProcessedImageField(
+        upload_to="avatars",
+        processors=[ResizeToFill(100, 50)],
+        format="JPEG",
+        options={"quality": 60},
+    )

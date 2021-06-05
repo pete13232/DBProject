@@ -34,9 +34,11 @@
                 </li>
             </ul>
             {% elif user.role ==  "staff" or user.role ==  "manager" %}
-                <button type="button" class="btn btn-lg text-white h3" style = "margin:0px 15px;background-color:#D0BDF4;">Restaurant</button>
+            <button type="button" class="btn btn-lg text-white h3"
+                style="margin:0px 15px;background-color:#D0BDF4;">Restaurant</button>
             {% elif user.role ==  "executive" %}
-                <button type="button" class="btn btn-lg text-white h3" style = "margin:0px 15px;background-color:#D0BDF4;">Company</button>
+            <button type="button" class="btn btn-lg text-white h3"
+                style="margin:0px 15px;background-color:#D0BDF4;">Company</button>
 
 
 
@@ -49,7 +51,7 @@
         <div class="card col-9">
             <div class="card-body" style="padding: 16px 25px">
                 <table class="col-12 justify-content-between">
-                {% if user.role ==  'ME' %}
+                    {% if user.role ==  'member' %}
                     <tr>
                         <td>
                             <h5 class="card-title d-flex justify-content-start">Queue Number : </h5>
@@ -67,7 +69,7 @@
                         </td>
                     </tr>
                     {% elif user.role ==  "staff" or user.role ==  "manager" or user.role ==  "executive" %}
-                     <tr>
+                    <tr>
                         <td>
                             <h5 class="card-title d-flex justify-content-start">Company : </h5>
                         </td>

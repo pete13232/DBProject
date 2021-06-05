@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "restaurants",
     "queueSystem",
     "sweetify",
+    "imagekit",
 ]
 
 MIDDLEWARE = [
