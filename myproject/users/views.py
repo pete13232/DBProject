@@ -3,7 +3,7 @@ from django import forms
 from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from .models import Member, Role
+from .models import Member
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
