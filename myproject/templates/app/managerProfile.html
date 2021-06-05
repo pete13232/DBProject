@@ -19,7 +19,7 @@
                 <div class="profile-work">
                     <p>Company / Restaurant</p>
                     
-                    {% if request.user.role == "ST" and request.user.resID == None %}
+                    {% if request.user.role == "staff" and request.user.resID == None %}
                         <a href="{% static 'app/modalBusiness.html' %}" data-bs-toggle="modal"
                             data-bs-target="#business">Start my own</a><br />
                     {% endif %}
