@@ -1,3 +1,4 @@
+from restaurants.models import Restaurant
 from queueSystem.models import Queue
 from django import forms
 from django.shortcuts import render, redirect
@@ -14,7 +15,15 @@ import sweetify
 
 def index(request):
 
-    return render(request, "queueSystem/queueIndex.html")
+    return render(request, "queue/queueIndex.html")
+
+
+@login_required(login_url="users/login")
+@allowed_users(allowed_roles=["admin", "manager", "staff"])
+def queueManagement(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    context = {"restaurant": restaurant}
+    return render(request, "queue/queueManagement.html", context)
 
 
 def createQueue(request, pk):

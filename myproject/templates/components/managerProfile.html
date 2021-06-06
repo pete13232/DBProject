@@ -1,5 +1,5 @@
 <!--เดี๋ยวแก้เป็นหน้าของ staff-->
-{% extends 'app/base.html' %}
+{% extends 'components/base.html' %}
 {% load static %}
 {% block content %}
 <div class="row border border-3 mt-5 pt-3">
@@ -135,5 +135,5 @@
 
 
 {% include 'app/modalStartBusiness.html' %}
-{% include 'app/modalEditProfile.html' %}
+{% include 'users/editProfileModal.html' %}
 {% endblock content %}

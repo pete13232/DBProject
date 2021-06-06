@@ -5,7 +5,7 @@
     id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
     <div class="offcanvas-header">
         <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <img src="{{ request.user.resID.profilePic.url }}" class="img border border-white rounded-3"
+            <img src="{{ request.user.resID.getProfilePic }}" class="img border border-white rounded-3"
                 style="height: 60px; width: 60px;">
             <span class="fs-4 ms-3">{{request.user.resID.resName}}</span>
         </a>
@@ -16,14 +16,14 @@
             <li class="nav-item">
 
                 {% if user.role == "manager" %}
-                <a href="{%url 'managerControl' request.user.resID %}" class="nav-link text-white" aria-current="page">
+                <a href="{%url 'managerHome' request.user.resID %}" class="nav-link text-white" aria-current="page">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#home"></use>
                     </svg>
                     Customer log & Queue
                 </a>
             <li>
-                <a href="{%url 'staffList' request.user.resID %}" class="nav-link text-white">
+                <a href="{%url 'manageStaff' request.user.resID %}" class="nav-link text-white">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#speedometer2"></use>
                     </svg>
@@ -74,17 +74,16 @@
     id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
     <div class="offcanvas-header text-white">
         <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <img src="{{ request.user.resID.companyID.profilePic.url }}" class="img border border-white rounded-3"
+            <img src="{{ request.user.companyID.getProfilePic }}" class="img border border-white rounded-3"
                 style="height: 60px; width: 60px;">
-            <span class="fs-4 ms-3 text-white">{{request.user.resID.companyID.companyName}}</span>
+            <span class="fs-4 ms-3 text-white">{{request.user.companyID.companyName}}</span>
         </a>
     </div>
     <hr>
     <div class="offcanvas-body">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="{%url 'executiveControl' request.user.resID %}" class="nav-link text-white"
-                    aria-current="page">
+                <a href="{%url 'executiveHome' request.user.resID %}" class="nav-link text-white" aria-current="page">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#home"></use>
                     </svg>
@@ -92,7 +91,7 @@
                 </a>
             </li>
             <li>
-                <a href="{%url 'staffList' request.user.resID %}" class="nav-link text-white">
+                <a href="{%url 'manageStaff' request.user.resID %}" class="nav-link text-white">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#speedometer2"></use>
                     </svg>

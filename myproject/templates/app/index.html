@@ -1,4 +1,4 @@
-{% extends 'app/base.html' %}
+{% extends 'components/base.html' %}
 {% block title %}Home{% endblock title %}
 {% block content %}
 <div class="input-group rounded-lg mt-2">
@@ -11,13 +11,13 @@
 
 <div class="row row-cols-4 row-cols-md-6">
     {% for category in categorys %}
-    {% include 'app/categoryCard.html'%}
+    {% include 'restaurants/categoryCard.html'%}
     {% endfor %}
 </div>
 {% include 'components/breadcrumb.html' %}
 <div class="row" id="Table-main">
     {% for restaurant in restaurants %}
-    {% include 'app/card3Col.html' %}
+    {% include 'restaurants/indexResCard.html' %}
     {% endfor %}
 </div>
 {% endblock content %}

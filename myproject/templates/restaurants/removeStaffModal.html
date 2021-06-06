@@ -1,6 +1,6 @@
 {% for staff in staffs %}
 <!-- Modal -->
-<div class="modal fade" id="deleteStaff{{staff.memberID}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="removeStaff{{staff.memberID}}" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content ">
@@ -14,7 +14,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Cancel
                 </button>
-                <form action="{% url 'deleteStaff' pk %}" method="POST">
+                <form action="{% url 'removeStaff' pk %}" method="POST">
                     {% csrf_token %}
                     <input type="text" class="form-control" id="name" name="id" hidden value="{{staff.memberID}}">
                     <input type="text" class="form-control" id="name" name="resID" hidden value="">

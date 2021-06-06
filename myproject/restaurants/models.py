@@ -40,7 +40,7 @@ class Company(models.Model):
 
     def getProfilePic(self):
         if self.profilePic:
-            return self.profilePic
+            return self.profilePic.url
         return (
             "https://ui-avatars.com/api/?name="
             + self.fullName()

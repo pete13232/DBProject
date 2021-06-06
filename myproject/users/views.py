@@ -148,4 +148,4 @@ def profile(request, pk):
             "form": form,
             "pk": pk,
         }
-    return render(request, "app/profile.html", context)
+    return render(request, "users/profile.html", context)

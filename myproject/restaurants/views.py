@@ -14,7 +14,7 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
 from queueSystem.models import Queue, Review
 
-from app.forms import deleteStaffForm, changeProfileForm, editRoleForm
+from app.forms import deleteStaffForm, editRoleForm
 from restaurants.forms import (
     editMenuForm,
     createMenuForm,
@@ -30,9 +30,16 @@ from django.db.models import Avg
 import sweetify
 
 # Create your views here.
-def index(request):
+def indexResCard(request):
+    return render(request, "restaurants/indexResCard.html")
 
-    return render(request, "restaurants/resIndex.html")
+
+def resCard(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    reviews = Review.objects.filter(resID=pk)
+    rating = reviews.aggregate(Avg("rating"))
+    context = {"restaurant": restaurant, "reviews": reviews, "rating": rating}
+    return render(request, "restaurants/resCard.html", context)
 
 
 @login_required(login_url="users/login")
@@ -43,7 +50,7 @@ def menu(request, pk):
     edit = editMenuForm()
     create = createMenuForm()
     context = {"menus": menus, "restaurant": restaurant, "edit": edit, "create": create}
-    return render(request, "app/menu.html", context)
+    return render(request, "restaurants/menu.html", context)
 
 
 @login_required(login_url="users/login")
@@ -65,7 +72,7 @@ def createMenu(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/menu/" + pk)
+            return redirect("/res/menu/" + pk)
         else:
             sweetify.error(
                 request,
@@ -76,7 +83,7 @@ def createMenu(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/menu/" + pk)
+            return redirect("/res/menu/" + pk)
     else:
         form = createMenuForm()
 
@@ -101,7 +108,7 @@ def editMenu(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/menu/" + pk)
+            return redirect("/res/menu/" + pk)
         else:
             sweetify.error(
                 request,
@@ -112,7 +119,7 @@ def editMenu(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/menu/" + pk)
+            return redirect("/res/menu/" + pk)
     else:
         form = editMenuForm()
 
@@ -130,7 +137,7 @@ def deleteMenu(request, pk):
             timerProgressBar=True,
             allowOutsideClick=True,
         )
-        return redirect("/menu/" + str(menu.resID))
+        return redirect("/res/menu/" + str(menu.resID))
 
 
 @login_required(login_url="users/login")
@@ -154,4 +161,83 @@ def manageStaff(request, pk):
         "pk": pk,
         "restaurant": restaurant,
     }
-    return render(request, "restaurant/manageStaff.html", context)
+    return render(request, "restaurants/manageStaff.html", context)
+
+
+@login_required(login_url="users/login")
+@allowed_users(allowed_roles=["admin", "manager"])
+def managerHome(request, pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    context = {"restaurant": restaurant}
+    return render(request, "restaurants/managerHome.html", context)
+
+
+def executiveHome(request, pk):  # ยังไม่ได้เชื่อมผ่าน company
+    restaurants = Restaurant.objects.filter(companyID=pk)
+    context = {"restaurants": restaurants}
+    return render(request, "restaurants/executiveHome.html", context)
+
+
+def editRole(request, pk):
+
+    if request.method == "POST":
+        instance = get_object_or_404(Member, memberID=request.POST["memberID"])
+        form = editRoleForm(request.POST or None, instance=instance)
+        print(instance)
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Member  " + " was updated",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/manageStaff/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/manageStaff/" + pk)
+
+
+def removeStaff(request, pk):
+    if request.method == "POST":
+        memberID = request.POST["memberID"]
+        instance = get_object_or_404(Member, memberID=memberID)
+        form = deleteStaffForm(request.POST or None, instance=instance)
+        # name = request.POST["fullName"]
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="Deleted!",
+                text="Staff " + str(instance.fullName()) + " was Delete",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/manageStaff/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            print(form)
+            return redirect("/manageStaff/" + pk)
+    else:
+        form = deleteStaffForm()

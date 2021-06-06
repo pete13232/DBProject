@@ -1,4 +1,4 @@
-{% extends 'app/base.html' %}
+{% extends 'components/base.html' %}
 {% load static %}
 {% block content %}
 <div class="row  g-4 d-flex justify-content-left m-3">
@@ -39,7 +39,7 @@
   </div>
 </div>
 {% endif %}
-{% include 'app/menuModal.html' with menus=menus %}
+{% include 'restaurants/menuModal.html' with menus=menus %}
 </div>
 
 {% endblock content %}

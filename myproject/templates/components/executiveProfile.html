@@ -1,4 +1,4 @@
-{% extends 'app/base.html' %}
+{% extends 'components/base.html' %}
 {% load static %}
 {% block content %}
 <div class="row border border-3 mt-5 pt-3">
@@ -16,7 +16,7 @@
             <div class="col-md">
                 <div class="profile-work">
                     <p>Company / Restaurant</p>
-                    <a href="{% url 'executiveControl' restaurant.resID%}">Detail</a>
+                    <a href="{% url 'executiveHome' restaurant.resID%}">Detail</a>
                 </div>
             </div>
         </div>
@@ -128,5 +128,5 @@
 
 
 {% include 'app/modalStartBusiness.html' %}
-{% include 'app/modalEditProfile.html' %}
+{% include 'users/editProfileModal.html' %}
 {% endblock content %}

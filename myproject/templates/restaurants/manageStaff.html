@@ -1,4 +1,4 @@
-{% extends 'app/base.html' %}
+{% extends 'components/base.html' %}
 {% load static %}
 {% block content %}
 <div class="container mt-5">
@@ -8,12 +8,12 @@
         <input class="form-control mt-3 mb-3 ms-3" id="Search" type="text" placeholder="Search.." style="width : 50%">
 
         {% comment %} {% if user.role ==  "manager" %}
-        <a href="{%url 'managerControl' pk %}" type="button" class="btn btn-secondary mt-3"
+        <a href="{%url 'managerHome' pk %}" type="button" class="btn btn-secondary mt-3"
             style="height: 10%; margin-left : 1%">
             <i class="bi bi-house-door-fill fa-lg"></i>
         </a>
         {% elif user.role ==  "executive" %}
-        <a href="{%url 'executiveControl' pk %}" type="button" class="btn btn-secondary mt-3"
+        <a href="{%url 'executiveHome' pk %}" type="button" class="btn btn-secondary mt-3"
             style="height: 10%; margin-left : 1%">
             <i class="bi bi-house-door-fill fa-lg"></i>
         </a>
@@ -55,7 +55,7 @@
                     </td>
                     <td>
                         <a class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#deleteStaff{{staff.memberID}}">Delete</a>
+                            data-bs-target="#removeStaff{{staff.memberID}}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
