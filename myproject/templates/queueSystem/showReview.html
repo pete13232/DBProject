@@ -4,6 +4,7 @@
         <div class="card p-3" style="">
             <p class="fs-5"><img src="{{review.memberID.getProfilePic}}" class="me-2" style="height:30px ;">
                 {{review.memberID.fullName}}
+
             </p>
             <div class="input-group ">
                 <input type="text" class="form-control rounded" style="height: 50px;" value="{{review.detail}}"
@@ -11,13 +12,45 @@
             </div>
             <div class="input-group  d-flex justify-content-between mt-2">
                 <div class="score mt-2">
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
-                    <i class="fas fa-star text-warning"></i>
+                    {% if review.rating == 1 %}
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star color"></i>
+                    <i class="fas fa-star color"></i>
+                    <i class="fas fa-star color"></i>
+                    <i class="fas fa-starcolor "></i>
+                    {% endif %}
+                    {% if review.rating == 2 %}
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star color "></i>
+                    <i class="fas fa-star color"></i>
+                    <i class="fas fa-star color "></i>
+                    {% endif %}
+                    {% if review.rating == 3 %}
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star color"></i>
+                    <i class="fas fa-star color"></i>
+                    {% endif %}
+                    {% if review.rating == 4 %}
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star color"></i>
+                    {% endif %}
+                    {% if review.rating == 5 %}
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star colored"></i>
+                    <i class="fas fa-star colored"></i>
+                    {% endif %}
+
                 </div>
             </div>
+            <p class="fs-6 fw-light">{{review.dateCreated}}</p>
         </div>
     </div>
 </div>

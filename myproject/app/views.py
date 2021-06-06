@@ -24,6 +24,8 @@ from restaurants.forms import (
 from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
 
+from django.db.models import Avg
+
 import sweetify
 
 # Create your views here.
@@ -36,14 +38,17 @@ def card3Col(request):
 def index(request):
     categorys = Category.objects.all()
     restaurants = Restaurant.objects.all()
-    context = {"categorys": categorys, "restaurants": restaurants}
+    ratings = Review.objects.values("resID").annotate(average_rating=Avg("rating"))
+    context = {"categorys": categorys, "restaurants": restaurants, "ratings": ratings}
+    print(context)
     return render(request, "app/index.html", context)
 
 
 def resCard(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     reviews = Review.objects.filter(resID=pk)
-    context = {"restaurant": restaurant, "reviews": reviews}
+    rating = reviews.aggregate(Avg("rating"))
+    context = {"restaurant": restaurant, "reviews": reviews, "rating": rating}
     return render(request, "app/resCard.html", context)
 
 

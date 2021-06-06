@@ -34,4 +34,4 @@ class createNowQueueForm(forms.ModelForm):
 class createReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        exclude = ["reviewID", "rating"]
+        exclude = ["reviewID"]

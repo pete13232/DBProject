@@ -57,3 +57,4 @@ class Review(models.Model):
     resID = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     detail = models.CharField(max_length=200)
     rating = models.FloatField(default=0)
+    dateCreated = models.DateTimeField(auto_now_add=True)

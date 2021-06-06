@@ -114,7 +114,7 @@ def createReview(request, pk):
                 icon="success",
                 title="DONE !",
                 text="Your review was sent",
-                timer=3000,
+                timer=1000,
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
