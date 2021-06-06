@@ -7,19 +7,16 @@ from django import forms
 class deleteStaffForm(forms.ModelForm):
     class Meta:
         model = Member
-        fields = ("id", "resID")
+        fields = ("memberID", "resID")
 
 
 class changeProfileForm(forms.ModelForm):
     class Meta:
         model = Member
-        fields = ("id", "profile")
+        fields = ("memberID", "profilePic")
 
 
 class editRoleForm(forms.ModelForm):
     class Meta:
         model = Member
-        fields = ("id", "role")
-
-
-
+        fields = ("memberID", "role")

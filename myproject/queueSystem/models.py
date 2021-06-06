@@ -1,12 +1,14 @@
 from django.db import models
-from django.utils import timezone, dates
+from django.utils import timezone
 from users.models import Member
 from restaurants.models import Restaurant
 
-import datetime
 
 # Create your models here.
 class Queue(models.Model):
+    class Meta:
+        db_table = "Queue"
+
     def genID():
         n = Queue.objects.count()
         if n == 0:
@@ -22,26 +24,24 @@ class Queue(models.Model):
     peopleNum = models.IntegerField(default=0)
     queueCreated = models.DateTimeField(auto_now_add=True)
     reserveDateTime = models.DateTimeField(null=True, default=timezone.now)
-    queueType = (
+    TYPE = (
         ("success", "success"),
         ("fail", "fail"),
         ("waiting", "waiting"),
         ("cancel", "cancel"),
         ("point", "point"),
     )
-    queueIsSuccess = models.CharField(
-        max_length=10, choices=queueType, default="waiting"
-    )
+    status = models.CharField(max_length=10, choices=TYPE, default="waiting")
     queueIsPass = models.BooleanField(default=False)
-
-    class Meta:
-        db_table = "queue"
 
     def __str__(self):
         return self.queueID
 
 
 class Review(models.Model):
+    class Meta:
+        db_table = "Review"
+
     def genID():
         n = Review.objects.count()
         if n == 0:
@@ -54,9 +54,6 @@ class Review(models.Model):
     resID = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     detail = models.CharField(max_length=200)
     rating = models.FloatField(default=0)
-
-    class Meta:
-        db_table = "review"
 
     def __str__(self):
         return self.reviewID

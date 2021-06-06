@@ -5,7 +5,7 @@ from imagekit.processors import ResizeToFill
 # Create your models here.
 class Category(models.Model):
     class Meta:
-        db_table = "category"
+        db_table = "Category"
 
     def genID():
         n = Category.objects.count()
@@ -13,10 +13,6 @@ class Category(models.Model):
             return "CT001"
         else:
             return "CT" + str(n + 1).zfill(3)
-
-    categoryID = models.CharField(max_length=10, primary_key=True, default=genID)
-    categoryName = models.CharField(max_length=20)
-    minuteWait = models.IntegerField()
 
     def __str__(self):
         return self.categoryID
@@ -26,10 +22,14 @@ class Category(models.Model):
         string = "_".join(list_string)
         return string
 
+    categoryID = models.CharField(max_length=10, primary_key=True, default=genID)
+    categoryName = models.CharField(max_length=20)
+    minuteWait = models.IntegerField()
+
 
 class Company(models.Model):
     class Meta:
-        db_table = "company"
+        db_table = "Company"
 
     def genID():
         n = Company.objects.count()
@@ -37,6 +37,16 @@ class Company(models.Model):
             return "C001"
         else:
             return "C" + str(n + 1).zfill(3)
+
+    def defaultProfile(string):
+        return (
+            "https://ui-avatars.com/api/?name="
+            + str(string)
+            + "&color=7F9CF5&background=EBF4FF"
+        )
+
+    def __str__(self):
+        return self.companyID
 
     companyID = models.CharField(max_length=10, primary_key=True, default=genID)
     companyName = models.CharField(max_length=30)
@@ -48,18 +58,11 @@ class Company(models.Model):
     email = models.CharField(max_length=50)
     tel = models.CharField(max_length=10)
     profilePic = ProcessedImageField(
+        default=defaultProfile(companyName),
         upload_to="static/images/%Y/%m/%d",
         format="PNG",
         options={"quality": 60},
     )
-    coverPic = ProcessedImageField(
-        upload_to="static/images/%Y/%m/%d",
-        format="PNG",
-        options={"quality": 60},
-    )
-
-    def __str__(self):
-        return self.companyID
 
 
 class Restaurant(models.Model):
@@ -73,31 +76,12 @@ class Restaurant(models.Model):
         else:
             return "R" + str(n + 1).zfill(3)
 
-    resID = models.CharField(max_length=10, primary_key=True, default=genID)
-    companyID = models.ForeignKey(
-        Company, blank=True, null=True, on_delete=models.SET_NULL
-    )
-    categoryID = models.ForeignKey(Category, on_delete=models.CASCADE)
-    resName = models.CharField(max_length=30)
-    open = models.TimeField()
-    close = models.TimeField()
-    address = models.CharField(max_length=20)
-    subDistrict = models.CharField(max_length=20, blank=True)
-    district = models.CharField(max_length=20, blank=True)
-    province = models.CharField(max_length=20)
-    postalCode = models.CharField(max_length=5)
-    email = models.CharField(max_length=50)
-    tel = models.CharField(max_length=10)
-    ig = models.CharField(max_length=50, null=True)
-    fb = models.CharField(max_length=50, null=True)
-    mapLon = models.CharField(max_length=10, default=0)
-    mapLAT = models.CharField(max_length=10, default=0)
-    profilePic = models.ImageField(
-        upload_to="static/images/", default="static/images/defaultProfile.png"
-    )
-    coverPic = models.ImageField(
-        upload_to="static/images/", default="static/images/defaultProfile.png"
-    )
+    def defaultProfile(string):
+        return (
+            "https://ui-avatars.com/api/?name="
+            + str(string)
+            + "&color=7F9CF5&background=EBF4FF"
+        )
 
     def __str__(self):
         return self.resID
@@ -118,8 +102,33 @@ class Restaurant(models.Model):
     def fullPhone(self):
         return self.tel[0:3] + "-" + self.tel[3:6] + "-" + self.tel[6:10]
 
-    def location(self):
-        return self.mapLon + "," + self.mapLAT
+    resID = models.CharField(max_length=10, primary_key=True, default=genID)
+    companyID = models.ForeignKey(
+        Company, blank=True, null=True, on_delete=models.SET_NULL
+    )
+    categoryID = models.ForeignKey(Category, on_delete=models.CASCADE)
+    resName = models.CharField(max_length=30)
+    open = models.TimeField()
+    close = models.TimeField()
+    address = models.CharField(max_length=20)
+    subDistrict = models.CharField(max_length=20, blank=True)
+    district = models.CharField(max_length=20, blank=True)
+    province = models.CharField(max_length=20)
+    postalCode = models.CharField(max_length=5)
+    email = models.CharField(max_length=50)
+    tel = models.CharField(max_length=10)
+    profilePic = ProcessedImageField(
+        default=defaultProfile(resName),
+        upload_to="static/images/%Y/%m/%d",
+        format="PNG",
+        options={"quality": 60},
+    )
+    coverPic = ProcessedImageField(
+        default=defaultProfile(resName),
+        upload_to="static/images/%Y/%m/%d",
+        format="PNG",
+        options={"quality": 60},
+    )
 
 
 class Menu(models.Model):
@@ -139,7 +148,20 @@ class Menu(models.Model):
     description = models.TextField(null=True)
     price = models.FloatField()
     avaliable = models.BooleanField()
-    picture = models.ImageField(upload_to="static/images/", blank=True, null=True)
+
+    def defaultProfile(string):
+        return (
+            "https://ui-avatars.com/api/?name="
+            + str(string)
+            + "&color=7F9CF5&background=EBF4FF"
+        )
 
     def __str__(self):
         return self.menuID
+
+    profilePic = ProcessedImageField(
+        default=defaultProfile(menuName),
+        upload_to="static/images/%Y/%m/%d",
+        format="PNG",
+        options={"quality": 60},
+    )
