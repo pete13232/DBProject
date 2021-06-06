@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import messages
+from django.utils import timezone
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect, render, get_object_or_404
 
@@ -14,9 +15,15 @@ from users.models import Member
 from queueSystem.models import Queue
 
 from .forms import deleteStaffForm, changeProfileForm, editRoleForm
-from restaurants.forms import editMenuForm, createMenuForm, editCompanyForm, editRestaurantForm
+from restaurants.forms import (
+    editMenuForm,
+    createMenuForm,
+    editCompanyForm,
+    editRestaurantForm,
+)
 from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm
+
 import sweetify
 
 # Create your views here.
@@ -330,8 +337,6 @@ def deleteStaff(request, pk):
         form = deleteStaffForm()
 
 
-
-
 def staffProfile(request, pk):
     restaurant = Restaurant.objects.get(id=pk)
     context = {"restaurant": restaurant}
@@ -369,7 +374,7 @@ def profile(request, pk):
         elif pk[0] == "R":
             restaurant = Restaurant.objects.filter(resID=pk)
             form = editRestaurantForm()
-        else :
+        else:
             profile = Member.objects.filter(resID=pk)
             form = editMemberForm()
         context = {

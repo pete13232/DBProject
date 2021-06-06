@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+from django.utils import timezone, dates
 from users.models import Member
 from restaurants.models import Restaurant
 
@@ -21,8 +21,7 @@ class Queue(models.Model):
     )
     peopleNum = models.IntegerField(default=0)
     queueCreated = models.DateTimeField(auto_now_add=True)
-    reserveDate = models.DateField(null=True, default=datetime.date.today)
-    reserveTime = models.TimeField(null=True, default=timezone.now)
+    reserveDateTime = models.DateTimeField(null=True, default=timezone.now)
     queueType = (
         ("success", "success"),
         ("fail", "fail"),

@@ -1,6 +1,6 @@
  {% load static %}
  <!-- Modal -->
- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="createNowQueue" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header border-0 align-self-start">
@@ -73,6 +73,10 @@
          </div>
        </div>
        <div class="modal-footer">
+         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createQueue"
+           data-bs-dismiss="modal">
+           จองคิวล่วงหน้า
+         </button>
          <a href="{%url 'menu' restaurant.resID %}">
            <button type="button" class="btn btn-primary">
              รายการอาหาร
@@ -84,3 +88,5 @@
      </div>
    </div>
  </div>
+
+ {% include 'queueSystem/createQueue.html' %}
