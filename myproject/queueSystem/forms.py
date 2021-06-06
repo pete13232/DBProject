@@ -3,7 +3,6 @@ from queueSystem.models import Queue
 
 
 class createQueueForm(forms.ModelForm):
-    reserveTime = 
     class Meta:
         model = Queue
         fields = (

@@ -9,7 +9,7 @@ urlpatterns = [
     path("login", views.login, name="login"),
     path("signup", views.signup, name="signup"),
     path("review", views.review, name="review"),
-    path("queueManagement", views.queueManagement, name="queueManagement"),
+    path("queueManagement/<str:pk>", views.queueManagement, name="queueManagement"),
     path("admin", views.admin, name="adminpage"),
     path("userprofile/<str:pk>", views.userprofile, name="userprofile"),
     path("changeProfile/<str:pk>", views.changeProfile, name="changeProfile"),
@@ -28,4 +28,6 @@ urlpatterns = [
     path("staffProfile/<str:pk>", views.staffProfile, name="staffProfile"),
     path("companyProfile/<str:pk>", views.companyProfile, name="companyProfile"),
     path("deleteStaff/<str:pk>", views.deleteStaff, name="deleteStaff"),
+    path("dashboard", views.dashboard, name="dashboard"),
+    # path("sidebar", views.sidebar, name="sidebar"),
 ]

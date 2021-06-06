@@ -121,9 +121,10 @@ def managerProfile(request, pk):
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "manager", "staff"])
-def queueManagement(request):
-
-    return render(request, "app/queueManagement.html")
+def queueManagement(request,pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    context = {"restaurant": restaurant}
+    return render(request, "app/queueManagement.html", context)
 
 
 @login_required(login_url="users/login")
@@ -139,7 +140,7 @@ def requestRegistration(request):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "manager", "staff", "member"])
+@allowed_users(allowed_roles=["admin", "manager", "staff", "member", "executive"])
 def menu(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
@@ -261,6 +262,7 @@ def staffList(request, pk):
         "staffs": staffs,
         "form": form,
         "pk": pk,
+        "restaurant": restaurant,
     }
     return render(request, "app/staffList.html", context)
 
@@ -379,4 +381,7 @@ def profile(request, pk):
             "form": form,
             "pk": pk,
         }
-        return render(request, "app/profile.html", context)
+    return render(request, "app/profile.html", context)
+
+def dashboard(request):
+    return render(request, "app/dashboard.html")

@@ -57,13 +57,11 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-end">
+    {% comment %} <div class="row justify-content-end">
         <a href="{%url 'staffList' restaurant.resID%}" class="btn btn-primary mt-4 me-2" style="width : 25%">Staff
             member</a>
-        <!--รอใส่ navbar-->
         <a href="{%url 'menu' restaurant.resID %}" class="btn btn-secondary mt-4" style="width : 25%">Menu
             edit</a>
-        <!--รอใส่ navbar-->
-    </div>
+    </div> {% endcomment %}
 </div>
 {% endblock content %}

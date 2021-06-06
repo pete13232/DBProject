@@ -38,10 +38,14 @@
                   รายการอาหาร
                 </button>
               </a>
+
+              {% if user.role == "member" %}
               <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
                 จองคิว
               </button>
+              {% endif %}
+
             </p>
           </div>
         </div>

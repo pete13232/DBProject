@@ -1,0 +1,114 @@
+{% load static %}
+
+{% if user.role ==  "manager" or user.role == "staff" %}
+<div class="offcanvas offcanvas-start d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" tabindex="-1"
+    id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header">
+        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <img src="{{ request.user.resID.profilePic.url }}" class="img border border-white rounded-3"
+                style="height: 60px; width: 60px;">
+            <span class="fs-4 ms-3">{{request.user.resID.resName}}</span>
+        </a>
+    </div>
+    <hr>
+    <div class="offcanvas-body">
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+
+                {% if user.role == "manager" %}
+                <a href="{%url 'managerControl' request.user.resID %}" class="nav-link text-white" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#home"></use>
+                    </svg>
+                    Customer log & Queue
+                </a>
+            <li>
+                <a href="{%url 'staffList' request.user.resID %}" class="nav-link text-white">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#speedometer2"></use>
+                    </svg>
+                    Manage member
+                </a>
+            </li>
+
+            {% elif user.role == "staff"%}
+            <a href="{%url 'queueManagement' request.user.resID %}" class="nav-link text-white" aria-current="page">
+                <svg class="bi me-2" width="16" height="16">
+                    <use xlink:href="#home"></use>
+                </svg>
+                Queue
+            </a>
+            {% endif %}
+
+            </li>
+            <li>
+                <a href="{%url 'menu' request.user.resID %}" class="nav-link text-white">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#table"></use>
+                    </svg>
+                    Edit menu
+                </a>
+            </li>
+        </ul>
+    </div>
+    <hr>
+    {% comment %} <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong>mdo</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+        </ul>
+    </div> {% endcomment %}
+</div>
+{% elif user.role ==  "executive" %}
+<div class="offcanvas offcanvas-start d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" tabindex="-1"
+    id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header text-white">
+        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <img src="{{ request.user.resID.companyID.profilePic.url }}" class="img border border-white rounded-3"
+                style="height: 60px; width: 60px;">
+            <span class="fs-4 ms-3 text-white">{{request.user.resID.companyID.companyName}}</span>
+        </a>
+    </div>
+    <hr>
+    <div class="offcanvas-body">
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="{%url 'executiveControl' request.user.resID %}" class="nav-link text-white"
+                    aria-current="page">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#home"></use>
+                    </svg>
+                    Customer log & Queue
+                </a>
+            </li>
+            <li>
+                <a href="{%url 'staffList' request.user.resID %}" class="nav-link text-white">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#speedometer2"></use>
+                    </svg>
+                    Manage member
+                </a>
+            </li>
+            <li>
+                <a href="{%url 'menu' request.user.resID %}" class="nav-link text-white">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#table"></use>
+                    </svg>
+                    Edit menu
+                </a>
+            </li>
+        </ul>
+    </div>
+    <hr>
+</div>
+{% endif %}

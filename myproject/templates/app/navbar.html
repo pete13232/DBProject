@@ -34,11 +34,31 @@
                 </li>
             </ul>
             {% elif user.role ==  "staff" or user.role ==  "manager" %}
-            <button type="button" class="btn btn-lg text-white h3"
-                style="margin:0px 15px;background-color:#D0BDF4;">Restaurant</button>
+            <button type="button" class="btn btn-lg text-white h3" style="margin:0px 15px;background-color:#D0BDF4;"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop"
+                aria-controls="offcanvasWithBackdrop">Restaurant</button>
+            <ul class="navbar-nav">
+                {% comment %} <li class="nav-item dropdown d-flex">
+                    <a class="nav-link" style="margin: 0px 15px; font-size: 18px" href="#" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
+                        Restaurant
+                    </a> {% endcomment %}
+                    {% comment %} <a class="nav-link dropdown-toggle" style="margin: 0px 15px; font-size: 18px" href="#"
+                        id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Menu edit
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="{%url 'staffList' request.user.resID %}">Staff member</a>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Menu edit</a></li>
+                    </ul> {% endcomment %}
+                </li>
+            </ul>
+
             {% elif user.role ==  "executive" %}
-            <button type="button" class="btn btn-lg text-white h3"
-                style="margin:0px 15px;background-color:#D0BDF4;">Company</button>
+            <button type="button" class="btn btn-lg text-white h3" style="margin:0px 15px;background-color:#D0BDF4;"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop"
+                aria-controls="offcanvasWithBackdrop">Company</button>
 
 
 
@@ -51,7 +71,7 @@
         <div class="card col-9">
             <div class="card-body" style="padding: 16px 25px">
                 <table class="col-12 justify-content-between">
-                {% if user.role ==  'member' %}
+                    {% if user.role ==  'member' %}
                     <tr>
                         <td>
                             <h5 class="card-title d-flex justify-content-start">Queue Number : </h5>
@@ -93,36 +113,37 @@
     {% endif %}
 
     {% if request.user.is_authenticated %}
+    <!--login แล้ว-->
     <table class="col-4 d-flex justify-content-end">
         <tr>
             <td class="me-4 text-center text-white h5 pe-4">Welcome, {{request.user.fName}}</td>
             <td>
-                
+
                 {% if request.user.role == "member" %}
-                    <a href="{%url 'userprofile' request.user.id %}">
+                <a href="{%url 'userprofile' request.user.id %}">
                     <img src="{{ request.user.profile.url }}" class="img border border-white rounded-3"
                         style="height: 60px; width: 60px;">
-                     </a>
+                </a>
                 {% elif request.user.role == "staff" %}
-                    <a href="{%url 'staffProfile' request.user.id %}">
+                <a href="{%url 'staffProfile' request.user.id %}">
                     <img src="{{ request.user.profile.url }}" class="img border border-white rounded-3"
                         style="height: 60px; width: 60px;">
-                     </a>
+                </a>
                 {% elif request.user.role == "manager" %}
-                    <a href="{%url 'managerProfile' request.user.id %}">
+                <a href="{%url 'managerProfile' request.user.id %}">
                     <img src="{{ request.user.profile.url }}" class="img border border-white rounded-3"
                         style="height: 60px; width: 60px;">
-                     </a>
+                </a>
                 {% elif request.user.role == "executive" %}
-                    <a href="{%url 'executiveProfile' request.user.id %}">
+                <a href="{%url 'executiveProfile' request.user.id %}">
                     <img src="{{ request.user.profile.url }}" class="img border border-white rounded-3"
                         style="height: 60px; width: 60px;">
-                     </a>
+                </a>
                 {% elif request.user.role == "admin" %}
-                    <a href="{%url 'home' %}">
+                <a href="{%url 'home' %}">
                     <img src="{{ request.user.profile.url }}" class="img border border-white rounded-3"
                         style="height: 60px; width: 60px;">
-                     </a>
+                </a>
                 {% endif %}
 
             </td>
@@ -150,3 +171,4 @@
 
     </div>
 </nav>
+{% include 'app/sidebar.html' %}
