@@ -28,7 +28,13 @@
   </div>
   {% endfor %}
 
-  {% if user.role != "member" and user.role != "staff" %}
+
+<p>{{user.resID_id}}</p>
+<p>{{restaurant.resID}}</p>
+
+
+
+  {% if user.role != "member"  and user.resID_id == restaurant.resID %}
   <div class="row g-4 d-flex justify-content-end">
     <div class="row" style="width : 20%;">
       <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#menuModal">
@@ -38,7 +44,7 @@
     </div>
   </div>
 </div>
-{% endif %}
+  {% endif %}
 {% include 'restaurants/menuModal.html' with menus=menus %}
 </div>
 

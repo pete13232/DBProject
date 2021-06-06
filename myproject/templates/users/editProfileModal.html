@@ -33,13 +33,11 @@
                          <div class="form-row d-flex pb-2">
                              <div class="col-md-5" style="padding-right : 20px">
                                  <label>Password</label>
-                                 <input type="text" class="form-control" placeholder=""
-                                     value="">
+                                 <input type="text" class="form-control" placeholder="" value="">
                              </div>
                              <div class="col-md-5">
                                  <label>Confirm password</label>
-                                 <input type="text" class="form-control" id=""
-                                     placeholder="" value="">
+                                 <input type="text" class="form-control" id="" placeholder="" value="">
                              </div>
                          </div>
                          <div class="form-row d-flex pb-2">
@@ -50,8 +48,8 @@
                              </div>
                              <div class="col-md-3" style="padding-right : 20px">
                                  <label>Gender</label>
-                                 <select class="form-select" aria-label="Default select example" name="categoryID" >
-                                     <option selected hidden value="{{profile.gender}}" >
+                                 <select class="form-select" aria-label="Default select example" name="categoryID">
+                                     <option selected hidden value="{{profile.gender}}">
 
                                          {% if  profile.gender == "M" %}
                                          Male
@@ -72,9 +70,19 @@
                                      placeholder="{{profile.tel}}" value="{{profile.tel}}">
                              </div>
                          </div>
-
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-6">
+                                 <label>Logo</label>
+                                 <div class="mt-1">
+                                     <label for="files" class="btn btn-primary btn-sm rounded-0">Choose
+                                         file</label>
+                                     <input id="files" style="visibility:hidden; height:0" type="file" name="profilePic"
+                                         value="{{restaurant.profilePic}}">
+                                 </div>
+                             </div>
+                         </div>
                          <div class="modal-footer">
-                             <input type="submit" value="Submit" class="btn btn-primary" >
+                             <input type="submit" value="Submit" class="btn btn-primary">
                          </div>
                      </form>
                  </div>
