@@ -12,6 +12,13 @@
   border-radius: 14px;
   transform: translate(0%, 33%);
 }
+.imgCollabM {
+  height: 220px;
+  width: 60% !important;
+  position: absolute;
+  border-radius: 14px;
+  transform: translate(0%, 33%);
+}
 .resImg {
   border-radius: 14px;
   max-height: 300px;
@@ -24,4 +31,11 @@
 }
 img {
   object-fit: cover;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }

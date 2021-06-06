@@ -1,6 +1,6 @@
  {% load static %}
  <!-- Modal -->
- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="createNowQueue" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog">
      <div class="modal-content">
        <div class="modal-header border-0 align-self-start">
@@ -9,35 +9,74 @@
        </div>
        <div class="modal-body">
          <div class="card p-3" style="">
-           <div class="row">
-             <img src="{{restaurant.coverPic.url}}" class="imgBg" alt="Responsive image" />
-             <img src="{{restaurant.profilePic.url}}" class="imgCollab" alt="Responsive image" />
+           <img src="{{restaurant.getCoverPic}}" class="img imgBg" alt="Responsive image" />
+           <img src="{{restaurant.getProfilePic}}" class="img imgCollabM" alt="Responsive image" />
+           <div class="row" style="margin-top:50px ;">
+             <h2 class="card-title">ร้านอาหาร : {{restaurant.resName}}</h2>
+             <p class="card-text">ประเภท : {{restaurant.categoryID.categoryName}}</p>
            </div>
            <div class="card-body">
-             <form method="POST" action="{% url 'createQueue' restaurant.resID %}">
+             <form method="POST" action="{% url 'createNowQueue' restaurant.resID %}">
                {% csrf_token %}
-               <h2 class="card-title">ร้านอาหาร : {{restaurant.resName}}</h2>
-               <p class="card-text">ประเภท : {{restaurant.categoryID.categoryName}}</p>
                <input type="text" id="resID" name="resID" value="{{restaurant.resID}}" hidden />
-               <input type="text" id="memberID" name="memberID" value="{{request.user.id}}" hidden />
-               <div class="row">
-                 <div class="col-6 mb-3">
-                   <p class="card-text">เวลาที่จอง</p>
+               <input type="text" id="memberID" name="memberID" value="{{request.user.memberID}}" hidden />
+
+               <div class="row mb-3">
+                 <div class="col-6 ">
+                   <label for="date" class="card-text col-form-label-lg">คิวก่อนหน้า</label>
                  </div>
-                 <div class="col-6">
-                   <input type="datetime-local" id="reserveTime" name="reserveTime" style="max-width: 99%;" />
+                 <div class="col-6 text-center">
+                   <label for="date" class="card-text col-form-label-lg">6 คิว</label>
                  </div>
                </div>
+
+               <div class="row mb-3 ">
+                 <div class="col-6 ">
+                   <label for="time" class="card-text col-form-label-lg">เวลาคาดการณ์</label>
+                 </div>
+                 <div class="col-6 text-center">
+                   <label for="time" class="card-text col-form-label-lg">45 นาที</label>
+                 </div>
+               </div>
+               {% comment %} <div class="row mb-3">
+                 <div class="col-6 ">
+                   <label for="date" class="card-text col-form-label-lg">วัน</label>
+                 </div>
+                 <div class="col-6">
+                   <input type="date" class="form-control" id="date" name="date" value="">
+                   <div id="dateHelp" class="form-text">ระบุวันที่ต้องการจอง</div>
+                 </div>
+               </div>
+
+               <div class="row mb-3">
+                 <div class="col-6 ">
+                   <label for="time" class="card-text col-form-label-lg">เวลา</label>
+                 </div>
+                 <div class="col-6">
+                   <input type="time" class="form-control" id="time" name="time" value="">
+                   <div id="dateHelp" class="form-text">ระบุเวลาที่ต้องการจอง</div>
+                 </div>
+               </div> {% endcomment %}
+
                <div class="row">
                  <div class="col-6">
-                   <p class="card-text">จำนวนผู้เข้าใช้</p>
+                   <label for="peopleNum" class="card-text col-form-label-lg">จำนวนผู้เข้าใช้</label>
                  </div>
-                 <div class="col-6"><input type="number" name="peopleNum" min="1" max="100" /></div>
+                 <div class="col-6 text-center">
+                   <input type="number" class="form-control  d-inline me-2" style="width: 50px;" id="peopleNum"
+                     name="peopleNum" min=1 max=50 value="">
+                   <label for="peopleNum" class="card-text col-form-label-lg">คน</label>
+                 </div>
                </div>
+
            </div>
          </div>
        </div>
        <div class="modal-footer">
+         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createQueue"
+           data-bs-dismiss="modal">
+           จองคิวล่วงหน้า
+         </button>
          <a href="{%url 'menu' restaurant.resID %}">
            <button type="button" class="btn btn-primary">
              รายการอาหาร
@@ -49,3 +88,5 @@
      </div>
    </div>
  </div>
+
+ {% include 'queueSystem/createQueue.html' %}

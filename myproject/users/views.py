@@ -10,7 +10,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from users.decorators import unauthenticated_user, allowed_users, admin_only
 
-from .forms import CreateMemberForm, MemberForm, CreateUserForm
+from .forms import CreateMemberForm
 
 # Create your views here.
 def index(request):
@@ -37,24 +37,6 @@ def signup(request):
     return render(request, "users/signup.html", context)
 
 
-# register page
-@unauthenticated_user
-def registerPage(request):
-    form = CreateUserForm()
-
-    if request.method == "POST":
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get("username")
-            messages.success(request, "Account was created for " + user)
-            return redirect("users_login")
-
-    context = {"form": form}
-
-    return render(request, "users/basicSignup.html", context)
-
-
 # login page
 @unauthenticated_user
 def loginPage(request):
@@ -76,4 +58,3 @@ def loginPage(request):
 def logoutPage(request):
     logout(request)
     return redirect("/")
-

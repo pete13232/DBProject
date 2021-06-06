@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import messages
+from django.utils import timezone
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect, render, get_object_or_404
 
@@ -11,12 +12,18 @@ from django.contrib.auth.decorators import login_required
 from restaurants.models import Category, Restaurant, Menu, Company
 from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
-from queueSystem.models import Queue
+from queueSystem.models import Queue, Review
 
 from .forms import deleteStaffForm, changeProfileForm, editRoleForm
-from restaurants.forms import editMenuForm, createMenuForm, editCompanyForm, editRestaurantForm
+from restaurants.forms import (
+    editMenuForm,
+    createMenuForm,
+    editCompanyForm,
+    editRestaurantForm,
+)
 from users.forms import editMemberForm
-from queueSystem.forms import createQueueForm
+from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
+
 import sweetify
 
 # Create your views here.
@@ -35,8 +42,8 @@ def index(request):
 
 def resCard(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
-    form = createQueueForm()
-    context = {"restaurant": restaurant, "form": form}
+    reviews = Review.objects.filter(resID=pk)
+    context = {"restaurant": restaurant, "reviews": reviews}
     return render(request, "app/resCard.html", context)
 
 
@@ -59,7 +66,7 @@ def review(request):
 
 @login_required(login_url="users/login")
 def userprofile(request, pk):
-    profile = Member.objects.get(id=pk)
+    profile = Member.objects.get(memberID=pk)
     # queue = Queue.objects.get(memberID=profile)
     form = changeProfileForm()
     context = {"profile": profile, "form": form}
@@ -70,7 +77,7 @@ def changeProfile(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
     if request.method == "POST":
-        instance = get_object_or_404(Member, id=request.POST["id"])
+        instance = get_object_or_404(Member, memberID=request.POST["memberID"])
         form = changeProfileForm(request.POST or None, instance=instance)
         if form.is_valid():
             form.save()
@@ -112,7 +119,7 @@ def workerprofile(request):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "executive", "manager","staff"])
+@allowed_users(allowed_roles=["admin", "executive", "manager", "staff"])
 def managerProfile(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
@@ -230,7 +237,7 @@ def createMenu(request, pk):
 
 
 def profileDetail(request, pk):  # check ให้หน่อย
-    profile = Member.objects.get(id=pk)
+    profile = Member.objects.get(memberID=pk)
     queue = Queue.objects.get(memberID=pk)
     context = {"profile": profile, "queue": queue}
     return render(request, "app/profileDetail.html", context)
@@ -268,7 +275,7 @@ def staffList(request, pk):
 def editRole(request, pk):
 
     if request.method == "POST":
-        instance = get_object_or_404(Member, id=request.POST["id"])
+        instance = get_object_or_404(Member, memberID=request.POST["memberID"])
         form = editRoleForm(request.POST or None, instance=instance)
         print(instance)
         if form.is_valid():
@@ -298,8 +305,8 @@ def editRole(request, pk):
 
 def deleteStaff(request, pk):
     if request.method == "POST":
-        id = request.POST["id"]
-        instance = get_object_or_404(Member, id=id)
+        memberID = request.POST["memberID"]
+        instance = get_object_or_404(Member, memberID=memberID)
         form = deleteStaffForm(request.POST or None, instance=instance)
         # name = request.POST["fullName"]
         if form.is_valid():
@@ -330,16 +337,14 @@ def deleteStaff(request, pk):
         form = deleteStaffForm()
 
 
-
-
 def staffProfile(request, pk):
-    restaurant = Restaurant.objects.get(id=pk)
+    restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/staffProfile.html", context)
 
 
 def executiveProfile(request, pk):
-    restaurant = Restaurant.objects.get(id=pk)
+    restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/executiveProfile.html", context)
 
