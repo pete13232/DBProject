@@ -14,7 +14,8 @@ from users.models import Member
 from queueSystem.models import Queue
 
 from .forms import deleteStaffForm, changeProfileForm, editRoleForm
-from restaurants.forms import editMenuForm, createMenuForm
+from restaurants.forms import editMenuForm, createMenuForm, editCompanyForm, editRestaurantForm
+from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm
 import sweetify
 
@@ -329,19 +330,16 @@ def deleteStaff(request, pk):
         form = deleteStaffForm()
 
 
-def resProfile(request):
-
-    return render(request, "app/resProfile.html")
 
 
 def staffProfile(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
+    restaurant = Restaurant.objects.get(id=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/staffProfile.html", context)
 
 
 def executiveProfile(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
+    restaurant = Restaurant.objects.get(id=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/executiveProfile.html", context)
 
@@ -353,6 +351,32 @@ def resProfile(request, pk):
 
 
 def companyProfile(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
+    restaurant = Restaurant.objects.get(companyID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/companyProfile.html", context)
+
+
+def profile(request, pk):
+    if request.method == "POST":
+        print("0")
+    else:
+        company = None
+        restaurant = None
+        profile = None
+        if pk[0] == "C":
+            company = Company.objects.filter(companyID=pk)
+            form = editCompanyForm()
+        elif pk[0] == "R":
+            restaurant = Restaurant.objects.filter(resID=pk)
+            form = editRestaurantForm()
+        else :
+            profile = Member.objects.filter(resID=pk)
+            form = editMemberForm()
+        context = {
+            "company": company,
+            "restaurant": restaurant,
+            "profile": profile,
+            "form": form,
+            "pk": pk,
+        }
+        return render(request, "app/profile.html", context)

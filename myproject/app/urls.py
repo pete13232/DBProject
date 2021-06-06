@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("", views.index, name="home"),
     path("resCard/<str:pk>", views.resCard, name="resCard"),
     path("card3Col", views.card3Col, name="card3Col"),
     path("login", views.login, name="login"),
