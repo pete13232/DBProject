@@ -1,6 +1,9 @@
 from django.db import models
+from django.utils import timezone
 from users.models import Member
 from restaurants.models import Restaurant
+
+import datetime
 
 # Create your models here.
 class Queue(models.Model):
@@ -18,15 +21,18 @@ class Queue(models.Model):
     )
     peopleNum = models.IntegerField(default=0)
     queueCreated = models.DateTimeField(auto_now_add=True)
-    reserveTime = models.DateTimeField(blank=True, null=True)
+    reserveDate = models.DateField(null=True, default=datetime.date.today)
+    reserveTime = models.TimeField(null=True, default=timezone.now)
     queueType = (
-        ("S", "Success"),
-        ("F", "Fail"),
-        ("W", "Waiting"),
-        ("C", "Cancel"),
-        ("P", "Point"),
+        ("success", "success"),
+        ("fail", "fail"),
+        ("waiting", "waiting"),
+        ("cancel", "cancel"),
+        ("point", "point"),
     )
-    queueIsSuccess = models.CharField(max_length=10, choices=queueType, default="W")
+    queueIsSuccess = models.CharField(
+        max_length=10, choices=queueType, default="waiting"
+    )
     queueIsPass = models.BooleanField(default=False)
 
     class Meta:

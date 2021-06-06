@@ -111,7 +111,7 @@ def workerprofile(request):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "executive", "manager","staff"])
+@allowed_users(allowed_roles=["admin", "executive", "manager", "staff"])
 def managerProfile(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
