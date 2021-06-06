@@ -37,23 +37,6 @@
             <button type="button" class="btn btn-lg text-white h3" style="margin:0px 15px;background-color:#D0BDF4;"
                 data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop"
                 aria-controls="offcanvasWithBackdrop">Restaurant</button>
-            <ul class="navbar-nav">
-                {% comment %} <li class="nav-item dropdown d-flex">
-                    <a class="nav-link" style="margin: 0px 15px; font-size: 18px" href="#" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
-                        Restaurant
-                    </a> {% endcomment %}
-                    {% comment %} <a class="nav-link dropdown-toggle" style="margin: 0px 15px; font-size: 18px" href="#"
-                        id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Menu edit
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="{%url 'staffList' request.user.resID %}">Staff member</a>
-                        </li>
-                        <li><a class="dropdown-item" href="#">Menu edit</a></li>
-                    </ul> {% endcomment %}
-                </li>
-            </ul>
 
             {% elif user.role ==  "executive" %}
             <button type="button" class="btn btn-lg text-white h3" style="margin:0px 15px;background-color:#D0BDF4;"
@@ -120,28 +103,28 @@
             <td>
 
                 {% if request.user.role == "member" %}
-                <a href="{%url 'userprofile' request.user.memberID %}">
-                    <img src="{{ request.user.getProfilePic }}" class="img border border-white rounded-3"
+                <a href="{%url 'profile' request.user.memberID %}">
+                    <img src="{{ request.user.getProfilePic }}" class="img-cover border border-white rounded-3"
                         style="height: 60px; width: 60px;">
                 </a>
                 {% elif request.user.role == "staff" %}
-                <a href="{%url 'staffProfile' request.user.memberID %}">
-                    <img src="{{ request.user.getProfilePic }}" class="img border border-white rounded-3"
+                <a href="{%url 'profile' request.user.memberID %}">
+                    <img src="{{ request.user.getProfilePic }}" class="img-cover border border-white rounded-3"
                         style="height: 60px; width: 60px;">
                 </a>
                 {% elif request.user.role == "manager" %}
-                <a href="{%url 'managerProfile' request.user.memberID %}">
-                    <img src="{{ request.user.getProfilePic }}" class="img border border-white rounded-3"
+                <a href="{%url 'profile' request.user.memberID %}">
+                    <img src="{{ request.user.getProfilePic }}" class="img-cover border border-white rounded-3"
                         style="height: 60px; width: 60px;">
                 </a>
                 {% elif request.user.role == "executive" %}
-                <a href="{%url 'executiveProfile' request.user.memberID %}">
-                    <img src="{{ request.user.getProfilePic }}" class="img border border-white rounded-3"
+                <a href="{%url 'profile' request.user.memberID %}">
+                    <img src="{{ request.user.getProfilePic }}" class="img-cover border border-white rounded-3"
                         style="height: 60px; width: 60px;">
                 </a>
                 {% elif request.user.role == "admin" %}
                 <a href="{%url 'home' %}">
-                    <img src="{{ request.user.getProfilePic }}" class="img border border-white rounded-3"
+                    <img src="{{ request.user.getProfilePic }}" class="img-cover border border-white rounded-3"
                         style="height: 60px; width: 60px;">
                 </a>
                 {% endif %}

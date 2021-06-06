@@ -10,12 +10,6 @@ class deleteStaffForm(forms.ModelForm):
         fields = ("memberID", "resID")
 
 
-class changeProfileForm(forms.ModelForm):
-    class Meta:
-        model = Member
-        fields = ("memberID", "profilePic")
-
-
 class editRoleForm(forms.ModelForm):
     class Meta:
         model = Member

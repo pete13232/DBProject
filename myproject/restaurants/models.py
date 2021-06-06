@@ -170,7 +170,6 @@ class Menu(models.Model):
     description = models.TextField(null=True)
     price = models.FloatField()
     avaliable = models.BooleanField()
-
     profilePic = ProcessedImageField(
         upload_to="static/images/%Y/%m/%d",
         format="PNG",

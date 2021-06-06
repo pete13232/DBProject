@@ -14,7 +14,7 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
 from queueSystem.models import Queue, Review
 
-from .forms import deleteStaffForm, changeProfileForm, editRoleForm
+from app.forms import deleteStaffForm, changeProfileForm, editRoleForm
 from restaurants.forms import (
     editMenuForm,
     createMenuForm,
@@ -78,39 +78,6 @@ def userprofile(request, pk):
     return render(request, "app/userProfile.html", context)
 
 
-def changeProfile(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    menus = Menu.objects.filter(resID=restaurant)
-    if request.method == "POST":
-        instance = get_object_or_404(Member, memberID=request.POST["memberID"])
-        form = changeProfileForm(request.POST or None, instance=instance)
-        if form.is_valid():
-            form.save()
-            sweetify.success(
-                request,
-                icon="success",
-                title="DONE !",
-                text="Profile changed",
-                timer=1500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-            )
-            return redirect("/userprofile/" + pk)
-        else:
-            sweetify.error(
-                request,
-                icon="error",
-                title="Oops !",
-                text="Something went wrong! Try again",
-                timer=2500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-            )
-            return redirect("/userprofile/" + pk)
-    else:
-        form = changeProfileForm()
-
-
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager", "staff"])
 def workerprofile(request):
@@ -133,7 +100,7 @@ def managerProfile(request, pk):
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "manager", "staff"])
-def queueManagement(request,pk):
+def queueManagement(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/queueManagement.html", context)
@@ -152,94 +119,11 @@ def requestRegistration(request):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "manager", "staff", "member", "executive"])
-def menu(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    menus = Menu.objects.filter(resID=restaurant)
-    edit = editMenuForm()
-    create = createMenuForm()
-    context = {"menus": menus, "restaurant": restaurant, "edit": edit, "create": create}
-    return render(request, "app/menu.html", context)
-
-
-@login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "manager"])
 def managerControl(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
     return render(request, "app/managerControl.html", context)
-
-
-@login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "manager", "staff", "member"])
-def editMenu(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    menus = Menu.objects.filter(resID=restaurant)
-    if request.method == "POST":
-        instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
-        form = editMenuForm(request.POST or None, instance=instance)
-        menu = request.POST["menuName"]
-        if form.is_valid():
-            form.save()
-            sweetify.success(
-                request,
-                icon="success",
-                title="DONE !",
-                text="Menu " + menu + " was updated",
-                timer=1500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-            )
-            return redirect("/menu/" + pk)
-        else:
-            sweetify.error(
-                request,
-                icon="error",
-                title="Oops !",
-                text="Something went wrong! Try again",
-                timer=2500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-            )
-            return redirect("/menu/" + pk)
-    else:
-        form = editMenuForm()
-
-
-@login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "executive", "manager"])
-def createMenu(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    menus = Menu.objects.filter(resID=restaurant)
-    if request.method == "POST":
-        instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
-        form = createMenuForm(request.POST or None, instance=instance)
-        menu = request.POST["menuName"]
-        if form.is_valid():
-            form.save()
-            sweetify.success(
-                request,
-                icon="success",
-                title="DONE !",
-                text="Menu " + menu + " was updated",
-                timer=1500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-            )
-            return redirect("/foodList/" + pk)
-        else:
-            sweetify.success(
-                request,
-                icon="error",
-                title="Oops !",
-                text="Something went wrong! Try again",
-                timer=2500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-            )
-            return redirect("/foodList/" + pk)
-    else:
-        form = createMenuForm()
 
 
 def profileDetail(request, pk):  # check ให้หน่อย
@@ -255,28 +139,7 @@ def executiveControl(request, pk):  # ยังไม่ได้เชื่อ
     return render(request, "app/executiveControl.html", context)
 
 
-@login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "executive", "manager"])
-def staffList(request, pk):
 
-    if pk[0] == "C":
-        restaurant = Restaurant.objects.filter(companyID=pk)
-        print(restaurant)
-        staffs = Member.objects.filter(resID__in=restaurant)
-    elif pk[0] == "R":
-        restaurant = Restaurant.objects.filter(resID=pk)
-        print(restaurant)
-        staffs = Member.objects.filter(resID__in=restaurant)
-
-    form = editRoleForm()
-    # instance = get_object_or_404(Member, groups=request.POST["groups"])
-    context = {
-        "staffs": staffs,
-        "form": form,
-        "pk": pk,
-        "restaurant": restaurant,
-    }
-    return render(request, "app/staffList.html", context)
 
 
 def editRole(request, pk):
@@ -367,96 +230,6 @@ def companyProfile(request, pk):
     context = {"restaurant": restaurant}
     return render(request, "app/companyProfile.html", context)
 
-
-def profile(request, pk):
-    if request.method == "POST":
-        if pk[0] == "C":
-            instance = get_object_or_404(Company, companyID=pk)
-            company = Company.objects.get(companyID=pk)
-            form = editCompanyForm(request.POST or None, instance=instance)
-            if form.is_valid():
-                form.save()
-                sweetify.success(
-                request,
-                icon="success",
-                title="DONE!",
-                text="Company " + str(company.companyName) + " was updated",
-                timer=1500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-                )
-                return redirect("/profile/" + pk)
-            else:
-                sweetify.error(
-                request,
-                icon="error",
-                title="Oops !",
-                text="Something went wrong! Try again",
-                timer=2500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-                    )
-                print(form)
-                return redirect("/profile/" + pk)
-        elif pk[0] == "R":
-            instance = get_object_or_404(Restaurant, resID=pk)
-            restaurant = Restaurant.objects.get(resID=pk)
-            form = editRestaurantForm(request.POST or None, instance=instance)
-            # open =  Restaurant.objects.get(resID=pk).open
-            # close =  Restaurant.objects.get(resID=pk).close
-            open =  request.POST["open"]
-            close =  request.POST["close"]
-            # form.open = open
-            # form.close = close
-            if form.is_valid():
-                form.save()
-                sweetify.success(
-                request,
-                icon="success",
-                title="DONE!",
-                text="Restaurat " + str(restaurant.resName) + " was updated",
-                timer=1500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-                )
-                return redirect("/profile/" + pk)
-            else:
-                sweetify.error(
-                request,
-                icon="error",
-                title="Oops !",
-                text="Something went wrong! Try again"+str(open)+str(close),
-                timer=2500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-                    )
-                print(form)
-                return redirect("/profile/" + pk)
-        else:
-            print("0")
-    else:
-        company = None
-        restaurant = None
-        profile = None
-        categories = Category.objects.all()
-        if pk[0] == "C":
-            company = Company.objects.get(companyID=pk)
-            form = editCompanyForm()
-        elif pk[0] == "R":
-            restaurant = Restaurant.objects.get(resID=pk)
-            form = editRestaurantForm()
-        else :
-            profile = Member.objects.get(id=pk)
-            form = editMemberForm()
-        context = {
-            "company": company,
-            "categories": categories,
-            "restaurant": restaurant,
-            "profile": profile,
-            "form": form,
-            "pk": pk,
-        }
-    return render(request, "app/profile.html", context)
 
 def dashboard(request):
     return render(request, "app/dashboard.html")

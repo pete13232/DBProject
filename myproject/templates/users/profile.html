@@ -1,12 +1,14 @@
 {% extends 'app/base.html' %}
 {% load static %}
+
 {% block content %}
+
 {% if company is not None %}
 <div class="row border border-3 mt-5 pt-3">
     <div class="col-4 mt-4">
         <div class="row-md-4">
-            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
-                <img src="{{ company.profilePic.url }}" class="card-img-top" alt="...">
+            <div class="card border-0">
+                <img src="{{company.getProfilePic}}" class="img-contain" style="height:300px;">
             </div>
         </div>
     </div>
@@ -45,7 +47,7 @@
 
                         <div class="col-md-6">
                             {% for member in company.member_set.all  %}
-                            <a href="{% url 'profile' member.id %}">
+                            <a href="{% url 'profile' member.memberID %}">
                                 <p>{{member.fullName}}</p>
                             </a>
                             {% endfor %}
@@ -141,15 +143,15 @@
 {% include 'app/modalEditComp.html' %}
 {% elif restaurant is not None %}
 <div class="row border border-3 mt-5 pt-3">
-    <div class="col-4 mt-4">
-        <div class="row-md-4">
-            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
-                <img src="{{ restaurant.profilePic.url }}" class="card-img-top" alt="...">
+    <div class="row-md-4">
+        <div class="col-4 mt-4">
+            <div class="card border-0">
+                <img src="{{restaurant.getProfilePic}}" class="img-contain" style="height:300px;">
             </div>
         </div>
         <div class="row-md-4" style="margin-top:60px">
-            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
-                <img src="{{ restaurant.coverPic.url }}" class="card-img-top" alt="...">
+            <div class="card border-0">
+                <img src="{{restaurant.getCoverPic}}" class="img-contain" style="height:300px;">
             </div>
         </div>
     </div>
@@ -194,7 +196,7 @@
                         <div class="col-md-6">
                             {% for member in restaurant.member_set.all  %}
                             {% if member.role == "manager" %}
-                            <a href="{% url 'profile' member.id %}">
+                            <a href="{% url 'profile' member.memberID %}">
                                 <p>{{member.fullName}}</p>
                             </a>
                             {% endif %}
@@ -293,8 +295,8 @@
 <div class="row border border-3 mt-5 pt-3">
     <div class="col-4 mt-4">
         <div class="row-md-4">
-            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
-                <img src="{{ profile.profile.url }}" class="card-img-top" alt="...">
+            <div class="card border-0">
+                <img src="{{ profile.getProfilePic }}" class="img-contain" style="height:300px;">
             </div>
         </div>
     </div>
@@ -324,14 +326,14 @@
                     <div class="row">
 
                         {% if profile.role == "executive" or profile.role == "manager"%}
-                            <div class="col-md-6">
-                                <label>Owner</label>
-                            </div>
-                        
+                        <div class="col-md-6">
+                            <label>Owner</label>
+                        </div>
+
                         {% elif profile.role == "staff"%}
-                            <div class="col-md-6">
-                                 <label>Workplace</label>
-                            </div>
+                        <div class="col-md-6">
+                            <label>Workplace</label>
+                        </div>
                         {% endif %}
 
 
@@ -341,16 +343,16 @@
                                 <p>{{profile.companyID.companyName}}</p>
                             </a>
                             {% elif profile.role == "manager" or profile.role == "staff"%}
-                            
-                                {% if profile.resID.resName is not None %}
-                                <a href="{% url 'profile' profile.resID %}">
-                                    <p>
-                                        {{profile.resID.resName}}
-                                    </p>
-                                </a>
-                                {% else %}
-                                   <p>None</p> 
-                                {% endif %}
+
+                            {% if profile.resID.resName is not None %}
+                            <a href="{% url 'profile' profile.resID %}">
+                                <p>
+                                    {{profile.resID.resName}}
+                                </p>
+                            </a>
+                            {% else %}
+                            <p>None</p>
+                            {% endif %}
 
                             {% endif %}
 
@@ -378,13 +380,7 @@
                             <label>Gender</label>
                         </div>
                         <div class="col-md-6">
-                            {% if profile.gender == "M" %}
-                            <p>Male</p>
-                            {% elif profile.gender == "F"%}
-                            <p>Female</p>
-                            {% elif profile.gender == "O"%}
-                            <p>Other</p>
-                            {% endif %}
+                            <p> {{profile.gender}} </p>
                         </div>
                     </div>
                     <div class="row">
@@ -413,8 +409,8 @@
 <div class="row border border-3 mt-5 pt-3">
     <div class="col-4 mt-4">
         <div class="row-md-4">
-            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%;">
-                <img src="{{profile.profile.url}}" class="card-img-top" alt="...">
+            <div class="card border-0">
+                <img src="{{profile.getProfilePic}}" class="img-contain" style="height:300px;">
             </div>
         </div>
     </div>
@@ -460,7 +456,7 @@
                             <label>Gender</label>
                         </div>
                         <div class="col-md-6">
-                            <p>{{profile.showGender}}</p>
+                            <p>{{profile.gender}}</p>
                         </div>
                     </div>
                     <div class="row">
