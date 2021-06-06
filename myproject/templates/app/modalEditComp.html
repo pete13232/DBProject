@@ -21,129 +21,83 @@
                                  href="#company" role="tab" aria-controls="company" aria-selected="true">Company</a>
                          </li>
                      </ul>
-                     <form class="mt-3 ms-2">
+                      <form class="mt-3 ms-2" method="POST" action="{% url 'profile' company.companyID %}">
+                         {% csrf_token %}
                          <div class="tab-content profile-tab" id="myTabContent">
-                             <div class="tab-pane fade show active pb-5" id="restaurant" role="tabpanel"
-                                 aria-labelledby="restaurant-tab">
-                                 <div class="form-row d-flex pb-2">
-                                     <div class="col-md-6" style="padding-right : 20px">
-                                         <label>Restaurant Name</label>
-                                         <input type="text" class="form-control" placeholder="restaurant name">
-                                     </div>
-                                     <div class="col-md-6">
-                                         <label>Address</label>
-                                         <input type="text" class="form-control" placeholder="address">
-                                     </div>
-                                 </div>
-                                 <div class="form-row d-flex pb-2">
-                                     <div class="col-md-6" style="padding-right : 20px">
-                                         <label>subDistrict</label>
-                                         <input type="text" class="form-control" placeholder="sub-district">
-                                     </div>
-                                     <div class="col-md-6">
-                                         <label>District</label>
-                                         <input type="text" class="form-control" placeholder="district">
-                                     </div>
-                                 </div>
-                                 <div class="form-row d-flex pb-2">
-                                     <div class="col-md-6" style="padding-right : 20px">
-                                         <label>Province</label>
-                                         <input type="text" class="form-control" placeholder="province">
-                                     </div>
-                                     <div class="col-md-6">
-                                         <label>Postal Code</label>
-                                         <input type="text" class="form-control" placeholder="postal code">
-                                     </div>
-                                 </div>
-                                 <div class="form-row d-flex pb-2">
-                                     <div class="col-md-6" style="padding-right : 20px">
-                                         <label>Email</label>
-                                         <input type="email" class="form-control" placeholder="e-mail">
-                                     </div>
-                                     <div class="col-md-6">
-                                         <label>Tel.</label>
-                                         <input type="tel" class="form-control" placeholder="xxx-xxxxxxx">
-                                     </div>
-                                 </div>
-                                 <div class="form-row d-flex pb-2">
-                                     <div class="col-md-6">
-                                         <label>Category</label>
-                                         <select class="form-select" aria-label="Default select example"
-                                             style="width:50%">
-                                             <option value="" disabled selected hidden></option>
-                                             <option value="Fast Food">Fast Food</option>
-                                             <option value="Buffet">Buffet</option>
-                                             <option value="Dessert">Dessert</option>
-                                         </select>
-                                     </div>
-                                     <div class="col-md-6">
-                                         <label>Logo</label>
-                                         <div class=mt-1>
-                                             <label for="files" class="btn btn-primary btn-sm rounded-0">Choose
-                                                 file</label>
-                                             <input id="files" style="visibility:hidden; height:0" type="file">
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="tab-pane fade " id="company" role="tabpanel" aria-labelledby="company-tab">
+                             <input type="text" class="form-control" id="name" name="companyID" hidden
+                                 value="{{company.companyID}}">
+                             <input type="text" class="form-control" id="name" name="coverPic" hidden
+                                 value="{{company.coverPic}}">
+                             <div class="tab-pane fade show active pb-5" id="company" role="tabpanel"
+                                 aria-labelledby="company-tab">
                                  <div class="form-row d-flex">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Company Name</label>
-                                         <input type="text" class="form-control" placeholder="company name">
+                                         <input type="text" class="form-control" placeholder="{{company.companyName}}"
+                                             name="companyName" value="{{company.companyName}}">
                                      </div>
                                      <div class="col-md-6">
                                          <label>Address</label>
-                                         <input type="text" class="form-control" placeholder="address">
+                                         <input type="text" class="form-control" placeholder="{{company.address}}"
+                                             name="address" value="{{company.address}}">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>subDistrict</label>
-                                         <input type="text" class="form-control" placeholder="sub-district">
+                                         <input type="text" class="form-control" placeholder="{{company.subDistrict}}"
+                                             name="subDistrict" value="{{company.subDistrict}}">
                                      </div>
                                      <div class="col-md-6">
                                          <label>District</label>
-                                         <input type="text" class="form-control" placeholder="district">
+                                         <input type="text" class="form-control" placeholder="{{company.district}}"
+                                             name="district" value="{{company.district}}">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Province</label>
-                                         <input type="text" class="form-control" placeholder="province">
+                                         <input type="text" class="form-control" placeholder="{{company.province}}"
+                                             name="province" value="{{company.province}}">
                                      </div>
                                      <div class="col-md-6">
                                          <label>Postal Code</label>
-                                         <input type="text" class="form-control" placeholder="postal code">
+                                         <input type="text" class="form-control" placeholder="{{company.postalCode}}"
+                                             name="postalCode" value="{{company.postalCode}}">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Email</label>
-                                         <input type="email" class="form-control" placeholder="e-mail">
+                                         <input type="email" class="form-control" placeholder="{{company.email}}"
+                                             name="email" value="{{company.email}}">
                                      </div>
                                      <div class="col-md-6">
                                          <label>Tel.</label>
-                                         <input type="tel" class="form-control" placeholder="xxx-xxxxxxx">
+                                         <input type="tel" class="form-control" placeholder="{{company.tel}}" name="tel"
+                                             value="{{company.tel}}">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex justify-content-end pb-2">
                                      <div class="col-md-6">
                                          <label>Logo</label>
                                          <div class=mt-1>
-                                             <label for="files" class="btn btn-primary btn-sm rounded-0">Choose file</label>
-                                             <input id="files" style="visibility:hidden; height:0" type="file">
+                                             <label for="files" class="btn btn-primary btn-sm rounded-0">Choose
+                                                 file</label>
+                                             <input id="files" style="visibility:hidden; height:0" type="file"
+                                                 name="profilePic" value="{{company.profilePic}}">
                                          </div>
                                      </div>
                                  </div>
                              </div>
                          </div>
-                     </form>
+                         <div class="modal-footer">
+                             <input type="submit" value="Submit" class="btn btn-primary">
+                         </div>
+                     </form> 
                  </div>
              </div>
-             <div class="modal-footer">
-                 <input type="submit" value="Submit" class="btn btn-primary" data-bs-dismiss="modal">
-             </div>
+
          </div>
      </div>
  </div>

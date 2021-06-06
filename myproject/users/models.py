@@ -1,6 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django.db import models
-from restaurants.models import Restaurant
+from restaurants.models import Restaurant, Company
 from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 from imagekit.models import ProcessedImageField
@@ -17,6 +17,10 @@ class Member(AbstractUser):
             return "M001"
         else:
             return "M" + str(n + 1).zfill(3)
+
+    companyID = models.ForeignKey(
+        Company, null=True, blank=True, on_delete=models.SET_NULL
+    )
 
     resID = models.ForeignKey(
         Restaurant, null=True, blank=True, on_delete=models.SET_NULL

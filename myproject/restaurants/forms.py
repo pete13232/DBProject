@@ -28,6 +28,16 @@ class editCompanyForm(forms.ModelForm):
         fields = "__all__"
 
 class editRestaurantForm(forms.ModelForm):
+    open = forms.DateTimeField(required=False)
+    close = forms.DateTimeField(required=False)
     class Meta:
         model = Restaurant
-        fields = "__all__"
+        exclude = ["open","close"]
+    # def get_close(self,*args, **kwargs):
+    #     resID = self.cleaned_data("resID")
+    #     open = self.cleaned_data("open")
+    #     close = self.cleaned_data("close")
+    #     if open == None and close == None:
+    #         open = Restaurant.objects.get(resID=resID).open
+    #         close = Restaurant.objects.get(resID=resID).close
+        

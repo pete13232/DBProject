@@ -28,4 +28,5 @@ urlpatterns = [
     path("staffProfile/<str:pk>", views.staffProfile, name="staffProfile"),
     path("companyProfile/<str:pk>", views.companyProfile, name="companyProfile"),
     path("deleteStaff/<str:pk>", views.deleteStaff, name="deleteStaff"),
+    path("profile/<str:pk>", views.profile, name = "profile"),
 ]

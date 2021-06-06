@@ -90,8 +90,6 @@ class Restaurant(models.Model):
     tel = models.CharField(max_length=10)
     ig = models.CharField(max_length=50, null=True)
     fb = models.CharField(max_length=50, null=True)
-    mapLon = models.CharField(max_length=10, default=0)
-    mapLAT = models.CharField(max_length=10, default=0)
     profilePic = models.ImageField(
         upload_to="static/images/", default="static/images/defaultProfile.png"
     )
@@ -118,8 +116,6 @@ class Restaurant(models.Model):
     def fullPhone(self):
         return self.tel[0:3] + "-" + self.tel[3:6] + "-" + self.tel[6:10]
 
-    def location(self):
-        return self.mapLon + "," + self.mapLAT
 
 
 class Menu(models.Model):
