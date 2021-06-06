@@ -38,10 +38,12 @@ class Company(models.Model):
         else:
             return "C" + str(n + 1).zfill(3)
 
-    def defaultProfile(string):
+    def getProfilePic(self):
+        if self.profilePic:
+            return self.profilePic
         return (
             "https://ui-avatars.com/api/?name="
-            + str(string)
+            + self.fullName()
             + "&color=7F9CF5&background=EBF4FF"
         )
 
@@ -58,7 +60,6 @@ class Company(models.Model):
     email = models.CharField(max_length=50)
     tel = models.CharField(max_length=10)
     profilePic = ProcessedImageField(
-        default=defaultProfile(companyName),
         upload_to="static/images/%Y/%m/%d",
         format="PNG",
         options={"quality": 60},
@@ -76,10 +77,21 @@ class Restaurant(models.Model):
         else:
             return "R" + str(n + 1).zfill(3)
 
-    def defaultProfile(string):
+    def getProfilePic(self):
+        if self.profilePic:
+            return self.profilePic.url
         return (
             "https://ui-avatars.com/api/?name="
-            + str(string)
+            + self.resName
+            + "&color=7F9CF5&background=EBF4FF"
+        )
+
+    def getCoverPic(self):
+        if self.coverPic:
+            return self.coverPic.url
+        return (
+            "https://ui-avatars.com/api/?name="
+            + self.resName
             + "&color=7F9CF5&background=EBF4FF"
         )
 
@@ -118,13 +130,11 @@ class Restaurant(models.Model):
     email = models.CharField(max_length=50)
     tel = models.CharField(max_length=10)
     profilePic = ProcessedImageField(
-        default=defaultProfile(resName),
         upload_to="static/images/%Y/%m/%d",
         format="PNG",
         options={"quality": 60},
     )
     coverPic = ProcessedImageField(
-        default=defaultProfile(resName),
         upload_to="static/images/%Y/%m/%d",
         format="PNG",
         options={"quality": 60},
@@ -142,6 +152,18 @@ class Menu(models.Model):
         else:
             return "MU" + str(n + 1).zfill(3)
 
+    def getProfilePic(self):
+        if self.profilePic:
+            return self.profilePic.url
+        return (
+            "https://ui-avatars.com/api/?name="
+            + self.menuName
+            + "&color=7F9CF5&background=EBF4FF"
+        )
+
+    def __str__(self):
+        return self.menuID
+
     menuID = models.CharField(max_length=15, primary_key=True, default=genID)
     resID = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     menuName = models.CharField(max_length=20)
@@ -149,18 +171,7 @@ class Menu(models.Model):
     price = models.FloatField()
     avaliable = models.BooleanField()
 
-    def defaultProfile(string):
-        return (
-            "https://ui-avatars.com/api/?name="
-            + str(string)
-            + "&color=7F9CF5&background=EBF4FF"
-        )
-
-    def __str__(self):
-        return self.menuID
-
     profilePic = ProcessedImageField(
-        default=defaultProfile(menuName),
         upload_to="static/images/%Y/%m/%d",
         format="PNG",
         options={"quality": 60},

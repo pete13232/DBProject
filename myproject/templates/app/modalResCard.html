@@ -9,8 +9,8 @@
        </div>
        <div class="modal-body">
          <div class="card p-3" style="">
-           <img src="{{restaurant.coverPic.url}}" class="img imgBg" alt="Responsive image" />
-           <img src="{{restaurant.profilePic.url}}" class="img imgCollabM" alt="Responsive image" />
+           <img src="{{restaurant.getCoverPic}}" class="img imgBg" alt="Responsive image" />
+           <img src="{{restaurant.getProfilePic}}" class="img imgCollabM" alt="Responsive image" />
            <div class="row" style="margin-top:50px ;">
              <h2 class="card-title">ร้านอาหาร : {{restaurant.resName}}</h2>
              <p class="card-text">ประเภท : {{restaurant.categoryID.categoryName}}</p>
@@ -19,7 +19,7 @@
              <form method="POST" action="{% url 'createNowQueue' restaurant.resID %}">
                {% csrf_token %}
                <input type="text" id="resID" name="resID" value="{{restaurant.resID}}" hidden />
-               <input type="text" id="memberID" name="memberID" value="{{request.user.id}}" hidden />
+               <input type="text" id="memberID" name="memberID" value="{{request.user.memberID}}" hidden />
 
                <div class="row mb-3">
                  <div class="col-6 ">

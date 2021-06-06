@@ -1,3 +1,4 @@
+from django.db.models.query import NamedValuesListIterable
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 from restaurants.models import Restaurant, Company
@@ -17,6 +18,24 @@ class Member(AbstractUser):
             return "M001"
         else:
             return "M" + str(n + 1).zfill(3)
+
+    def fullName(self):
+        return self.fName + " " + self.lName
+
+    def __str__(self):
+        return self.email
+
+    def fullPhone(self):
+        return self.tel[0:3] + "-" + self.tel[3:6] + "-" + self.tel[6:10]
+
+    def getProfilePic(self):
+        if self.profilePic:
+            return self.profilePic.url
+        return (
+            "https://ui-avatars.com/api/?name="
+            + self.fullName()
+            + "&color=7F9CF5&background=EBF4FF"
+        )
 
     memberID = models.CharField(max_length=50, primary_key=True, default=genID)
     resID = models.ForeignKey(
@@ -49,18 +68,8 @@ class Member(AbstractUser):
     )
     gender = models.CharField(max_length=10, choices=GENDER, null=True)
 
-    def fullName(self):
-        return self.fName + " " + self.lName
-
-    def defaultProfile(string):
-        return (
-            "https://ui-avatars.com/api/?name="
-            + str(string)
-            + "&color=7F9CF5&background=EBF4FF"
-        )
-
     profilePic = ProcessedImageField(
-        default=defaultProfile(str(fName) + "+" + str(lName)),
+        null=True,
         upload_to="static/images/%Y/%m/%d",
         format="PNG",
         options={"quality": 60},
@@ -70,9 +79,3 @@ class Member(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
-
-    def __str__(self):
-        return self.email
-
-    def fullPhone(self):
-        return self.tel[0:3] + "-" + self.tel[3:6] + "-" + self.tel[6:10]

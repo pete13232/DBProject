@@ -16,6 +16,9 @@ class Queue(models.Model):
         else:
             return "Q" + str(n + 1).zfill(3)
 
+    def __str__(self):
+        return self.queueID
+
     queueID = models.CharField(max_length=10, primary_key=True, default=genID)
     memberID = models.ForeignKey(Member, on_delete=models.CASCADE)
     resID = models.ForeignKey(
@@ -34,9 +37,6 @@ class Queue(models.Model):
     status = models.CharField(max_length=10, choices=TYPE, default="waiting")
     queueIsPass = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.queueID
-
 
 class Review(models.Model):
     class Meta:
@@ -49,11 +49,11 @@ class Review(models.Model):
         else:
             return "RV" + str(n + 1).zfill(3)
 
+    def __str__(self):
+        return self.reviewID
+
     reviewID = models.CharField(max_length=10, primary_key=True, default=genID)
     memberID = models.ForeignKey(Member, on_delete=models.CASCADE)
     resID = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     detail = models.CharField(max_length=200)
     rating = models.FloatField(default=0)
-
-    def __str__(self):
-        return self.reviewID
