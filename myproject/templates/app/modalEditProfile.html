@@ -8,38 +8,76 @@
                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
              <div class="modal-body">
-             <h1>Edit Profile</h1>
+                 <h1>Edit Profile</h1>
                  <div class="card p-3 " style="">
-                     <form class ="m-3">
-                         <div class="form-row">
-                             <div class="col-md-6">
-                                 <label >Name</label>
-                                 <input type="text" class="form-control" placeholder="Ferb">
+                     <form class="mt-3 ms-2">
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-6" style="padding-right : 20px">
+                                 <label>Firstname</label>
+                                 <input type="text" class="form-control" placeholder="{{profile.fName}}"
+                                     value="{{profile.fName}}">
                              </div>
                              <div class="col-md-6">
                                  <label>Lastname</label>
-                                 <input type="text" class="form-control" id="inputPassword4" placeholder="Fletcher" >
+                                 <input type="text" class="form-control" id="inputPassword4"
+                                     placeholder="{{profile.lName}}" value="{{profile.lName}}">
                              </div>
                          </div>
-                         <div class="form-row">
-                             <div class="col">
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-5" style="padding-right : 20px">
                                  <label>Email</label>
-                                 <input type="email" class="form-control" id="inputPassword4"
-                                     placeholder="ferby@gmail.com">
+                                 <input type="email" class="form-control" placeholder="{{profile.email}}"
+                                     value="{{profile.email}}">
                              </div>
                          </div>
-                         <div class="form-row">
-                             <div class="col">
-                                 <label for="inputPassword4">Phone</label>
-                                 <input type="tel" class="form-control" id="inputPassword4"
-                                     placeholder="132 456 7890">
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-5" style="padding-right : 20px">
+                                 <label>Password</label>
+                                 <input type="text" class="form-control" placeholder=""
+                                     value="">
                              </div>
+                             <div class="col-md-5">
+                                 <label>Confirm password</label>
+                                 <input type="text" class="form-control" id=""
+                                     placeholder="" value="">
+                             </div>
+                         </div>
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-4" style="padding-right : 20px">
+                                 <label>Date of Birth</label>
+                                 <input type="date" class="form-control" placeholder="{{profile.dob}}"
+                                     value="{{profile.dob}}">
+                             </div>
+                             <div class="col-md-3" style="padding-right : 20px">
+                                 <label>Gender</label>
+                                 <select class="form-select" aria-label="Default select example" name="categoryID" >
+                                     <option selected hidden value="{{profile.gender}}" >
+
+                                         {% if  profile.gender == "M" %}
+                                         Male
+                                         {% elif profile.gender == "F" %}
+                                         Female
+                                         {% elif profile.gender == "O" %}
+                                         Other
+                                         {% endif %}
+                                     </option>
+                                     <option value="M">Male</option>
+                                     <option value="F">Female</option>
+                                     <option value="O">Other</option>
+                                 </select>
+                             </div>
+                             <div class="col-md-4" style="padding-right : 20px">
+                                 <label>Tel</label>
+                                 <input type="text" class="form-control" id="inputPassword4"
+                                     placeholder="{{profile.tel}}" value="{{profile.tel}}">
+                             </div>
+                         </div>
+
+                         <div class="modal-footer">
+                             <input type="submit" value="Submit" class="btn btn-primary" >
                          </div>
                      </form>
                  </div>
-             </div>
-             <div class="modal-footer">
-                 <input type="submit" value = "Submit" class="btn btn-primary" data-bs-dismiss="modal">
              </div>
          </div>
      </div>

@@ -1,10 +1,11 @@
 from queueSystem.models import Queue
 from django import forms
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from users.decorators import unauthenticated_user, allowed_users, admin_only
 
-from .forms import createQueueForm, createNowQueueForm
+from .forms import createQueueForm, createNowQueueForm, createReviewForm
 
 import sweetify
 
@@ -17,9 +18,22 @@ def index(request):
 
 
 def createQueue(request, pk):
+    count = Queue.objects.filter(queueIsPass=False).count()
     if request.method == "POST":
         form = createQueueForm(request.POST)
         member = request.POST["memberID"]
+        if count > 1:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="คุณยังมีรายการคิวอยู่",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/resCard/" + pk)
+
         if form.is_valid():
             form.save()
             queue = Queue.objects.get(memberID=member, queueIsPass=False)
@@ -38,7 +52,7 @@ def createQueue(request, pk):
                 request,
                 icon="error",
                 title="Oops !",
-                text=forms.ValidationError().message,
+                text="กรุณากรอกฟอร์มให้ถูกต้อง",
                 timer=2500,
                 timerProgressBar=True,
                 allowOutsideClick=True,
@@ -49,9 +63,21 @@ def createQueue(request, pk):
 
 
 def createNowQueue(request, pk):
+    count = Queue.objects.filter(queueIsPass=False).count()
     if request.method == "POST":
         form = createNowQueueForm(request.POST)
         member = request.POST["memberID"]
+        if count > 1:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="คุณยังมีรายการคิวอยู่",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/resCard/" + pk)
         if form.is_valid():
             form.save()
             queue = Queue.objects.get(memberID=member, queueIsPass=False)
@@ -71,6 +97,37 @@ def createNowQueue(request, pk):
                 icon="error",
                 title="Oops !",
                 text=forms.ValidationError.message(),
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/resCard/" + pk)
+
+
+def createReview(request, pk):
+    if request.method == "POST":
+        form = createReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Your review was sent",
+                timer=3000,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/resCard/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Somethings went wrong! Try again."
+                + request.POST["resID"]
+                + request.POST["memberID"]
+                + request.POST["detail"],
                 timer=2500,
                 timerProgressBar=True,
                 allowOutsideClick=True,

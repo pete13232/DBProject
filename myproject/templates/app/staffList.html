@@ -43,7 +43,7 @@
                     <td style="width: 300px;">
                         <form action="{% url 'editRole' staff.resID %}" method="post" class="d-flex ">
                             {% csrf_token %}
-                            <input type="text" name="id" value="{{staff.id}}" hidden>
+                            <input type="text" name="id" value="{{staff.memberID}}" hidden>
                             <select class="form-select d-inline me-2" style="width: 150px;" name=role>
                                 <option selected hidden>{{staff.role}}</option>
                                 <option value="manager">executive</option>
@@ -55,7 +55,7 @@
                     </td>
                     <td>
                         <a class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#deleteStaff{{staff.id}}">Delete</a>
+                            data-bs-target="#deleteStaff{{staff.memberID}}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

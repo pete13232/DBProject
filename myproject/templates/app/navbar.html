@@ -120,28 +120,28 @@
             <td>
 
                 {% if request.user.role == "member" %}
-                <a href="{%url 'userprofile' request.user.id %}">
-                    <img src="{{ request.user.profile.url }}" class="img border border-white rounded-3"
+                <a href="{%url 'userprofile' request.user.memberID %}">
+                    <img src="{{ request.user.getProfilePic }}" class="img border border-white rounded-3"
                         style="height: 60px; width: 60px;">
                 </a>
                 {% elif request.user.role == "staff" %}
-                <a href="{%url 'staffProfile' request.user.id %}">
-                    <img src="{{ request.user.profile.url }}" class="img border border-white rounded-3"
+                <a href="{%url 'staffProfile' request.user.memberID %}">
+                    <img src="{{ request.user.getProfilePic }}" class="img border border-white rounded-3"
                         style="height: 60px; width: 60px;">
                 </a>
                 {% elif request.user.role == "manager" %}
-                <a href="{%url 'managerProfile' request.user.id %}">
-                    <img src="{{ request.user.profile.url }}" class="img border border-white rounded-3"
+                <a href="{%url 'managerProfile' request.user.memberID %}">
+                    <img src="{{ request.user.getProfilePic }}" class="img border border-white rounded-3"
                         style="height: 60px; width: 60px;">
                 </a>
                 {% elif request.user.role == "executive" %}
-                <a href="{%url 'executiveProfile' request.user.id %}">
-                    <img src="{{ request.user.profile.url }}" class="img border border-white rounded-3"
+                <a href="{%url 'executiveProfile' request.user.memberID %}">
+                    <img src="{{ request.user.getProfilePic }}" class="img border border-white rounded-3"
                         style="height: 60px; width: 60px;">
                 </a>
                 {% elif request.user.role == "admin" %}
                 <a href="{%url 'home' %}">
-                    <img src="{{ request.user.profile.url }}" class="img border border-white rounded-3"
+                    <img src="{{ request.user.getProfilePic }}" class="img border border-white rounded-3"
                         style="height: 60px; width: 60px;">
                 </a>
                 {% endif %}

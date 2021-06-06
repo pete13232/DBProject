@@ -30,4 +30,5 @@ urlpatterns = [
     path("deleteStaff/<str:pk>", views.deleteStaff, name="deleteStaff"),
     path("dashboard", views.dashboard, name="dashboard"),
     # path("sidebar", views.sidebar, name="sidebar"),
+    path("profile/<str:pk>", views.profile, name = "profile"),
 ]

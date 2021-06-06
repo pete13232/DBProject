@@ -4,8 +4,8 @@
 <div class="row justify-content-center mt-4">
   <div class="col-xl-8">
     <div class="card p-3" style="">
-      <img src="{{restaurant.coverPic.url}}" class="imgBg" alt="Responsive image" />
-      <img src="{{restaurant.profilePic.url}}" class="imgCollab" alt="Responsive image" />
+      <img src="{{restaurant.getCoverPic}}" class="imgBg" alt="Responsive image" />
+      <img src="{{restaurant.getProfilePic}}" class="imgCollab" alt="Responsive image" />
       <div class="row">
         <div class="col-6">
           <div class="card-body">
@@ -41,7 +41,7 @@
 
               {% if user.role == "member" %}
               <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
+                data-bs-target="#createNowQueue">
                 จองคิว
               </button>
               {% endif %}
@@ -55,6 +55,7 @@
 </div>
 
 {% include 'app/map.html' %}
+{% include 'queueSystem/showReview.html'  %}
 {% include 'app/review.html'  %}
 {% include 'app/modalResCard.html' %}
 {% endblock content %}
