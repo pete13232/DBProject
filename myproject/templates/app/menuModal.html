@@ -13,6 +13,8 @@
                <th>Menu</th>
                <th>Edit</th>
                <th>Remove</th>
+               
+
              </tr>
              {% for menu in menus %}
              <tr>
@@ -23,6 +25,7 @@
                    Edit
                  </a>
                </td>
+
                <td class="text-center ">
                  <a class="btn btn-sm btn-danger" data-bs-target="#DeletingMenuModal{{menu.menuID}}"
                    data-bs-toggle="modal" data-bs-dismiss="modal">
@@ -36,8 +39,10 @@
 
 
            </table>
+           {% if user.role != "staff" %}
            <button class="btn btn-primary" type="button" data-bs-target="#AddingMenuModal" data-bs-toggle="modal"
              data-bs-dismiss="modal">+</button>
+           {% endif %}
          </div>
        </div>
        <div class="modal-footer">

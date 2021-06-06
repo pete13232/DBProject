@@ -6,7 +6,6 @@ import datetime
 
 class createQueueForm(forms.ModelForm):
     reserveDateTime = forms.DateTimeField()
-
     class Meta:
         model = Queue
         fields = (

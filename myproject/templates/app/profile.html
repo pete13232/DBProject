@@ -1,857 +1,569 @@
 {% extends 'app/base.html' %}
 {% load static %}
 {% block content %}
-
-{% if Company != None %}
-    <div class="row border border-3 mt-5 pt-3">
-        <div class="col-4 mt-4">
-            <div class="row-md-4">
-                <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
-                    <img src="{% static 'images/oishi-logo.jpg' %}" class="card-img-top" alt="...">
-                    <div class="d-grid">
-                        <label for="files" class="btn btn-primary rounded-0">Change Photo</label>
-                        <!--มีเฉพาะ Manager, Executive-->
-                        <input id="files" style="visibility:hidden; height:0" type="file">
-                    </div>
-                </div>
+{% if company is not None %}
+<div class="row border border-3 mt-5 pt-3">
+    <div class="col-4 mt-4">
+        <div class="row-md-4">
+            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
+                <img src="{{ company.profilePic.url }}" class="card-img-top" alt="...">
             </div>
         </div>
-        <div class="col-8">
-            <div class="row">
-                <div class="col-9 mt-4">
-                    <div class="profile-head">
-                        <h5>
-                            Shabushi
-                        </h5>
-                        <h6>
-                            Ton land
-                        </h6>
-                        <p class="proile-rating"> Rating : <span>8.3/10</span></p>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                                    href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="branch-tab" data-bs-toggle="tab" data-bs-target="#branch"
-                                    href="#branch" role="tab" aria-controls="branch" aria-selected="false">Branch</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-3 mt-4">
-                    <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#edit-company"
-                        name="btnAddMore" value="Edit Company" />
+    </div>
+    <div class="col-8">
+        <div class="row">
+            <div class="col-9 mt-4">
+                <div class="profile-head">
+                    <h5>
+                        {{company.companyName}}
+                    </h5>
+                    <p class="proile-rating"> Rating : <span>8.3/10</span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="branch-tab" data-bs-toggle="tab" data-bs-target="#branch"
+                                href="#branch" role="tab" aria-controls="branch" aria-selected="false">Branch</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="row">
-                <div class="tab-content profile-tab" id="myTabContent">
-                    <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Owner</label>
-                            </div>
-                            <div class="col-md-6">
-                                <a href="{% url 'executiveProfile' restaurant.resID%}">
-                                    <p>Ton Ichitan</p>
-                                </a>
-                            </div>
+            <div class="col-3 mt-4">
+                <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#edit-company"
+                    name="Edit Company" value="Edit Company" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Owner</label>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Restaurant Name</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Shabushi</p>
-                            </div>
+
+                        <div class="col-md-6">
+                            {% for member in company.member_set.all  %}
+                            <a href="{% url 'profile' member.id %}">
+                                <p>{{member.fullName}}</p>
+                            </a>
+                            {% endfor %}
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Address</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>882 Bangmod Thungkhru Bangkok</p>
-                            </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Address</label>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Postal Code</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>10140</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Email</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>shabushi@hotmail.com</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Tel.</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>02-0000000</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Category</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Buffet</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Phone</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>123 456 7890</p>
-                            </div>
+                        <div class="col-md-6">
+                            <p>{{company.address}}</p>
                         </div>
                     </div>
-                    <div class="tab-pane fade pb-5" id="branch" role="tabpanel" aria-labelledby="branch-tab">
-                        <div class="history-container mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 325px">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Restaurant</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>
-                                            <a href="{% url 'resProfile' restaurant.resID%} ">
-                                                <p>Shabushi</p>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Oishi Ramen</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Nikuya</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>District</label>
                         </div>
+                        <div class="col-md-6">
+                            <p>{{company.district}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Sub-district</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{company.subDistrict}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Province</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{company.province}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Postal Code</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{company.postalCode}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{company.email}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Tel.</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{company.tel}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade pb-5" id="branch" role="tabpanel" aria-labelledby="branch-tab">
+                    <div class="history-container mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 325px">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Restaurant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for restaurant in company.restaurant_set.all  %}
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>
+                                        <a href="{% url 'profile' restaurant.resID %}">
+                                            <p>{{restaurant.resName}}</p>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-{% elif Restaurant != None%}
-    <div class="row border border-3 mt-5 pt-3">
-        <div class="col-4 mt-4">
-            <div class="row-md-4">
-                <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
-                    <img src="{% static 'images/shabushi-logo.jpg' %}" class="card-img-top" alt="...">
-                    <div class="d-grid">
-                        <label for="files" class="btn btn-primary rounded-0">Change Photo</label>
-                        <!--มีเฉพาะ Manager, Executive-->
-                        <input id="files" style="visibility:hidden; height:0" type="file">
-                    </div>
-                </div>
+</div>
+{% include 'app/modalEditComp.html' %}
+{% elif restaurant is not None %}
+<div class="row border border-3 mt-5 pt-3">
+    <div class="col-4 mt-4">
+        <div class="row-md-4">
+            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
+                <img src="{{ restaurant.profilePic.url }}" class="card-img-top" alt="...">
             </div>
         </div>
-        <div class="col-8">
-            <div class="row">
-                <div class="col-9 mt-4">
-                    <div class="profile-head">
-                        <h5>
-                            Shabushi
-                        </h5>
-                        <h6>
-                            Rama2
-                        </h6>
-                        <p class="proile-rating"> Rating : <span>8.3/10</span></p>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                                    href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="company-tab" data-bs-toggle="tab" data-bs-target="#company"
-                                    href="#company" role="tab" aria-controls="company" aria-selected="false">Associate</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-3 mt-4">
-                    <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#edit-res"
-                        name="btnAddMore" value="Edit Restaurant" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="tab-content profile-tab" id="myTabContent">
-                    <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Owner</label>
-                            </div>
-                            <div class="col-md-6">
-                                <a href="{% url 'managerProfile' restaurant.resID %}">
-                                    <p>Phineas Flynn</p>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Restaurant Name</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Shabushi</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Address</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>882 Bangmod Thungkhru Bangkok</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Postal Code</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>10140</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Email</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>shabushi@hotmail.com</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Tel.</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>02-0000000</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Category</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Buffet</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Phone</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>123 456 7890</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade pb-5" id="company" role="tabpanel" aria-labelledby="company-tab">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Company</label>
-                            </div>
-                            <div class="col-md-6">
-                                <a href="{% url 'companyProfile' restaurant.resID %}">
-                                    <p>Oishi</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="row-md-4" style="margin-top:60px">
+            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
+                <img src="{{ restaurant.coverPic.url }}" class="card-img-top" alt="...">
             </div>
         </div>
     </div>
-
-{% elif Member != None%}
-
-    {% if Member.role == "executive" %}
-        <div class="row border border-3 mt-5 pt-3">
-            <div class="col-4 mt-4">
-                <div class="row-md-4">
-                    <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
-                        <img src="{% static 'images/tonton.jpg' %}" class="card-img-top" alt="...">
-                        <div class="d-grid">
-                            <label for="files" class="btn btn-primary rounded-0">Change Photo</label>
-                            <input id="files" style="visibility:hidden; height:0" type="file">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md">
-                        <div class="profile-work">
-                            <p>Company / Restaurant</p>
-                            <a href="{% url 'executiveControl' restaurant.resID%}">Detail</a>
-                        </div>
-                    </div>
+    <div class="col-8">
+        <div class="row">
+            <div class="col-9 mt-4">
+                <div class="profile-head">
+                    <h5>
+                        {{restaurant.resName}}
+                    </h5>
+                    <p class="proile-rating"> Rating : <span>8.3/10</span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-8">
-                <div class="row">
-                    <div class="col-9 mt-4">
-                        <div class="profile-head">
-                            <h5>
-                                Ton Ichitan
-                            </h5>
-                            <h6>
-                                Executive, Oishi
-                            </h6>
-                            <p class="proile-rating"> Rating : <span>8.3/10</span></p>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                                        href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="owner-tab" data-bs-toggle="tab" data-bs-target="#owner"
-                                        href="#owner" role="tab" aria-controls="owner" aria-selected="false">Owner</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-3 mt-4">
-                        <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editprofile"
-                            name="btnAddMore" value="Edit Profile" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>User Id</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>ton555</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Name</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Ton Ichitan</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Position</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Executive</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Date of birth</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>07/06/2015</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Gender</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Male</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Email</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>tonton@gmail.com</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Phone</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>091-4567890</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade pb-5" id="owner" role="tabpanel" aria-labelledby="owner-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Company</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <a href="{% url 'companyProfile' restaurant.resID%} ">
-                                        <p>Oishi</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-3 mt-4">
+                <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#edit-res"
+                    name="Edit Restaurant" value="Edit Restaurant" />
             </div>
         </div>
-    {% elif Member.role == "manager"%}
-        <div class="row border border-3 mt-5 pt-3">
-            <div class="col-4 mt-4">
-                <div class="row-md-4">
-                    <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
-                        <img src="{% static 'images/Phineas.png' %}" class="card-img-top" alt="...">
-                        <div class="d-grid">
-                            <label for="files" class="btn btn-primary rounded-0">Change Photo</label>
-                            <!--มีเฉพาะ Staff-->
-                            <input id="files" style="visibility:hidden; height:0" type="file">
+        <div class="row">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Assosiated Company </label>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{% url 'managerProfile' restaurant.resID %}">
+                                <p>{{restaurant.companyID.companyName}}</p>
+                            </a>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md">
-                        <div class="profile-work">
-                            <p>Company / Restaurant</p>
-                            
-                            {% if request.user.role == "staff" and request.user.resID == None %}
-                                <a href="{% static 'app/modalBusiness.html' %}" data-bs-toggle="modal"
-                                    data-bs-target="#business">Start my own</a><br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Owner</label>
+                        </div>
+                        <div class="col-md-6">
+                            {% for member in restaurant.member_set.all  %}
+                            {% if member.role == "manager" %}
+                            <a href="{% url 'profile' member.id %}">
+                                <p>{{member.fullName}}</p>
+                            </a>
                             {% endif %}
-                                
+                            {% endfor %}
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-8">
-                <div class="row">
-                    <div class="col-9 mt-4">
-                        <div class="profile-head">
-                            <h5>
-                                Phineas Flynn
-                            </h5>
-                            <h6>
-                                Manager, Bar-B-Q
-                            </h6>
-                            <p class="proile-rating"> Rating : <span>8.3/10</span></p>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                                        href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="owner-tab" data-bs-toggle="tab" data-bs-target="#owner"
-                                        href="#owner" role="tab" aria-controls="owner" aria-selected="false">Owner</a>
-                                </li>
-                            </ul>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Address</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{restaurant.address}}</p>
                         </div>
                     </div>
-                    <div class="col-3 mt-4">
-                        <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editprofile"
-                            name="btnAddMore" value="Edit Profile" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>User Id</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Phineas999</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Name</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Phineas Flyn</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Position</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Manager</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Date of birth</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>12/02/2021</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Gender</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Male</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Email</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>phineasy@gmail.com</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Phone</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>123 456 7890</p>
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>District</label>
                         </div>
-                        <div class="tab-pane fade pb-5" id="owner" role="tabpanel" aria-labelledby="owner-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Restaurant</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <a href="{% url 'resProfile' restaurant.resID %}">
-                                        <p>Shabushi</p>
-                                    </a>
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <p>{{restaurant.district}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Sub-district</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{restaurant.subDistrict}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Province</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{restaurant.province}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Postal Code</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{restaurant.postalCode}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{restaurant.email}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Tel.</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{restaurant.tel}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Category</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{restaurant.categoryID.categoryName}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Instragram</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{restaurant.ig}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Facebook</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{restaurant.fb}}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    {% elif Member.role == "staff"%}
-        <div class="row border border-3 mt-5 pt-3">
-            <div class="col-4 mt-4">
-                <div class="row-md-4">
-                    <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
-                        <img src="{% static 'images/Ferb.png' %}" class="card-img-top" alt="...">
-                        <div class="d-grid">
-                            <label for="files" class="btn btn-primary rounded-0">Change Photo</label>
-                            <!--มีเฉพาะ Manager-->
-                            <input id="files" style="visibility:hidden; height:0" type="file">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md">
-                        <div class="profile-work">
-                            <p>Company / Restaurant</p>
-                            <a href="{% url 'managerControl' restaurant.resID%}">Detail</a>
-                        </div>
-                    </div>
+    </div>
+</div>
+{% include 'app/modalEditRes.html' %}
+{% elif profile is not None %}
+
+{% if profile.role == "executive" or profile.role == "manager"  or profile.role == "staff"%}
+<div class="row border border-3 mt-5 pt-3">
+    <div class="col-4 mt-4">
+        <div class="row-md-4">
+            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%">
+                <img src="{{ profile.profile.url }}" class="card-img-top" alt="...">
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="row">
+            <div class="col-9 mt-4">
+                <div class="profile-head">
+                    <h5>
+                        {{profile.fullName}}
+                    </h5>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-8">
-                <div class="row">
-                    <div class="col-9 mt-4">
-                        <div class="profile-head">
-                            <h5>
-                                Ferb Fletcher
-                            </h5>
-                            <h6>
-                                Staff, Shabushi
-                            </h6>
-                            <p class="proile-rating"> Rating : <span>8.3/10</span></p>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                                        href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="owner-tab" data-bs-toggle="tab" data-bs-target="#owner"
-                                        href="#owner" role="tab" aria-controls="owner" aria-selected="false">Workplace</a>
-                                </li>
-                            </ul>
+            <div class="col-3 mt-4">
+                <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editprofile"
+                    name="btnAddMore" value="Edit Profile" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+
+                        {% if profile.role == "executive" or profile.role == "manager"%}
+                            <div class="col-md-6">
+                                <label>Owner</label>
+                            </div>
+                        
+                        {% elif profile.role == "staff"%}
+                            <div class="col-md-6">
+                                 <label>Workplace</label>
+                            </div>
+                        {% endif %}
+
+
+                        <div class="col-md-6">
+                            {% if  profile.role == "executive"%}
+                            <a href="{% url 'profile' profile.companyID %}">
+                                <p>{{profile.companyID.companyName}}</p>
+                            </a>
+                            {% elif profile.role == "manager" or profile.role == "staff"%}
+                            
+                                {% if profile.resID.resName is not None %}
+                                <a href="{% url 'profile' profile.resID %}">
+                                    <p>
+                                        {{profile.resID.resName}}
+                                    </p>
+                                </a>
+                                {% else %}
+                                   <p>None</p> 
+                                {% endif %}
+
+                            {% endif %}
+
+
                         </div>
                     </div>
-                    <div class="col-3 mt-4">
-                        <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editprofile"
-                            name="btnAddMore" value="Edit Profile" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>User Id</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Ferby123</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Name</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Ferb Fletcher</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Position</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Staff</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Date of birth</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>12/02/2021</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Gender</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Male</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Email</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>ferby@gmail.com</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Tel.</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>123 456 7890</p>
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Position</label>
                         </div>
-                        <div class="tab-pane fade pb-5" id="owner" role="tabpanel" aria-labelledby="owner-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Restaurant</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <a href="{% url 'resProfile' restaurant.resID %}">
-                                        <p>Shabushi</p>
-                                    </a>
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <p>{{profile.role}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Date of birth</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.dob}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Gender</label>
+                        </div>
+                        <div class="col-md-6">
+                            {% if profile.gender == "M" %}
+                            <p>Male</p>
+                            {% elif profile.gender == "F"%}
+                            <p>Female</p>
+                            {% elif profile.gender == "O"%}
+                            <p>Other</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.email}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.fullPhone}}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    {% elif Member.role == "member"%}
-        <div class="row border border-3 mt-5 pt-3">
-            <div class="col-4 mt-4">
-                <div class="row-md-4">
-                    <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%;">
-                        <img src="{{profile.getProfilePic}}" class="card-img-top" alt="...">
-                        <div class="d-block">
-                            <form action="changeProfile" method="POST" style="height: 38px">
-                                <label for="files" class="btn btn-primary rounded-0 d-block">Change Photo</label>
-                                <input name="id" hidden type="text" value="{{profile.memberID}}">
-                                <input id="files" style="visibility:hidden; height:0;" alt="submit" type="file">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md">
-                        <div class="profile-work">
-                            <p>Special</p>
-                            <a href="">Reward</a><br />
-                            <a href="">Offer</a><br />
-                        </div>
-                    </div>
+    </div>
+</div>
+
+{% elif profile.role == "member"%}
+<div class="row border border-3 mt-5 pt-3">
+    <div class="col-4 mt-4">
+        <div class="row-md-4">
+            <div class="card ms-5 mb-0" style="max-width : 65%; max-height : 50%;">
+                <img src="{{profile.profile.url}}" class="card-img-top" alt="...">
+            </div>
+        </div>
+    </div>
+    <div class="col-8 ">
+        <div class="row">
+            <div class="col-9 mt-4">
+                <div class="profile-head">
+                    <h5>
+                        {{profile.fullName}}
+                    </h5>
+
+                    <p class="proile-rating"> Point : <span>97/100</span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                                href="#profile" role="tab" aria-controls="profile" aria-selected="false">History</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-8 ">
-                <div class="row">
-                    <div class="col-9 mt-4">
-                        <div class="profile-head">
-                            <h5>
-                                {{profile.fullName}}
-                            </h5>
-                            <h6>
-                                User, Gold member
-                            </h6>
-
-                            <p class="proile-rating"> Point : <span>97/100</span></p>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                                        href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
-                                        href="#profile" role="tab" aria-controls="profile" aria-selected="false">History</a>
-                                </li>
-                            </ul>
+            <div class="col-3 mt-4">
+                <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editprofile"
+                    name="btnAddMore" value="Edit Profile" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Date of birth</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.dob}}</p>
                         </div>
                     </div>
-                    <div class="col-3 mt-4">
-                        <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editprofile"
-                            name="btnAddMore" value="Edit Profile" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Gender</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.showGender}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.email}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Tel</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{profile.fullPhone}}</p>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active pb-5" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p>{{profile.memberID}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Name</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{profile.fullName}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Date of birth</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{profile.dob}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Gender</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{profile.showGender}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Email</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{profile.email}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Phone</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{profile.fullPhone}}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="history-container mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 325px">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Restaurant</th>
-                                            <th scope="col">Point</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% if queue %}
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>{{queue.reserveTime}}</td>
-                                            <td>{{queue.resID.resNameEN}}</td>
-                                            {% if queue.queueIsSuccess == "S"  %}
-                                            <td>+3</td>
+                <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="history-container mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 325px">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Restaurant</th>
+                                    <th scope="col">Point</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if queue %}
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>{{queue.reserveTime}}</td>
+                                    <td>{{queue.resID.resNameEN}}</td>
+                                    {% if queue.queueIsSuccess == "S"  %}
+                                    <td>+3</td>
 
-                                            {% endif %}
+                                    {% endif %}
 
-                                        </tr>
-                                        {% endif %}
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>13/05/2021</td>
-                                            <td>Yayoi</td>
-                                            <td>-10</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>01/06/2021</td>
-                                            <td>Free point</td>
-                                            <td>+10</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>01/06/2021</td>
-                                            <td>Free point</td>
-                                            <td>+10</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>01/06/2021</td>
-                                            <td>Free point</td>
-                                            <td>+10</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>01/06/2021</td>
-                                            <td>Free point</td>
-                                            <td>+10</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>01/06/2021</td>
-                                            <td>Free point</td>
-                                            <td>+10</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>01/06/2021</td>
-                                            <td>Free point</td>
-                                            <td>+10</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>01/06/2021</td>
-                                            <td>Free point</td>
-                                            <td>+10</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>13/05/2021</td>
+                                    <td>Yayoi</td>
+                                    <td>-10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>01/06/2021</td>
+                                    <td>Free point</td>
+                                    <td>+10</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    {% endif %}
-
+    </div>
+</div>
+{% endif %}
 
 {% endif %}
 
 
-{% include 'app/modalStartBusiness.html' %}
-{% include 'app/modalEditRes.html' %}
 {% include 'app/modalEditProfile.html' %}
-{% include 'app/modalEditComp.html' %}
 {% endblock content %}

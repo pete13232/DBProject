@@ -6,10 +6,19 @@
     <h2>Member List</h2>
     <div class="d-flex">
         <input class="form-control mt-3 mb-3 ms-3" id="Search" type="text" placeholder="Search.." style="width : 50%">
+
+        {% comment %} {% if user.role ==  "manager" %}
+        <a href="{%url 'managerControl' pk %}" type="button" class="btn btn-secondary mt-3"
+            style="height: 10%; margin-left : 1%">
+            <i class="bi bi-house-door-fill fa-lg"></i>
+        </a>
+        {% elif user.role ==  "executive" %}
         <a href="{%url 'executiveControl' pk %}" type="button" class="btn btn-secondary mt-3"
             style="height: 10%; margin-left : 1%">
             <i class="bi bi-house-door-fill fa-lg"></i>
         </a>
+        {% endif %} {% endcomment %}
+
     </div>
     <br>
     <div class="mb-5" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
@@ -28,7 +37,7 @@
                 <tr>
                     <th scope="row">1</th>
                     <td>
-                        <a href="{% url 'userprofile' staff.id %}">{{staff.fullName}}</a>
+                        <a href="{% url 'userprofile' staff.id %}" >{{staff.fullName}} </a>
                     </td>
                     <td>{{staff.role}}</td>
                     <td style="width: 300px;">

@@ -19,6 +19,7 @@ class Member(AbstractUser):
         else:
             return "M" + str(n + 1).zfill(3)
 
+
     def fullName(self):
         return self.fName + " " + self.lName
 

@@ -28,15 +28,18 @@
   </div>
   {% endfor %}
 
-  <div class="row  g-4 d-flex justify-content-end m-3">
-    <div class="col-3">
-      <button type="button" class="btn btn-warning btn-lg me-3" data-bs-toggle="modal" data-bs-target="#menuModal">
+  {% if user.role != "member" and user.role != "staff" %}
+  <div class="row g-4 d-flex justify-content-end">
+    <div class="row" style="width : 20%;">
+      <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#menuModal">
         Edit
       </button>
-      <button type="button" class="btn btn-primary btn-lg">Submit</button>
+
     </div>
   </div>
 </div>
+{% endif %}
 {% include 'app/menuModal.html' with menus=menus %}
+</div>
 
 {% endblock content %}

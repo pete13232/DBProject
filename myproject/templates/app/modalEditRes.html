@@ -8,7 +8,7 @@
                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
              <div class="modal-body">
-                 <h1>Edit Profile</h1>
+                 <h1>Edit Restaurant</h1>
                  <div class="card p-3 " style="">
                      <ul class="nav nav-tabs" id="myTab" role="tablist">
                          <li class="nav-item" role="presentation">
@@ -16,130 +16,130 @@
                                  data-bs-target="#restaurant" href="#restaurant" role="tab" aria-controls="restaurant"
                                  aria-selected="true">Restaurant</a>
                      </ul>
-                     <form class="mt-3 ms-2">
+                     <form class="mt-3 ms-2" method="POST" action="{% url 'profile' restaurant.resID %}">
+                     {% csrf_token %}
                          <div class="tab-content profile-tab" id="myTabContent">
                              <div class="tab-pane fade show active pb-5" id="restaurant" role="tabpanel"
                                  aria-labelledby="restaurant-tab">
+                                  <input type="text" class="form-control" id="name" name="resID" hidden
+                                 value="{{restaurant.resID}}">
+                                 <input type="text" class="form-control" id="name" name="companyID" hidden
+                                 value="{{restaurant.companyID}}">
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Restaurant Name</label>
-                                         <input type="text" class="form-control" placeholder="restaurant name">
+                                         <input type="text" class="form-control" placeholder="{{restaurant.resName}} "
+                                             value="{{restaurant.resName}}" name="resName">
                                      </div>
                                      <div class="col-md-6">
                                          <label>Address</label>
-                                         <input type="text" class="form-control" placeholder="address">
+                                         <input type="text" class="form-control" placeholder="{{restaurant.address}}"
+                                             value="{{restaurant.address}}" name="address">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>subDistrict</label>
-                                         <input type="text" class="form-control" placeholder="sub-district">
+                                         <input type="text" class="form-control"
+                                             placeholder="{{restaurant.subDistrict}}" value="{{restaurant.subDistrict}}"
+                                             name="subDistrict">
                                      </div>
                                      <div class="col-md-6">
                                          <label>District</label>
-                                         <input type="text" class="form-control" placeholder="district">
+                                         <input type="text" class="form-control" placeholder="{{restaurant.district}}"
+                                             value="{{restaurant.district}}" name="district">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Province</label>
-                                         <input type="text" class="form-control" placeholder="province">
+                                         <input type="text" class="form-control" placeholder="{{restaurant.province}}"
+                                             value="{{restaurant.province}}" name="province">
                                      </div>
                                      <div class="col-md-6">
                                          <label>Postal Code</label>
-                                         <input type="text" class="form-control" placeholder="postal code">
+                                         <input type="text" class="form-control" placeholder="{{restaurant.postalCode}}"
+                                             value="{{restaurant.postalCode}}" name="postalCode">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Email</label>
-                                         <input type="email" class="form-control" placeholder="e-mail">
+                                         <input type="email" class="form-control" placeholder="{{restaurant.email}}"
+                                             value="{{restaurant.email}}" name="email">
                                      </div>
                                      <div class="col-md-6">
                                          <label>Tel.</label>
-                                         <input type="tel" class="form-control" placeholder="xxx-xxxxxxx">
+                                         <input type="text" class="form-control" placeholder="{{restaurant.tel}}"
+                                             value="{{restaurant.tel}}" name="tel">
+                                     </div>
+                                 </div>
+                                   <div class="form-row d-flex pb-2">
+                                     <div class="col-md-6" style="padding-right : 20px">
+                                         <label>Instagram</label>
+                                         <input type="text" class="form-control" placeholder="{{restaurant.ig}}"
+                                             value="{{restaurant.ig}}" name="ig">
+                                     </div>
+                                     <div class="col-md-6">
+                                         <label>Facebook</label>
+                                         <input type="text" class="form-control" placeholder="{{restaurant.fb}}"
+                                             value="{{restaurant.fb}}" name="fb">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6">
                                          <label>Category</label>
                                          <select class="form-select" aria-label="Default select example"
-                                             style="width:50%">
-                                             <option value="" disabled selected hidden></option>
-                                             <option value="Fast Food">Fast Food</option>
-                                             <option value="Buffet">Buffet</option>
-                                             <option value="Dessert">Dessert</option>
+                                             style="width:50%" name="categoryID">
+                                             <option selected hidden value="{{restaurant.categoryID}}">
+                                                 {{restaurant.categoryID.categoryName}}</option>
+                                             {% for category in categories %}
+                                             <option value="{{category.categoryID}}">{{category.categoryName}}</option>
+                                             {% endfor %}
                                          </select>
                                      </div>
                                      <div class="col-md-6">
                                          <label>Logo</label>
-                                         <div class=mt-1>
+                                         <div class= "mt-1">
                                              <label for="files" class="btn btn-primary btn-sm rounded-0">Choose
                                                  file</label>
-                                             <input id="files" style="visibility:hidden; height:0" type="file">
+                                             <input id="files" style="visibility:hidden; height:0" type="file"
+                                                 name="profilePic" value = "{{restaurant.profilePic}}">
                                          </div>
                                      </div>
                                  </div>
-                             </div>
-                             <div class="tab-pane fade " id="company" role="tabpanel" aria-labelledby="company-tab">
-                                 <div class="form-row d-flex">
-                                     <div class="col-md-6" style="padding-right : 20px">
-                                         <label>Company Name</label>
-                                         <input type="text" class="form-control" placeholder="company name">
-                                     </div>
-                                     <div class="col-md-6">
-                                         <label>Address</label>
-                                         <input type="text" class="form-control" placeholder="address">
-                                     </div>
-                                 </div>
                                  <div class="form-row d-flex pb-2">
-                                     <div class="col-md-6" style="padding-right : 20px">
-                                         <label>subDistrict</label>
-                                         <input type="text" class="form-control" placeholder="sub-district">
+                                     <div class="col-md-6">
                                      </div>
                                      <div class="col-md-6">
-                                         <label>District</label>
-                                         <input type="text" class="form-control" placeholder="district">
-                                     </div>
-                                 </div>
-                                 <div class="form-row d-flex pb-2">
-                                     <div class="col-md-6" style="padding-right : 20px">
-                                         <label>Province</label>
-                                         <input type="text" class="form-control" placeholder="province">
-                                     </div>
-                                     <div class="col-md-6">
-                                         <label>Postal Code</label>
-                                         <input type="text" class="form-control" placeholder="postal code">
-                                     </div>
-                                 </div>
-                                 <div class="form-row d-flex pb-2">
-                                     <div class="col-md-6" style="padding-right : 20px">
-                                         <label>Email</label>
-                                         <input type="email" class="form-control" placeholder="e-mail">
-                                     </div>
-                                     <div class="col-md-6">
-                                         <label>Tel.</label>
-                                         <input type="tel" class="form-control" placeholder="xxx-xxxxxxx">
-                                     </div>
-                                 </div>
-                                 <div class="form-row d-flex justify-content-end pb-2">
-                                     <div class="col-md-6">
-                                         <label>Logo</label>
-                                         <div class=mt-1>
+                                         <label>Cover</label>
+                                         <div class="mt-1">
                                              <label for="files" class="btn btn-primary btn-sm rounded-0">Choose
                                                  file</label>
-                                             <input id="files" style="visibility:hidden; height:0" type="file">
+                                             <input id="files" style="visibility:hidden; height:0" type="file"
+                                                 name="coverPic" value = "{{restaurant.coverPic}}">
                                          </div>
+                                     </div>
+                                 </div>
+                                 <div class="form-row d-flex pb-2">
+                                     <div class="col-md-6">
+                                            <label>Open time</label>
+                                            <input type="time" class = "form-control" name="open" step="1">
+                                     </div>
+                                     <div class="col-md-6">
+                                            <label>Close time</label>
+                                            <input type="time" class = "form-control" name="close" step="1">
                                      </div>
                                  </div>
                              </div>
                          </div>
+                         <div class="modal-footer">
+                             <input type="submit" value="Submit" class="btn btn-primary">
+                         </div>
                      </form>
                  </div>
              </div>
-             <div class="modal-footer">
-                 <input type="submit" value="Submit" class="btn btn-primary" data-bs-dismiss="modal">
-             </div>
+
          </div>
      </div>
  </div>
