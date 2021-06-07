@@ -1,3 +1,4 @@
+from users.models import Member
 from django import forms
 from django.db import models
 from django.db.models import fields
@@ -52,3 +53,9 @@ class createCompForm(forms.ModelForm):
     class Meta:
         model = Company
         exclude = ["companyID"]
+
+
+class inviteStaffForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ("resID", "email")

@@ -3,29 +3,37 @@
 {% block content %}
 <div class="container mt-5">
 
-    <h2>Member List</h2>
-    <div class="d-flex">
-        <input class="form-control mt-3 mb-3 ms-3" id="Search" type="text" placeholder="Search.." style="width : 50%">
-
-        {% comment %} {% if user.role ==  "manager" %}
-        <a href="{%url 'managerHome' pk %}" type="button" class="btn btn-secondary mt-3"
-            style="height: 10%; margin-left : 1%">
-            <i class="bi bi-house-door-fill fa-lg"></i>
-        </a>
-        {% elif user.role ==  "executive" %}
-        <a href="{%url 'executiveHome' pk %}" type="button" class="btn btn-secondary mt-3"
-            style="height: 10%; margin-left : 1%">
-            <i class="bi bi-house-door-fill fa-lg"></i>
-        </a>
-        {% endif %} {% endcomment %}
-
+    <div class="row border mb-3">
+        <h2 class="mt-3">Member Lists</h2>
+        <div class="input-group rounded-lg mt-2 mb-2">
+            <input class="form-control rounded   m-3" id="Search" type="text" placeholder="Search.."
+                style="width : 50%">
+            <span class="input-group-text border-0" id="search-addon">
+                <i class="fas fa-search"></i>
+            </span>
+        </div>
     </div>
-    <br>
+
+    <div class="row border mb-3">
+        <h2 class="mt-3">Invite</h2>
+        <div class="col-md-6">
+            <form action="{% url 'inviteStaff' request.user.resID %}" method="post">
+                {% csrf_token %}
+                <input class="form-control m-3" id="myInput" type="text" name="resID" hidden
+                    value="{{request.user.resID}}">
+                <input class="form-control m-3" id="myInput" type="email" name="email">
+        </div>
+        <div class="col-md-6">
+            <input class="btn btn-primary mt-3 ms-2" type="submit" value="invite">
+        </div>
+        </form>
+    </div>
+
     <div class="mb-5" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Id</th>
                     <th scope="col">Name</th>
                     <th scope="col">Position</th>
                     <th scope="col">Change role</th>
@@ -35,7 +43,7 @@
             <tbody id="Table">
                 {% for staff in staffs %}
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">{{staff.memberID}}</th>
                     <td>
                         <a href="{% url 'profile' staff.memberID %}">{{staff.fullName}} </a>
                     </td>
@@ -46,7 +54,6 @@
                             <input type="text" name="memberID" value="{{staff.memberID}}" hidden>
                             <select class="form-select d-inline me-2" style="width: 150px;" name=role>
                                 <option selected hidden>{{staff.role}}</option>
-                                <option value="manager">executive</option>
                                 <option value="manager">manager</option>
                                 <option value="staff">staff</option>
                             </select>
@@ -59,45 +66,12 @@
                     </td>
                 </tr>
                 {% endfor %}
-                {% comment %} <tr>
-                    <th scope="row">1</th>
-                    <td>
-                        <a href="{% url 'staffProfile' restaurant.resID %}">Ferb Fletcher</a>
-                    </td>
-                    <td>Staff</td>
-                    <td>
-                        <a class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editRole">Edit</a>
-                        <a class="btn btn-sm btn-danger" href="#">Delete</a>
-                    </td>
-                </tr> {% endcomment %}
-                <tr>
-                    <th scope="row">2</th>
-                    <td>
-                        <a href="#">Art Chawanrut</a>
-                    </td>
-                    <td>Manager</td>
-                    <!--เฉพาะ executive ที่จะเห็น manager-->
-                    <td><a class="btn btn-sm btn-warning " data-bs-toggle="modal" data-bs-target="#editRole">Edit</a>
-                        <a class="btn btn-sm btn-danger" href="#">Delete</a>
-                    </td>
-                </tr>
+
+
             </tbody>
         </table>
     </div>
-    <div class="row border" style="margin-left : 1px; margin-right : 1px;">
-        <h2 class="mt-3">Invite</h2>
-        <div class="col-md-6">
-            <input class="form-control m-3" id="myInput" type="text" placeholder="input email / username / name">
-        </div>
-        <div class="col-md-6">
-            <input class="btn btn-primary mt-3 ms-2" type="submit" value="invite">
-        </div>
 
-    </div>
-
-    {% comment %} <div class="row  justify-content-end">
-        <a href="{%url 'usermanage'%}" class="btn btn-warning mt-4" style="width : 30%">Registration request</a>
-    </div> {% endcomment %}
 </div>
 {% include 'restaurants/editRoleModal.html' %}
 {% include 'restaurants/removeStaffModal.html' %}
