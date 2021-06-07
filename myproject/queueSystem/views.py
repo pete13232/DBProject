@@ -41,7 +41,6 @@ def createQueue(request, pk):
     count = Queue.objects.filter(memberID=member, queueIsPass=False).count()
     point = queues.aggregate(Sum("point"))
     my_point = point.get("point__sum")
-    print(my_point)
     if my_point == None:
         my_point = 0
     if request.method == "POST":
@@ -93,7 +92,7 @@ def createQueue(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/resCard/" + pk)
+            return redirect("/res/resCard/" + pk)
     else:
         form = createQueueForm()
 
@@ -106,11 +105,7 @@ def createNowQueue(request, pk):
     queues = Queue.objects.filter(memberID=member)
     count = Queue.objects.filter(memberID=member, queueIsPass=False).count()
     point = queues.aggregate(Sum("point"))
-    resQueues = Queue.objects.filter(resID=resID)
-    queueSum = Queue.objects.filter(memberID=member, queueIsPass=False).count()
     my_point = point.get("point__sum")
-    print(point)
-    print(my_point)
     if my_point == None:
         my_point = 0
     if request.method == "POST":
@@ -161,7 +156,7 @@ def createNowQueue(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/resCard/" + pk)
+            return redirect("/res/resCard/" + pk)
 
 
 @login_required(login_url="users/login")
@@ -180,7 +175,7 @@ def createReview(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/resCard/" + pk)
+            return redirect("/res/resCard/" + pk)
         else:
             sweetify.error(
                 request,
@@ -194,7 +189,7 @@ def createReview(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/resCard/" + pk)
+            return redirect("/res/resCard/" + pk)
 
 
 @login_required(login_url="users/login")
