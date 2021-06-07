@@ -1,6 +1,24 @@
 {% extends 'components/base.html' %}
 {% load static %}
 {% block content %}
+{% comment %} <img src="{{restaurant.getCoverPic}}" class="imgBg img-cover" alt="Responsive image" />
+<img src="{{restaurant.getProfilePic}}" class="imgCollab img-cover" alt="Responsive image" /> {% endcomment %}
+
+<div class="row text-center">
+	<h1 class="impact">
+		Now Queue
+	</h1>
+</div>
+
+<div class="row  text-center">
+	{% for queues_res in  restaurant.queue_set.all %}
+	{% if queues_res.status == "calling" %}
+	<h1 class="impact">
+		{{queues_res.queueID}}
+	</h1>
+	{% endif %}
+	{% endfor %}
+</div>
 <div class="mt-5" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
 	{% include 'queue/queue.html'%}
 </div>

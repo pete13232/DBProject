@@ -8,7 +8,7 @@
     <input class="form-control mt-4 mb-3" id="Search" type="text" placeholder="Search..">
     <br>
     <div class="mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
-      <table class="table">
+      <table class="table border border-3">
         <thead>
           <tr class="text-center align-middle">
 
@@ -18,7 +18,7 @@
             <th scope="col">Report</th>
           </tr>
         </thead>
-        <tbody id="Table">
+        <tbody id="Table border border-3">
           {% for company in companies %}
           <tr class="text-center align-middle">
             <th scope="row">{{company.companyID}}</th>
