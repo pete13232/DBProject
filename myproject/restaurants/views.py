@@ -11,7 +11,7 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
 from queueSystem.models import Queue, Review
 
-from app.forms import deleteStaffForm, editRoleForm
+from app.forms import editRoleForm
 from restaurants.forms import (
     createCompForm,
     createResForm,
@@ -21,6 +21,7 @@ from restaurants.forms import (
     enableCompanyForm,
     enableRestaurantForm,
     inviteStaffForm,
+    removeStaffForm,
 )
 from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
@@ -173,23 +174,20 @@ def deleteMenu(request, pk):
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 def manageStaff(request, pk):
-
-    if pk[0] == "C":
-        restaurant = Restaurant.objects.filter(companyID=pk)
-        staffs = Member.objects.filter(resID__in=restaurant)
-    elif pk[0] == "R":
-        restaurant = Restaurant.objects.filter(resID=pk)
-        staffs = Member.objects.filter(resID__in=restaurant)
-
-    form = editRoleForm()
-    # instance = get_object_or_404(Member, groups=request.POST["groups"])
-    context = {
-        "staffs": staffs,
-        "form": form,
-        "pk": pk,
-        "restaurant": restaurant,
-    }
-    return render(request, "restaurants/manageStaff.html", context)
+    restaurant = Restaurant.objects.filter(resID=pk)
+    staffs = Member.objects.filter(resID__in=restaurant)
+    if request.user.resID == pk or request.user.role == "admin":
+        form = editRoleForm()
+        # instance = get_object_or_404(Member, groups=request.POST["groups"])
+        context = {
+            "staffs": staffs,
+            "form": form,
+            "pk": pk,
+            "restaurant": restaurant,
+        }
+        return render(request, "restaurants/manageStaff.html", context)
+    else:
+        return redirect("/")
 
 
 @login_required(login_url="users/login")
@@ -229,22 +227,25 @@ def inviteStaff(request, pk):
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "manager"])
 def managerHome(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    queues = Queue.objects.all()
-    context = {
-        "restaurant": restaurant,
-        "queues": queues,
-    }
-    return render(request, "restaurants/managerHome.html", context)
-
-
+    if request.user.resID == pk or request.user.role == "admin":
+        restaurant = Restaurant.objects.get(resID=pk)
+        queues = Queue.objects.all()
+        context = {
+            "restaurant": restaurant,
+            "queues": queues,
+        }
+        return render(request, "restaurants/managerHome.html", context)
+    else:
+        return redirect("/")
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive"])
 def executiveHome(request, pk):  # ยังไม่ได้เชื่อมผ่าน company
-    restaurants = Restaurant.objects.filter(companyID=pk)
-    context = {"restaurants": restaurants}
-    return render(request, "restaurants/executiveHome.html", context)
-
+    if request.user.companyID == pk or request.user.role == "admin":
+        restaurants = Restaurant.objects.filter(companyID=pk)
+        context = {"restaurants": restaurants}
+        return render(request, "restaurants/executiveHome.html", context)
+    else:
+        return redirect("/")
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
@@ -283,7 +284,7 @@ def removeStaff(request, pk):
     if request.method == "POST":
         memberID = request.POST["memberID"]
         instance = get_object_or_404(Member, memberID=memberID)
-        form = deleteStaffForm(request.POST or None, instance=instance)
+        form = removeStaffForm(request.POST or None, instance=instance)
         if form.is_valid():
             form.save()
             sweetify.success(
@@ -312,13 +313,16 @@ def removeStaff(request, pk):
 
 
 def staffHome(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    queues = Queue.objects.all()
-    context = {
-        "restaurant": restaurant,
-        "queues": queues,
-    }
-    return render(request, "restaurants/staffHome.html", context)
+    if request.user.resID == pk:
+        restaurant = Restaurant.objects.get(resID=pk)
+        queues = Queue.objects.all()
+        context = {
+            "restaurant": restaurant,
+            "queues": queues,
+        }
+        return render(request, "restaurants/staffHome.html", context)
+    else:
+        return redirect("/")
 
 
 def createRes(request):

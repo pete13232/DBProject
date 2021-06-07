@@ -3,13 +3,6 @@ from users.models import Member
 from restaurants.models import Company, Restaurant
 from django import forms
 
-
-class deleteStaffForm(forms.ModelForm):
-    class Meta:
-        model = Member
-        fields = ("memberID", "resID")
-
-
 class editRoleForm(forms.ModelForm):
     class Meta:
         model = Member
