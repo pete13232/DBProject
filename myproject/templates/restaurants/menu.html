@@ -11,17 +11,32 @@
         <p class="card-text">
           {{menu.description}}
         </p>
-        <p class="card-text mt-auto">
+        <p class="card-text mt-auto text-center">
           {{menu.price}} Bath
         </p>
+
         {% if menu.avaliable %}
-        <div class="alert alert-success mt-auto text-center" role="alert">
+        <div class="alert alert-success mt-auto text-center " role="alert">
+          <input name="avaliable" hidden type="text" value="False">
           Avaliable
         </div>
         {% else %}
-        <div class="alert alert-danger mt-auto text-center" role="alert">
+        <div class="alert alert-danger mt-auto text-center " role="alert">
           Not avaliable
+          <input name="avaliable" hidden type="text" value="True">
         </div>
+        {% endif %}
+        {% if request.user.role == 'staff' and request.user.resID_id == menu.resID_id %}
+        <form action="" class="" method="post" style="height: 30px;">
+          {% csrf_token %}
+          {% if menu.avaliable %}
+          <input name="avaliable" hidden type="text" value="False">
+          {% else %}
+          <input name="avaliable" hidden type="text" value="True">
+          {% endif %}
+          <button type="submit" class="btn btn-sm btn-warning rounded-lg d-block form-control">Change Status</button>
+          <input name="menuID" hidden type="text" value="{{menu.menuID}}">
+        </form>
         {% endif %}
       </div>
     </div>
@@ -37,7 +52,7 @@
     </div>
   </div>
 </div>
-  {% endif %}
+{% endif %}
 {% include 'restaurants/menuModal.html' with menus=menus %}
 </div>
 

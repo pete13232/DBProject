@@ -60,6 +60,7 @@ class Company(models.Model):
     email = models.CharField(max_length=50)
     tel = models.CharField(max_length=10)
     profilePic = ProcessedImageField(
+        null=True,
         upload_to="static/images/%Y/%m/%d",
         format="PNG",
         options={"quality": 60},
@@ -130,11 +131,13 @@ class Restaurant(models.Model):
     email = models.CharField(max_length=50)
     tel = models.CharField(max_length=10)
     profilePic = ProcessedImageField(
+        null=True,
         upload_to="static/images/%Y/%m/%d",
         format="PNG",
         options={"quality": 60},
     )
     coverPic = ProcessedImageField(
+        null=True,
         upload_to="static/images/%Y/%m/%d",
         format="PNG",
         options={"quality": 60},
@@ -171,6 +174,7 @@ class Menu(models.Model):
     price = models.FloatField()
     avaliable = models.BooleanField()
     profilePic = ProcessedImageField(
+        null=True,
         upload_to="static/images/%Y/%m/%d",
         format="PNG",
         options={"quality": 60},

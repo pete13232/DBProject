@@ -32,7 +32,7 @@
             </li>
 
             {% elif user.role == "staff"%}
-            <a href="{%url 'queueManagement' request.user.resID %}" class="nav-link text-white" aria-current="page">
+            <a href="{%url 'staffHome' %}" class="nav-link text-white" aria-current="page">
                 <svg class="bi me-2" width="16" height="16">
                     <use xlink:href="#home"></use>
                 </svg>
