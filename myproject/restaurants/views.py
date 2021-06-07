@@ -245,5 +245,7 @@ def removeStaff(request, pk):
     else:
         form = deleteStaffForm()
 
-def staffHome(request):
-    return render(request, "restaurants/staffHome.html")
+def staffHome(request,pk):
+    restaurants = Restaurant.objects.filter(resID=pk)
+    context = {"restaurants": restaurants}
+    return render(request, "restaurants/staffHome.html",context)
