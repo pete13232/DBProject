@@ -174,12 +174,8 @@ def deleteMenu(request, pk):
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 def manageStaff(request, pk):
-
-    if pk[0] == "C":
-        restaurant = Restaurant.objects.filter(companyID=pk)
-        print(restaurant)
-        staffs = Member.objects.filter(resID__in=restaurant)
-    elif pk[0] == "R":
+    
+    if pk[0] == "R":
         restaurant = Restaurant.objects.filter(resID=pk)
         print(restaurant)
         staffs = Member.objects.filter(resID__in=restaurant)
