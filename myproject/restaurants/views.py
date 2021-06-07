@@ -11,7 +11,7 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
 from queueSystem.models import Queue, Review
 
-from app.forms import deleteStaffForm, editRoleForm
+from app.forms import editRoleForm
 from restaurants.forms import (
     createCompForm,
     createResForm,
@@ -21,6 +21,7 @@ from restaurants.forms import (
     enableCompanyForm,
     enableRestaurantForm,
     inviteStaffForm,
+    removeStaffForm,
 )
 from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
@@ -173,25 +174,20 @@ def deleteMenu(request, pk):
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 def manageStaff(request, pk):
-
-    if pk[0] == "C":
-        restaurant = Restaurant.objects.filter(companyID=pk)
-        print(restaurant)
-        staffs = Member.objects.filter(resID__in=restaurant)
-    elif pk[0] == "R":
-        restaurant = Restaurant.objects.filter(resID=pk)
-        print(restaurant)
-        staffs = Member.objects.filter(resID__in=restaurant)
-
-    form = editRoleForm()
-    # instance = get_object_or_404(Member, groups=request.POST["groups"])
-    context = {
-        "staffs": staffs,
-        "form": form,
-        "pk": pk,
-        "restaurant": restaurant,
-    }
-    return render(request, "restaurants/manageStaff.html", context)
+    restaurant = Restaurant.objects.filter(resID=pk)
+    staffs = Member.objects.filter(resID__in=restaurant)
+    if request.user.resID == pk or request.user.role == "admin":
+        form = editRoleForm()
+        # instance = get_object_or_404(Member, groups=request.POST["groups"])
+        context = {
+            "staffs": staffs,
+            "form": form,
+            "pk": pk,
+            "restaurant": restaurant,
+        }
+        return render(request, "restaurants/manageStaff.html", context)
+    else:
+        return redirect("/")
 
 
 @login_required(login_url="users/login")
@@ -203,7 +199,6 @@ def inviteStaff(request, pk):
         instance = get_object_or_404(Member, email=email)
         name = Member.objects.get(email=email)
         form = inviteStaffForm(request.POST or None, instance=instance)
-        print(instance)
         if form.is_valid():
             form.save()
             sweetify.success(
@@ -226,29 +221,31 @@ def inviteStaff(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            print(print(request.POST["resID"]))
             return redirect("/res/manageStaff/" + pk)
 
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "manager"])
 def managerHome(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    queues = Queue.objects.all()
-    context = {
-        "restaurant": restaurant,
-        "queues": queues,
-    }
-    return render(request, "restaurants/managerHome.html", context)
-
-
+    if request.user.resID_id == pk or request.user.role == "admin":
+        restaurant = Restaurant.objects.get(resID=pk)
+        queues = Queue.objects.all()
+        context = {
+            "restaurant": restaurant,
+            "queues": queues,
+        }
+        return render(request, "restaurants/managerHome.html", context)
+    else:
+        return redirect("/")
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive"])
 def executiveHome(request, pk):  # ยังไม่ได้เชื่อมผ่าน company
-    restaurants = Restaurant.objects.filter(companyID=pk)
-    context = {"restaurants": restaurants}
-    return render(request, "restaurants/executiveHome.html", context)
-
+    if request.user.companyID == pk or request.user.role == "admin":
+        restaurants = Restaurant.objects.filter(companyID=pk)
+        context = {"restaurants": restaurants}
+        return render(request, "restaurants/executiveHome.html", context)
+    else:
+        return redirect("/")
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
@@ -256,7 +253,6 @@ def editRole(request, pk):
     if request.method == "POST":
         instance = get_object_or_404(Member, memberID=request.POST["memberID"])
         form = editRoleForm(request.POST or None, instance=instance)
-        print(instance)
         if form.is_valid():
             form.save()
             sweetify.success(
@@ -288,7 +284,7 @@ def removeStaff(request, pk):
     if request.method == "POST":
         memberID = request.POST["memberID"]
         instance = get_object_or_404(Member, memberID=memberID)
-        form = deleteStaffForm(request.POST or None, instance=instance)
+        form = removeStaffForm(request.POST or None, instance=instance)
         if form.is_valid():
             form.save()
             sweetify.success(
@@ -311,20 +307,24 @@ def removeStaff(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            print(form)
             return redirect("/res/manageStaff/" + pk)
     else:
         form = deleteStaffForm()
 
 
 def staffHome(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    queues = Queue.objects.all()
-    context = {
-        "restaurant": restaurant,
-        "queues": queues,
-    }
-    return render(request, "restaurants/staffHome.html", context)
+    if request.user.resID_id == pk:
+        restaurant = Restaurant.objects.get(resID=pk)
+        queues = Queue.objects.all()
+        context = {
+            "restaurant": restaurant,
+            "queues": queues,
+        }
+        return render(request, "restaurants/staffHome.html", context)
+    else:
+        print(request.user.resID)
+        print(pk)
+        return redirect("/")
 
 
 def createRes(request):
@@ -354,24 +354,24 @@ def createRes(request):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            print(form.errors)
             return redirect("/")
     else:
         form = createResForm()
+
 
 def enableComAndRes(request, pk):
     if pk[0] == "C":
         if request.method == "POST":
             instance = get_object_or_404(Company, companyID=pk)
             form = enableCompanyForm(request.POST or None, instance=instance)
-            next = request.POST.get('next')
+            next = request.POST.get("next")
             if form.is_valid():
                 form.save()
                 sweetify.success(
                     request,
                     icon="success",
                     title="DONE !",
-                    text="Company status is update" ,
+                    text="Company status is update",
                     timer=1000,
                     timerProgressBar=True,
                     allowOutsideClick=True,
@@ -392,14 +392,14 @@ def enableComAndRes(request, pk):
         if request.method == "POST":
             instance = get_object_or_404(Restaurant, resID=pk)
             form = enableRestaurantForm(request.POST or None, instance=instance)
-            next = request.POST.get('next')
+            next = request.POST.get("next")
             if form.is_valid():
                 form.save()
                 sweetify.success(
                     request,
                     icon="success",
                     title="DONE !",
-                    text="Company status is update" ,
+                    text="Company status is update",
                     timer=1000,
                     timerProgressBar=True,
                     allowOutsideClick=True,
@@ -416,6 +416,7 @@ def enableComAndRes(request, pk):
                     allowOutsideClick=True,
                 )
                 return redirect(next)
+
 
 def createComp(request):
     if request.method == "POST":
@@ -443,7 +444,6 @@ def createComp(request):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            print(form.errors)
             return redirect("/")
     else:
         form = createCompForm()

@@ -14,7 +14,7 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
 from queueSystem.models import Queue, Review
 
-from app.forms import deleteStaffForm, editRoleForm
+from app.forms import editRoleForm
 from restaurants.forms import (
     editMenuForm,
     createMenuForm,
@@ -38,7 +38,6 @@ def index(request):
     restaurants = Restaurant.objects.all()
     ratings = Review.objects.values("resID").annotate(average_rating=Avg("rating"))
     context = {"categories": categories, "restaurants": restaurants, "ratings": ratings}
-    print(context)
     return render(request, "app/index.html", context)
 
 
@@ -52,7 +51,8 @@ def admin(request):
         "restaurants": restaurants,
     }
     return render(request, "admin/admin.html", context)
-    
+
+
 @login_required(login_url="users/login")
 @admin_only
 def registerRequest(request):
@@ -62,12 +62,10 @@ def registerRequest(request):
         "companies": companies,
         "restaurants": restaurants,
     }
-    return render(request, "admin/registerRequest.html",context)
+    return render(request, "admin/registerRequest.html", context)
 
 
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 @login_required(login_url="users/login")
 def dashboard(request):
     return render(request, "admin/dashboard.html")
-
-

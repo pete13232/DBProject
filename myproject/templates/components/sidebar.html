@@ -107,7 +107,7 @@
     <div class="offcanvas-body">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="{%url 'executiveHome' request.user.resID %}" class="nav-link text-white" aria-current="page">
+                <a href="{%url 'executiveHome' request.user.companyID %}" class="nav-link text-white" aria-current="page">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#home"></use>
                     </svg>
@@ -115,7 +115,7 @@
                 </a>
             </li>
             <li>
-                <a href="{%url 'manageStaff' request.user.resID %}" class="nav-link text-white">
+                <a href="{%url 'manageStaff' request.user.companyID %}" class="nav-link text-white">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#speedometer2"></use>
                     </svg>
@@ -123,7 +123,7 @@
                 </a>
             </li>
             <li>
-                <a href="{%url 'menu' request.user.resID %}" class="nav-link text-white">
+                <a href="{%url 'menu' request.user.companyID %}" class="nav-link text-white">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#table"></use>
                     </svg>
