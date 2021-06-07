@@ -43,16 +43,29 @@ def index(request):
 @login_required(login_url="users/login")
 @admin_only
 def admin(request):
-    return render(request, "admin/admin.html")
-
-
+    companies = Company.objects.all()
+    restaurants = Restaurant.objects.all()
+    context = {
+        "companies": companies,
+        "restaurants": restaurants,
+    }
+    return render(request, "admin/admin.html", context)
+    
 @login_required(login_url="users/login")
 @admin_only
 def registerRequest(request):
-    return render(request, "admin/registerRequest.html")
+    companies = Company.objects.all()
+    restaurants = Restaurant.objects.all()
+    context = {
+        "companies": companies,
+        "restaurants": restaurants,
+    }
+    return render(request, "admin/registerRequest.html",context)
 
 
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 @login_required(login_url="users/login")
 def dashboard(request):
     return render(request, "admin/dashboard.html")
+
+
