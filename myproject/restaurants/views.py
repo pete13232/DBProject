@@ -176,11 +176,14 @@ def deleteMenu(request, pk):
 def manageStaff(request, pk):
     restaurant = None
     company = None
-    staff = None
+    staffs = None
     if pk[0] == "C":
-        restaurant = Restaurant.objects.filter(resID=pk)
-        staffs = Member.objects.filter(resID__in=restaurant)
-        if request.user.resID_id == pk or request.user.role == "admin":
+        
+        company = Company.objects.filter(companyID=pk)
+        restaurant = Restaurant.objects.filter(resID__in=company)
+        staffs = Member.objects.all()
+        if request.user.companyID_id == pk or request.user.role == "admin":
+            print("aaa")
             form = editRoleForm()
             # instance = get_object_or_404(Member, groups=request.POST["groups"])
             context = {
@@ -191,9 +194,10 @@ def manageStaff(request, pk):
                 "company": company,
             }
             return render(request, "restaurants/manageStaff.html", context)
+
     if pk[0] == "R":
-        company = Comapny.objects.filter(comanyID=pk)
-        restaurant = Member.objects.filter(resID__in=restaurant)
+        restaurant = Restaurant.objects.filter(resID=pk)
+        staffs = Member.objects.filter(resID__in=restaurant)
         if request.user.resID_id == pk or request.user.role == "admin":
             form = editRoleForm()
             # instance = get_object_or_404(Member, groups=request.POST["groups"])
