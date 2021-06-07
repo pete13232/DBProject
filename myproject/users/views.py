@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import messages
+from django.contrib.messages.api import error
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
@@ -65,7 +66,9 @@ def profile(request, pk):
         if pk[0] == "C":
             instance = get_object_or_404(Company, companyID=pk)
             company = Company.objects.get(companyID=pk)
-            form = editCompanyForm(request.POST or None, instance=instance)
+            form = editCompanyForm(
+                request.POST or None, request.FILES, instance=instance
+            )
             if form.is_valid():
                 form.save()
                 sweetify.success(
@@ -77,7 +80,7 @@ def profile(request, pk):
                     timerProgressBar=True,
                     allowOutsideClick=True,
                 )
-                return redirect("/profile/" + pk)
+                return redirect("/users/profile/" + pk)
             else:
                 sweetify.error(
                     request,
@@ -88,18 +91,15 @@ def profile(request, pk):
                     timerProgressBar=True,
                     allowOutsideClick=True,
                 )
-                print(form)
-                return redirect("/profile/" + pk)
+                print(form.errors)
+                return redirect("/users/profile/" + pk)
+
         elif pk[0] == "R":
             instance = get_object_or_404(Restaurant, resID=pk)
             restaurant = Restaurant.objects.get(resID=pk)
-            form = editRestaurantForm(request.POST or None, instance=instance)
-            # open =  Restaurant.objects.get(resID=pk).open
-            # close =  Restaurant.objects.get(resID=pk).close
-            open = request.POST["open"]
-            close = request.POST["close"]
-            # form.open = open
-            # form.close = close
+            form = editRestaurantForm(
+                request.POST or None, request.FILES, instance=instance
+            )
             if form.is_valid():
                 form.save()
                 sweetify.success(
@@ -111,21 +111,48 @@ def profile(request, pk):
                     timerProgressBar=True,
                     allowOutsideClick=True,
                 )
-                return redirect("/profile/" + pk)
+                return redirect("/users/profile/" + pk)
             else:
                 sweetify.error(
                     request,
                     icon="error",
                     title="Oops !",
-                    text="Something went wrong! Try again" + str(open) + str(close),
+                    text="Something went wrong! Try again",
+                    timer=2500,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect("/users/profile/" + pk)
+        else:
+            instance = get_object_or_404(Member, memberID=pk)
+            member = request.POST["fName"]
+            form = editMemberForm(
+                request.POST or None, request.FILES, instance=instance
+            )
+            if form.is_valid():
+                form.save()
+                sweetify.success(
+                    request,
+                    icon="success",
+                    title="DONE!",
+                    text="Member " + member + " was updated",
+                    timer=1500,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect("/users/profile/" + pk)
+            else:
+                sweetify.error(
+                    request,
+                    icon="error",
+                    title="Oops !",
+                    text="Something went wrong! Try again" + member,
                     timer=2500,
                     timerProgressBar=True,
                     allowOutsideClick=True,
                 )
                 print(form)
-                return redirect("/profile/" + pk)
-        else:
-            print("0")
+                return redirect("/users/profile/" + pk)
     else:
         company = None
         restaurant = None
@@ -148,4 +175,9 @@ def profile(request, pk):
             "form": form,
             "pk": pk,
         }
+
     return render(request, "users/profile.html", context)
+
+
+# def editProfile(request,pk):
+#     if pk[0]=="M":
