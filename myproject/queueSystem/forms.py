@@ -35,6 +35,7 @@ class updateQueueForm(forms.ModelForm):
         fields = (
             "status",
             "queueIsPass",
+            "point"
         )
 
 class createReviewForm(forms.ModelForm):
