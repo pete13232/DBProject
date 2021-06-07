@@ -30,6 +30,7 @@ class Queue(models.Model):
     TYPE = (
         ("success", "success"),
         ("fail", "fail"),
+        ("calling", "calling"),
         ("waiting", "waiting"),
         ("cancel", "cancel"),
         ("point", "point"),

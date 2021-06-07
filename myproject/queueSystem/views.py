@@ -25,7 +25,8 @@ def queueManagement(request, pk):
     context = {"restaurant": restaurant}
     return render(request, "queue/queueManagement.html", context)
 
-
+@login_required(login_url="users/login")
+@allowed_users(allowed_roles=["member"])
 def createQueue(request, pk):
     count = Queue.objects.filter(queueIsPass=False).count()
     if request.method == "POST":
@@ -70,7 +71,8 @@ def createQueue(request, pk):
     else:
         form = createQueueForm()
 
-
+@login_required(login_url="users/login")
+@allowed_users(allowed_roles=["admin", "manager", "staff"])
 def createNowQueue(request, pk):
     count = Queue.objects.filter(queueIsPass=False).count()
     if request.method == "POST":
@@ -112,7 +114,8 @@ def createNowQueue(request, pk):
             )
             return redirect("/resCard/" + pk)
 
-
+@login_required(login_url="users/login")
+@allowed_users(allowed_roles=[ "member"])
 def createReview(request, pk):
     if request.method == "POST":
         form = createReviewForm(request.POST)
