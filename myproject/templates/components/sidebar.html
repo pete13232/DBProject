@@ -3,14 +3,20 @@
 {% if user.role ==  "manager" or user.role == "staff" %}
 <div class="offcanvas offcanvas-start d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" tabindex="-1"
     id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header">
+
+    
+    {% if  request.user.resID != None %}
+        <div class="offcanvas-header">
         <a href="{% url 'profile' request.user.resID %}"
             class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <img src="{{ request.user.resID.getProfilePic }}" class="img-contain border border-white rounded-3"
                 style="height: 60px; width: 60px;">
             <span class="fs-4 ms-3">{{request.user.resID.resName}}</span>
         </a>
-    </div>
+        </div>
+    {% endif %}
+        
+    
     <hr>
     <div class="offcanvas-body">
         <ul class="nav nav-pills flex-column mb-auto">
