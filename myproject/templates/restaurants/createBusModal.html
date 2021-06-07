@@ -67,11 +67,9 @@
                                          <label>Category</label>
                                          <select class="form-select" aria-label="Default select example" required
                                              style="width:50%" name="categoryID">
-                                             <option selected hidden value="">
-                                             </option>
                                              {% for category in categories %}
-                                             <option value="{{category.categoryID}}">{{category.categoryName}}
-                                             </option>
+                                             <option selected hidden value=""></option>
+                                             <option value="{{category.categoryID}}">{{category.categoryName}}</option>
                                              {% endfor %}
                                          </select>
                                      </div>

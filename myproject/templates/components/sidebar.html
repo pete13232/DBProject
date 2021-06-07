@@ -32,13 +32,13 @@
                 </a>
             </li>
 
-            {% comment %} {% elif user.role == "staff"%}
+            {% elif user.role == "staff"%}
             <a href="{%url 'staffHome' request.user.resID %}" class="nav-link text-white" aria-current="page">
                 <svg class="bi me-2" width="16" height="16">
                     <use xlink:href="#home"></use>
                 </svg>
                 Queue
-            </a> {% endcomment %}
+            </a> 
             <a href="{%url 'staffHome' request.user.resID  %}" class="nav-link text-white" aria-current="page"
                 data-bs-toggle="modal" data-bs-target="#business" href="#home">
                 <svg class="bi me-2" width="16" height="16">
