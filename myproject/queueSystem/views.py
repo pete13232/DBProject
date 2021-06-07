@@ -36,9 +36,9 @@ def staffHome(request, pk):
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["member"])
 def createQueue(request, pk):
-    count = Queue.objects.filter(queueIsPass=False).count()
     member = request.POST["memberID"]
     queues = Queue.objects.filter(memberID=member)
+    count = Queue.objects.filter(memberID=member, queueIsPass=False).count()
     point = queues.aggregate(Sum("point"))
     my_point = point.get("point__sum")
     print(my_point)
