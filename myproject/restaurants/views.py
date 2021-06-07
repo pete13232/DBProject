@@ -174,18 +174,43 @@ def deleteMenu(request, pk):
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 def manageStaff(request, pk):
-    restaurant = Restaurant.objects.filter(resID=pk)
-    staffs = Member.objects.filter(resID__in=restaurant)
-    if request.user.resID == pk or request.user.role == "admin":
-        form = editRoleForm()
-        # instance = get_object_or_404(Member, groups=request.POST["groups"])
-        context = {
-            "staffs": staffs,
-            "form": form,
-            "pk": pk,
-            "restaurant": restaurant,
-        }
-        return render(request, "restaurants/manageStaff.html", context)
+    restaurant = None
+    company = None
+    staffs = None
+    if pk[0] == "C":
+        
+        company = Company.objects.filter(companyID=pk)
+        restaurant = Restaurant.objects.filter(resID__in=company)
+        staffs = Member.objects.all()
+        if request.user.companyID_id == pk or request.user.role == "admin":
+            print("aaa")
+            form = editRoleForm()
+            # instance = get_object_or_404(Member, groups=request.POST["groups"])
+            context = {
+                "staffs": staffs,
+                "form": form,
+                "pk": pk,
+                "restaurant": restaurant,
+                "company": company,
+            }
+            return render(request, "restaurants/manageStaff.html", context)
+
+    if pk[0] == "R":
+        restaurant = Restaurant.objects.filter(resID=pk)
+        staffs = Member.objects.filter(resID__in=restaurant)
+        if request.user.resID_id == pk or request.user.role == "admin":
+            form = editRoleForm()
+            # instance = get_object_or_404(Member, groups=request.POST["groups"])
+            context = {
+                "staffs": staffs,
+                "form": form,
+                "pk": pk,
+                "restaurant": restaurant,
+                "company": company,
+            }
+            return render(request, "restaurants/manageStaff.html", context)
+    
+    
     else:
         return redirect("/")
 
@@ -240,7 +265,7 @@ def managerHome(request, pk):
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive"])
 def executiveHome(request, pk):  # ยังไม่ได้เชื่อมผ่าน company
-    if request.user.companyID == pk or request.user.role == "admin":
+    if request.user.companyID_id == pk or request.user.role == "admin":
         restaurants = Restaurant.objects.filter(companyID=pk)
         context = {"restaurants": restaurants}
         return render(request, "restaurants/executiveHome.html", context)
