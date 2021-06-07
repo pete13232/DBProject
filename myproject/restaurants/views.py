@@ -44,7 +44,6 @@ def resCard(request, pk):
     return render(request, "restaurants/resCard.html", context)
 
 
-
 def menu(request, pk):
     if request.method == "POST":
         instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
@@ -177,7 +176,7 @@ def manageStaff(request, pk):
     company = None
     staffs = None
     if pk[0] == "C":
-        
+
         company = Company.objects.filter(companyID=pk)
         restaurant = Restaurant.objects.filter(companyID=pk)
         print(restaurant)
@@ -210,8 +209,7 @@ def manageStaff(request, pk):
                 "company": company,
             }
             return render(request, "restaurants/manageStaff.html", context)
-    
-    
+
     else:
         return redirect("/")
 
@@ -263,6 +261,8 @@ def managerHome(request, pk):
         return render(request, "restaurants/managerHome.html", context)
     else:
         return redirect("/")
+
+
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive"])
 def executiveHome(request, pk):  # ยังไม่ได้เชื่อมผ่าน company
@@ -272,6 +272,7 @@ def executiveHome(request, pk):  # ยังไม่ได้เชื่อม
         return render(request, "restaurants/executiveHome.html", context)
     else:
         return redirect("/")
+
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
@@ -474,3 +475,33 @@ def createComp(request):
             return redirect("/")
     else:
         form = createCompForm()
+
+
+def execCreateResModal(request, pk):
+    if request.method == "POST":
+        form = createResForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            res = request.POST["resName"]
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE!",
+                text="Restaurant " + res + " was created, Please wait for accepting",
+                timer=3000,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/users/profile/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            print(form.errors)
+            return redirect("/users/profile/" + pk)

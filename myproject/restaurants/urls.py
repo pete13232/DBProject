@@ -16,7 +16,12 @@ urlpatterns = [
     path("indexResCard", views.indexResCard, name="indexResCard"),
     path("staffHome/<str:pk>", views.staffHome, name="staffHome"),
     path("createRes", views.createRes, name="createRes"),
-    path("enableComAndRes/<str:pk>", views.enableComAndRes ,name = "enableComAndRes"),
+    path("enableComAndRes/<str:pk>", views.enableComAndRes, name="enableComAndRes"),
     path("createComp", views.createComp, name="createComp"),
     path("inviteStaff/<str:pk>", views.inviteStaff, name="inviteStaff"),
+    path(
+        "execCreateResModal/<str:pk>",
+        views.execCreateResModal,
+        name="execCreateResModal",
+    ),
 ]

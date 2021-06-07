@@ -92,6 +92,9 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Restaurant</th>
+                                        <th scope="col"><input type="submit" class="profile-edit-btn"
+                                                data-bs-toggle="modal" data-bs-target="#exec-edit-res"
+                                                name="Edit Restaurant" value="Edit Restaurant" /></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -115,7 +118,7 @@
         </div>
     </div>
 </div>
-{% include 'restaurants/editCompModal.html' %}
+{% include 'restaurants/execCreateResModal.html' %}
 {% elif restaurant is not None %}
 <div class="card border border-3 mt-4 pt-3 justify-content-center ">
     <div class="row">

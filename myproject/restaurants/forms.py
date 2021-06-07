@@ -48,15 +48,18 @@ class createResForm(forms.ModelForm):
         model = Restaurant
         exclude = ["resID"]
 
+
 class enableCompanyForm(forms.ModelForm):
     class Meta:
         model = Company
         fields = ("success",)
 
+
 class enableRestaurantForm(forms.ModelForm):
     class Meta:
         model = Restaurant
         fields = ("success",)
+
 
 class createCompForm(forms.ModelForm):
     class Meta:
@@ -69,7 +72,14 @@ class inviteStaffForm(forms.ModelForm):
         model = Member
         fields = ("resID", "email")
 
+
 class removeStaffForm(forms.ModelForm):
     class Meta:
         model = Member
-        fields = ("memberID", "resID","companyID","role")
+        fields = ("memberID", "resID", "companyID", "role")
+
+
+class execCreateResModal(forms.ModelForm):
+    class Meta:
+        model = Restaurant
+        exclude = ["resID"]

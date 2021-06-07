@@ -1,0 +1,113 @@
+ {% load static %}
+ <!-- Modal -->
+ <div class="modal fade" id="exec-edit-res" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+             <div class="modal-header border-0 align-self-start">
+                 <h5 class="modal-title" id="exampleModalLabel"></h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+                 <h1>Edit Restaurant</h1>
+                 <div class="card p-3  border border-3 " style="">
+                     <form class="mt-3 ms-2" method="POST"
+                         action="{% url 'execCreateResModal' request.user.companyID %}" enctype="multipart/form-data">
+                         {% csrf_token %}
+
+                         <input type="text" class="form-control" id="name" name="companyID" hidden
+                             value="{{request.user.companyID}}">
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-6" style="padding-right : 20px">
+                                 <label>Restaurant Name</label>
+                                 <input type="text" class="form-control" placeholder="{{restaurant.resName}} "
+                                     value="{{restaurant.resName}}" name="resName" required>
+                             </div>
+                             <div class="col-md-6">
+                                 <label>Address</label>
+                                 <input type="text" class="form-control" placeholder="{{restaurant.address}}"
+                                     value="{{restaurant.address}}" name="address" required>
+                             </div>
+                         </div>
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-6" style="padding-right : 20px">
+                                 <label>subDistrict</label>
+                                 <input type="text" class="form-control" placeholder="{{restaurant.subDistrict}}"
+                                     value="{{restaurant.subDistrict}}" name="subDistrict">
+                             </div>
+                             <div class="col-md-6">
+                                 <label>District</label>
+                                 <input type="text" class="form-control" placeholder="{{restaurant.district}}"
+                                     value="{{restaurant.district}}" name="district">
+                             </div>
+                         </div>
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-6" style="padding-right : 20px">
+                                 <label>Province</label>
+                                 <input type="text" class="form-control" placeholder="{{restaurant.province}}"
+                                     value="{{restaurant.province}}" name="province">
+                             </div>
+                             <div class="col-md-6">
+                                 <label>Postal Code</label>
+                                 <input type="text" class="form-control" placeholder="{{restaurant.postalCode}}"
+                                     value="{{restaurant.postalCode}}" name="postalCode">
+                             </div>
+                         </div>
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-6" style="padding-right : 20px">
+                                 <label>Category</label>
+                                 <select class="form-select" aria-label="Default select example" style="width:50%"
+                                     name="categoryID" required>
+                                     <option selected hidden value="{{restaurant.categoryID}}">
+                                         {{restaurant.categoryID.categoryName}}</option>
+                                     {% for category in categories %}
+                                     <option value="{{category.categoryID}}">{{category.categoryName}}</option>
+                                     {% endfor %}
+                                 </select>
+                             </div>
+
+                             <div class="col-md-6">
+                                 <label>Tel.</label>
+                                 <input type="tel" class="form-control" placeholder="{{restaurant.tel}}"
+                                     value="{{restaurant.tel}}" name="tel" pattern="^0[0-9]{9}" required>
+                             </div>
+                         </div>
+
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-12">
+                                 <label>Email</label>
+                                 <input type="email" class="form-control" placeholder="{{restaurant.email}}"
+                                     value="{{restaurant.email}}" name="email" required>
+                                 </select>
+                             </div>
+                         </div>
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-6">
+                                 <label>Open</label>
+                                 <input class="form-control" type="time" name="open" id="" required>
+                             </div>
+                             <div class="col-md-6">
+                                 <label for="">Close</label>
+                                 <input class="form-control" type="time" name="close" id="" required>
+                             </div>
+                         </div>
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-6">
+                                 <label>Logo Profile</label>
+                                 <input class="form-control" type="file" name="profilePic" id="formFile">
+                             </div>
+                             <div class="col-md-6">
+                                 <label for="">Cover Profile</label>
+                                 <input class="form-control" type="file" name="coverPic" id="formFile">
+                             </div>
+                         </div>
+                         <div class="d-flex justify-content-end">
+                             <input type="submit" value="Submit" class="btn btn-primary">
+                         </div>
+                     </form>
+                 </div>
+             </div>
+         </div>
+
+     </div>
+ </div>
+ </div>
