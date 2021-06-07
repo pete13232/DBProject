@@ -1,3 +1,6 @@
+{% load static %}
+{% block content %} 
+
 	<table class="table table-md" id="test">
 		<thead>
 			<tr class="text-center">
@@ -10,35 +13,38 @@
 			</tr>
 		</thead>
 		<tbody id="queueTable">
+			{% for queues in  restaurant.queue_set.all %}
+			{% if queues.status == "calling" %}
+				<tr class="text-center align-middle">
+					<td>{{queues.queueID}}</td>
+					<td>{{queues.queueCreated}}</td>
+					<td class="text-danger">{{queues.reserveDateTime}}</td>
+					<td>
+						<h5 class="card bg-warning text-danger my-0 py-1"> {{queues.status}} </h5>
+					</td>
+					<td><a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#updateQueueModal">Update</a></td>
+					<td><a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#" >Delete</a></td>
+				</tr>
+			{% endif %}
+				
+				
+			{% endfor %}
+
+			{% for queues in  restaurant.queue_set.all %}
+			{% if queues.status == "waiting" %}
 			<tr class="text-center align-middle">
-				<td>A5621</td>
-				<td>26 January 2021 12:00:17</td>
-				<td class="text-danger">-</td>
+				<td>{{queues.queueID}}</td>
+				<td>{{queues.queueCreated}}</td>
+				<td class="text-danger">{{queues.reserveDateTime}}</td>
 				<td>
-					<h5 class="card bg-warning text-danger my-0 py-1"> Calling </h5>
+					<h5 class="card bg-primary text-white my-0 py-1"> {{queues.status}} </h5>
 				</td>
-				<td><a class="btn btn-sm btn-info" href="">Update</a></td>
-				<td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+				<td><a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#updateQueueModal">Update</a></td>
+				<td><a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#" >Delete</a></td>
 			</tr>
-			<tr class="text-center align-middle">
-				<td>A5622</td>
-				<td>26 January 2021 14:00:54</td>
-				<td class="text-danger">26 January 2021 17:00:00</td>
-				<td>
-					<h5 class="card bg-primary text-white my-0 py-1"> Waiting </h5>
-				</td>
-				<td><a class="btn btn-sm btn-info" href="">Update</a></td>
-				<td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
-			</tr>
-			<tr class="text-center ">
-				<td>A5623</td>
-				<td>26 January 2021 12:00:17</td>
-				<td class="text-danger">-</td>
-				<td>
-					<h5 class="card bg-primary text-white my-0 py-1"> Waiting </h5>
-				</td>
-				<td><a class="btn btn-sm btn-info" href="">Update</a></td>
-				<td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
-			</tr>
+			{% endif %}
+			{% endfor %}
 		</tbody>
 	</table>
+ {% include 'queue/updateQueueModal.html' %}
+ {% endblock content %} 

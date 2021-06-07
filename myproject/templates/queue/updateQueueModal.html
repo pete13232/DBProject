@@ -1,0 +1,30 @@
+{% load static %}
+ <!-- Modal -->
+ <div class="modal fade" id="updateQueueModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header border-0 align-self-start">
+         <h5 class="modal-title" id="exampleModalLabel"></h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         
+               
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createQueue"
+           data-bs-dismiss="modal">
+           จองคิวล่วงหน้า
+         </button>
+         <a href="{%url 'menu' restaurant.resID %}">
+           <button type="button" class="btn btn-primary">
+             รายการอาหาร
+           </button>
+         </a>
+         <button type="submit" class="btn btn-secondary">ยืนยัน</button>
+       </div>
+       </form>
+     </div>
+   </div>
+ </div>
+
