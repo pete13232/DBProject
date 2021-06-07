@@ -16,4 +16,5 @@ urlpatterns = [
     path("indexResCard", views.indexResCard, name="indexResCard"),
     path("staffHome/<str:pk>", views.staffHome, name="staffHome"),
     path("createRes", views.createRes, name="createRes"),
+    path("createComp", views.createComp, name="createComp"),
 ]

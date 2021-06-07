@@ -13,6 +13,7 @@ from queueSystem.models import Queue, Review
 
 from app.forms import deleteStaffForm, editRoleForm
 from restaurants.forms import (
+    createCompForm,
     createResForm,
     editMenuForm,
     createMenuForm,
@@ -319,3 +320,35 @@ def createRes(request):
             return redirect("/")
     else:
         form = createResForm()
+
+
+def createComp(request):
+    if request.method == "POST":
+        form = createCompForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            comp = request.POST["companyName"]
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE!",
+                text="Company " + comp + " was created, Please wait for accepting",
+                timer=3000,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/")
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            print(form.errors)
+            return redirect("/")
+    else:
+        form = createCompForm()

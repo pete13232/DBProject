@@ -46,3 +46,9 @@ class createResForm(forms.ModelForm):
     class Meta:
         model = Restaurant
         exclude = ["resID"]
+
+
+class createCompForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        exclude = ["companyID"]

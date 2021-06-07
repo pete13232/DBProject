@@ -65,7 +65,7 @@ class Company(models.Model):
         format="PNG",
         options={"quality": 60},
     )
-    success = models.BooleanField(default=False)
+    success = models.BooleanField(default=False, null=True)
 
 
 class Restaurant(models.Model):
@@ -143,7 +143,7 @@ class Restaurant(models.Model):
         format="PNG",
         options={"quality": 60},
     )
-    success = models.BooleanField(default=False)
+    success = models.BooleanField(default=False, null=True)
 
 
 class Menu(models.Model):
