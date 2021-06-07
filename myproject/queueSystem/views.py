@@ -152,10 +152,9 @@ def updateQueue(request, pk):
     if request.method == "POST":
         instance = get_object_or_404(Queue, queueID=pk)
         form = updateQueueForm(request.POST or None, instance=instance)
-        queue = Queue.objects.get(queueID=pk)
-        restaurant = Queue.objects.get(queueID=pk).resID
-        # a = form.status
-        if form.is_valid() and queue.status != "cancel":
+        next = request.POST.get('next')
+        status = request.POST.get('next')
+        if form.is_valid() and status != "cancel":
             form.save()
             sweetify.success(
                 request,
@@ -166,7 +165,7 @@ def updateQueue(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/res/managerHome/" + str(restaurant))
+            return redirect(next)
         else:
             sweetify.error(
                 request,
@@ -177,4 +176,4 @@ def updateQueue(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/res/managerHome/" + str(restaurant))
+            return redirect(next)

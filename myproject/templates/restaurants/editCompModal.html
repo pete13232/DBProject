@@ -15,6 +15,8 @@
                          {% csrf_token %}
                          <input type="text" class="form-control" id="name" name="companyID" hidden
                              value="{{company.companyID}}">
+                         <input type="text" class="form-control" id="name" name="success" hidden
+                             value="{{company.success}}">
                          <div class="form-row d-flex pb-2">
                              <div class="col-md-6" style="padding-right : 20px">
                                  <label>company Name</label>
