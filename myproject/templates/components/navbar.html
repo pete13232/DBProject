@@ -101,7 +101,8 @@
                             <h5 class="card-subtitle mb-2 text-muted d-flex justify-content-center"> None</h5>
                         </td>
                     </tr>
-                    {% elif user.role ==  "staff" or user.role ==  "manager" and user.resID is not None%}
+                    {% elif user.role ==  "staff" or user.role ==  "manager" %}
+                    {% if  request.user.resID is not None %}
                     <tr>
                         <td>
                             <h5 class="card-title d-flex justify-content-start">Company : </h5>
@@ -137,6 +138,7 @@
                             <h5 class="card-subtitle mb-2 text-muted d-flex justify-content-center"> None</h5>
                         </td>
                     </tr>
+                    {% endif %}
                     {% endif %}
                 </table>
             </div>
