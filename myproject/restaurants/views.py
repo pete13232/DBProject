@@ -229,7 +229,7 @@ def inviteStaff(request, pk):
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "manager"])
 def managerHome(request, pk):
-    if request.user.resID == pk or request.user.role == "admin":
+    if request.user.resID_id == pk or request.user.role == "admin":
         restaurant = Restaurant.objects.get(resID=pk)
         queues = Queue.objects.all()
         context = {
@@ -317,7 +317,7 @@ def removeStaff(request, pk):
 
 
 def staffHome(request, pk):
-    if request.user.resID == pk:
+    if request.user.resID_id == pk:
         restaurant = Restaurant.objects.get(resID=pk)
         queues = Queue.objects.all()
         context = {
@@ -326,6 +326,8 @@ def staffHome(request, pk):
         }
         return render(request, "restaurants/staffHome.html", context)
     else:
+        print(request.user.resID)
+        print(pk)
         return redirect("/")
 
 
