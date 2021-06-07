@@ -87,17 +87,17 @@
                     <div class="tab-pane fade pb-5" id="branch" role="tabpanel" aria-labelledby="branch-tab">
                         <div class="history-container mb-3"
                             style="overflow-x: hidden; overflow-y : scroll; height : 325px">
-                            <table class="table">
+                            <table class="table ">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">ID</th>
                                         <th scope="col">Restaurant</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for restaurant in company.restaurant_set.all  %}
                                     <tr>
-                                        <th scope="row">1</th>
+                                        <th scope="row">{{restaurant.resID}}</th>
                                         <td>
                                             <a href="{% url 'profile' restaurant.resID %}">
                                                 <p>{{restaurant.resName}}</p>

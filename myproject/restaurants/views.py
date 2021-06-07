@@ -18,6 +18,9 @@ from restaurants.forms import (
     editMenuForm,
     createMenuForm,
     changeStatusForm,
+    enableCompanyForm,
+    enableRestaurantForm,
+    inviteStaffForm,
 )
 from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
@@ -192,6 +195,42 @@ def manageStaff(request, pk):
 
 
 @login_required(login_url="users/login")
+@allowed_users(allowed_roles=["admin", "executive", "manager"])
+def inviteStaff(request, pk):
+
+    if request.method == "POST":
+        email = request.POST["email"]
+        instance = get_object_or_404(Member, email=email)
+        name = Member.objects.get(email=email)
+        form = inviteStaffForm(request.POST or None, instance=instance)
+        print(instance)
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Member  " + name.fullName() + " was invited",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/res/manageStaff/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            print(print(request.POST["resID"]))
+            return redirect("/res/manageStaff/" + pk)
+
+
+@login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "manager"])
 def managerHome(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
@@ -250,7 +289,6 @@ def removeStaff(request, pk):
         memberID = request.POST["memberID"]
         instance = get_object_or_404(Member, memberID=memberID)
         form = deleteStaffForm(request.POST or None, instance=instance)
-        # name = request.POST["fullName"]
         if form.is_valid():
             form.save()
             sweetify.success(
@@ -321,6 +359,63 @@ def createRes(request):
     else:
         form = createResForm()
 
+def enableComAndRes(request, pk):
+    if pk[0] == "C":
+        if request.method == "POST":
+            instance = get_object_or_404(Company, companyID=pk)
+            form = enableCompanyForm(request.POST or None, instance=instance)
+            next = request.POST.get('next')
+            if form.is_valid():
+                form.save()
+                sweetify.success(
+                    request,
+                    icon="success",
+                    title="DONE !",
+                    text="Company status is update" ,
+                    timer=1000,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect(next)
+            else:
+                sweetify.error(
+                    request,
+                    icon="error",
+                    title="Oops !",
+                    text="Somethings went wrong! Try again.",
+                    timer=2500,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect(next)
+    if pk[0] == "R":
+        if request.method == "POST":
+            instance = get_object_or_404(Restaurant, resID=pk)
+            form = enableRestaurantForm(request.POST or None, instance=instance)
+            next = request.POST.get('next')
+            if form.is_valid():
+                form.save()
+                sweetify.success(
+                    request,
+                    icon="success",
+                    title="DONE !",
+                    text="Company status is update" ,
+                    timer=1000,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect(next)
+            else:
+                sweetify.error(
+                    request,
+                    icon="error",
+                    title="Oops !",
+                    text="Somethings went wrong! Try again.",
+                    timer=2500,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect(next)
 
 def createComp(request):
     if request.method == "POST":

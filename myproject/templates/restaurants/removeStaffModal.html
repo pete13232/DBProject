@@ -8,7 +8,7 @@
                 <h5 class="modal-title" id="exampleModalLabe3">Delete Confirmation</h5>
             </div>
             <div class="modal-body">
-                <h5>Are you sure you wat to delete Menu?</h5>
+                <h5>Are you sure you want to remove {{staff.fullName}}?</h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -16,7 +16,7 @@
                 </button>
                 <form action="{% url 'removeStaff' pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="text" class="form-control" id="name" name="id" hidden value="{{staff.memberID}}">
+                    <input type="text" class="form-control" id="name" name="memberID" hidden value="{{staff.memberID}}">
                     <input type="text" class="form-control" id="name" name="resID" hidden value="">
                     <button type="submit" class="btn btn-danger">Confirm</button>
                 </form>
