@@ -1,101 +1,108 @@
 {% extends 'components/base.html' %}
 {% load static %}
 {% block content %}
+<div class="row">
+  <h3>Number of usage</h3>
+  <table class="table">
+    <thead>
+      <tr class=text-center>
+        <th scope="col">Date</th>
+        <th scope="col">User number</th>
+      </tr>
+    </thead>
+    <tbody class=text-center>
+      <tr>
+        <td>04/06/2021</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>05/06/2021</td>
+        <td>4</>
+      </tr>
+      <tr>
+        <td>06/06/2021</td>
+        <td>3</>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-<table class="table table-md border border-3 myTable" id="test">
-  <thead>
-    <tr class="text-center">
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Queue Count/th>
-      <th scope="col">Score</th>
-    </tr>
-  </thead>
-  <tbody id="queueTable">
 
-    <tr class="text-center align-middle">
-      <td>{{queues_res.queueID}}</td>
-      <td>{{queues_res.queueCreated}}</td>
-      <td class="text-danger">{{queues_res.reserveDateTime}}</td>
-      <td>
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <select class="form-select d-inline me-2" style="width: 150px;" name="status">
-          <option selected hidden>{{queues_res.status}}</option>
-          <option value="calling">calling</option>
-          <option value="waiting">waiting</option>
-        </select>
-      </td>
-      <td>
-        <button class="btn btn-primary d-blcok" type="submit">Update
-          <input type="text" name="queueIsPass" value="false" hidden></button>
-        <input type="number" name="point" value="0" hidden>
-      </td>
-      <td>
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <button class="btn btn-success d-blcok" type="submit">Success
-          <input type="text" name="queueIsPass" value="true" hidden>
-          <input type="text" name="status" value="success" hidden>
-          <input type="number" name="point" value="3" hidden>
-        </button>
-      </td>
-      <td>
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <button class="btn btn-danger d-blcok" type="submit">Fail
-          <input type="text" name="queueIsPass" value="true" hidden>
-          <input type="text" name="status" value="fail" hidden></button>
-        <input type="number" name="point" value="-10" hidden>
-      </td>
-      <td>
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <button class="btn btn-danger d-blcok" type="submit">Cancel
-          <input type="text" name="queueIsPass" value="true" hidden>
-          <input type="text" name="status" value="cancel" hidden></button>
-        <input type="number" name="point" value="0" hidden>
-      </td>
-    </tr>
+<div class="row">
+  <h3>Number of cancel</h3>
+  <table class="table">
+    <thead>
+      <tr class=text-center>
+        <th scope="col">Date</th>
+        <th scope="col">Cancel number</th>
+      </tr>
+    </thead>
+    <tbody class=text-center>
+      <tr>
+        <td>04/06/2021</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>05/06/2021</td>
+        <td>3</>
+      </tr>
+      <tr>
+        <td>06/06/2021</td>
+        <td>2</>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-    <tr class="text-center align-middle">
-      <td>{{queues_res.queueID}}</td>
-      <td>{{queues_res.queueCreated}}</td>
-      <td class="text-danger">{{queues_res.reserveDateTime}}</td>
-      <td>
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <select class="form-select d-inline me-2" style="width: 150px;" name="status">
-          <option selected hidden>{{queues_res.status}}</option>
-          <option value="calling">calling</option>
-          <option value="waiting">waiting</option>
-        </select>
-      </td>
-      <td>
-        <button class="btn btn-primary d-blcok" type="submit">Update
-          <input type="text" name="queueIsPass" value="false" hidden></button>
-        <input type="number" name="point" value="0" hidden>
-      </td>
-      <td>
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <button class="btn btn-success d-blcok" type="submit">Success
-          <input type="text" name="queueIsPass" value="true" hidden>
-          <input type="text" name="status" value="success" hidden>
-          <input type="number" name="point" value="3" hidden>
-        </button>
-      </td>
-      <td>
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <button class="btn btn-danger d-blcok" type="submit">Fail
-          <input type="text" name="queueIsPass" value="true" hidden>
-          <input type="text" name="status" value="fail" hidden></button>
-        <input type="number" name="point" value="-10" hidden>
-      </td>
-      <td>
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <button class="btn btn-danger d-blcok" type="submit">Cancel
-          <input type="text" name="queueIsPass" value="true" hidden>
-          <input type="text" name="status" value="cancel" hidden></button>
-        <input type="number" name="point" value="0" hidden>
-      </td>
-      </form>
-    </tr>
-  </tbody>
-</table>
-{% include 'queue/updateQueueModal.html' %}
+<div class="row">
+  <h3>Number of success</h3>
+  <table class="table">
+    <thead>
+      <tr class=text-center>
+        <th scope="col">Date</th>
+        <th scope="col">Success number</th>
+      </tr>
+    </thead>
+    <tbody class=text-center>
+      <tr>
+        <td>04/06/2021</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>05/06/2021</td>
+        <td>4</>
+      </tr>
+      <tr>
+        <td>06/06/2021</td>
+        <td>3</>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <h3>Number of new account</h3>
+  <table class="table">
+    <thead>
+      <tr class= text-center>
+        <th scope="col">Date</th>
+        <th scope="col">Account</th>
+      </tr>
+    </thead>
+    <tbody class= text-center>
+      <tr>
+        <td>04/06/2021</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>05/06/2021</td>
+        <td>10</>
+      </tr>
+      <tr>
+        <td>06/06/2021</td>
+        <td>15</>
+      </tr>
+    </tbody>
+  </table>
+</div>
 {% endblock content %}

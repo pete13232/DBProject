@@ -44,8 +44,7 @@ def resCard(request, pk):
     return render(request, "restaurants/resCard.html", context)
 
 
-@login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "manager", "staff", "member", "executive"])
+
 def menu(request, pk):
     if request.method == "POST":
         instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
@@ -180,8 +179,10 @@ def manageStaff(request, pk):
     if pk[0] == "C":
         
         company = Company.objects.filter(companyID=pk)
-        restaurant = Restaurant.objects.filter(resID__in=company)
-        staffs = Member.objects.all()
+        restaurant = Restaurant.objects.filter(companyID=pk)
+        print(restaurant)
+        staffs = Member.objects.filter(resID__in=restaurant)
+        print(staffs)
         if request.user.companyID_id == pk or request.user.role == "admin":
             print("aaa")
             form = editRoleForm()
@@ -278,6 +279,7 @@ def editRole(request, pk):
     if request.method == "POST":
         instance = get_object_or_404(Member, memberID=request.POST["memberID"])
         form = editRoleForm(request.POST or None, instance=instance)
+        next = request.POST.get("next")
         if form.is_valid():
             form.save()
             sweetify.success(
@@ -289,7 +291,7 @@ def editRole(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/res/manageStaff/" + pk)
+            return redirect(next)
         else:
             sweetify.error(
                 request,
@@ -300,7 +302,7 @@ def editRole(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/res/manageStaff/" + pk)
+            return redirect(next)
 
 
 @login_required(login_url="users/login")

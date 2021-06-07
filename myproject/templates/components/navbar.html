@@ -17,21 +17,12 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
             </button>
-            {% if user.role !=  "staff" and user.role !=  "manager" and user.role !=  "executive"%}
+            {% if user.role == "admin" %}
             <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" style="margin: 0px 15px; font-size: 18px" href="#"
-                        id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Restaurant
+                    <a class="nav-link" style="margin: 0px 15px; font-size: 18px" href= "{%url 'dashboard' %}" >
+                        DashBoard
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Italian cuisine</a></li>
-                        <li><a class="dropdown-item" href="#">Thai cuisine</a></li>
-                        <li><a class="dropdown-item" href="#">Chinese cuisine</a></li>
-                    </ul>
-                </li>
             </ul>
             {% elif user.role ==  "staff" or user.role ==  "manager" %}
             <button type="button" class="btn btn-lg text-white h3" style="margin:0px 15px;background-color:#D0BDF4;"
