@@ -19,8 +19,7 @@
         <div class="col-md-6">
             <form action="{% url 'inviteStaff' pk %}" method="post">
                 {% csrf_token %}
-                <input class="form-control m-3" id="myInput" type="text" name="resID" hidden
-                    value="{{pk}}">
+                <input class="form-control m-3" id="myInput" type="text" name="resID" hidden value="{{pk}}">
                 <input class="form-control m-3" id="myInput" type="email" name="email">
         </div>
         <div class="col-md-6">
@@ -41,31 +40,59 @@
                 </tr>
             </thead>
             <tbody id="Table">
+
                 {% for staff in staffs %}
-                <tr>
-                    <th scope="row">{{staff.memberID}}</th>
-                    <td>
-                        <a href="{% url 'profile' staff.memberID %}">{{staff.fullName}} </a>
-                    </td>
-                    <td>{{staff.role}}</td>
-                    <td style="width: 300px;">
-                        <form action="{% url 'editRole' staff.resID %}" method="post" class="d-flex ">
-                            {% csrf_token %}
-                            <input type="text" name="memberID" value="{{staff.memberID}}" hidden>
-                            <select class="form-select d-inline me-2" style="width: 150px;" name=role>
-                                <option selected hidden>{{staff.role}}</option>
-                                <option value="manager">manager</option>
-                                <option value="staff">staff</option>
-                            </select>
-                            <button class="btn btn-warning d-blcok" type="submit">Change</button>
-                        </form>
-                    </td>
-                    <td>
-                        <a class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#removeStaff{{staff.memberID}}">Delete</a>
-                    </td>
-                </tr>
+                    {% if  request.user.role == "manager" and staff.role == "staff"%}
+                    <tr>
+                        <th scope="row">{{staff.memberID}}</th>
+                        <td>
+                            <a href="{% url 'profile' staff.memberID %}">{{staff.fullName}} </a>
+                        </td>
+                        <td>{{staff.role}}</td>
+                        <td style="width: 300px;">
+                            <form action="{% url 'editRole' staff.resID %}" method="post" class="d-flex ">
+                                {% csrf_token %}
+                                <input type="text" name="memberID" value="{{staff.memberID}}" hidden>
+                                <select class="form-select d-inline me-2" style="width: 150px;" name=role>
+                                    <option selected hidden>{{staff.role}}</option>
+                                    <option value="manager">manager</option>
+                                    <option value="staff">staff</option>
+                                </select>
+                                <button class="btn btn-warning d-blcok" type="submit">Change</button>
+                            </form>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#removeStaff{{staff.memberID}}">Delete</a>
+                        </td>
+                    </tr>
+                    {% elif request.user.role == "executive" %}
+                    <tr>
+                        <th scope="row">{{staff.memberID}}</th>
+                        <td>
+                            <a href="{% url 'profile' staff.memberID %}">{{staff.fullName}} </a>
+                        </td>
+                        <td>{{staff.role}}</td>
+                        <td style="width: 300px;">
+                            <form action="{% url 'editRole' staff.resID %}" method="post" class="d-flex ">
+                                {% csrf_token %}
+                                <input type="text" name="memberID" value="{{staff.memberID}}" hidden>
+                                <select class="form-select d-inline me-2" style="width: 150px;" name=role>
+                                    <option selected hidden>{{staff.role}}</option>
+                                    <option value="manager">manager</option>
+                                    <option value="staff">staff</option>
+                                </select>
+                                <button class="btn btn-warning d-blcok" type="submit">Change</button>
+                            </form>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#removeStaff{{staff.memberID}}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endif %}
                 {% endfor %}
+
 
 
             </tbody>

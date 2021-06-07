@@ -176,7 +176,7 @@ def deleteMenu(request, pk):
 def manageStaff(request, pk):
     restaurant = Restaurant.objects.filter(resID=pk)
     staffs = Member.objects.filter(resID__in=restaurant)
-    if request.user.resID == pk or request.user.role == "admin":
+    if request.user.resID_id == pk or request.user.role == "admin":
         form = editRoleForm()
         # instance = get_object_or_404(Member, groups=request.POST["groups"])
         context = {
