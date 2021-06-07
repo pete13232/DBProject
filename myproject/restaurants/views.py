@@ -176,11 +176,9 @@ def manageStaff(request, pk):
 
     if pk[0] == "C":
         restaurant = Restaurant.objects.filter(companyID=pk)
-        print(restaurant)
         staffs = Member.objects.filter(resID__in=restaurant)
     elif pk[0] == "R":
         restaurant = Restaurant.objects.filter(resID=pk)
-        print(restaurant)
         staffs = Member.objects.filter(resID__in=restaurant)
 
     form = editRoleForm()
@@ -203,7 +201,6 @@ def inviteStaff(request, pk):
         instance = get_object_or_404(Member, email=email)
         name = Member.objects.get(email=email)
         form = inviteStaffForm(request.POST or None, instance=instance)
-        print(instance)
         if form.is_valid():
             form.save()
             sweetify.success(
@@ -226,7 +223,6 @@ def inviteStaff(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            print(print(request.POST["resID"]))
             return redirect("/res/manageStaff/" + pk)
 
 
@@ -256,7 +252,6 @@ def editRole(request, pk):
     if request.method == "POST":
         instance = get_object_or_404(Member, memberID=request.POST["memberID"])
         form = editRoleForm(request.POST or None, instance=instance)
-        print(instance)
         if form.is_valid():
             form.save()
             sweetify.success(
@@ -311,7 +306,6 @@ def removeStaff(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            print(form)
             return redirect("/res/manageStaff/" + pk)
     else:
         form = deleteStaffForm()
@@ -354,24 +348,24 @@ def createRes(request):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            print(form.errors)
             return redirect("/")
     else:
         form = createResForm()
+
 
 def enableComAndRes(request, pk):
     if pk[0] == "C":
         if request.method == "POST":
             instance = get_object_or_404(Company, companyID=pk)
             form = enableCompanyForm(request.POST or None, instance=instance)
-            next = request.POST.get('next')
+            next = request.POST.get("next")
             if form.is_valid():
                 form.save()
                 sweetify.success(
                     request,
                     icon="success",
                     title="DONE !",
-                    text="Company status is update" ,
+                    text="Company status is update",
                     timer=1000,
                     timerProgressBar=True,
                     allowOutsideClick=True,
@@ -392,14 +386,14 @@ def enableComAndRes(request, pk):
         if request.method == "POST":
             instance = get_object_or_404(Restaurant, resID=pk)
             form = enableRestaurantForm(request.POST or None, instance=instance)
-            next = request.POST.get('next')
+            next = request.POST.get("next")
             if form.is_valid():
                 form.save()
                 sweetify.success(
                     request,
                     icon="success",
                     title="DONE !",
-                    text="Company status is update" ,
+                    text="Company status is update",
                     timer=1000,
                     timerProgressBar=True,
                     allowOutsideClick=True,
@@ -416,6 +410,7 @@ def enableComAndRes(request, pk):
                     allowOutsideClick=True,
                 )
                 return redirect(next)
+
 
 def createComp(request):
     if request.method == "POST":
@@ -443,7 +438,6 @@ def createComp(request):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            print(form.errors)
             return redirect("/")
     else:
         form = createCompForm()
