@@ -14,5 +14,5 @@ urlpatterns = [
     path("removeStaff/<str:pk>", views.removeStaff, name="removeStaff"),
     path("resCard/<str:pk>", views.resCard, name="resCard"),
     path("indexResCard", views.indexResCard, name="indexResCard"),
-    path("staffHome", views.staffHome, name="staffHome"),
+    # path("staffHome", views.staffHome, name="staffHome"),
 ]

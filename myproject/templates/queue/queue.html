@@ -1,50 +1,67 @@
 {% load static %}
-{% block content %} 
+{% block content %}
 
-	<table class="table table-md" id="test">
-		<thead>
-			<tr class="text-center">
-				<th scope="col">Queue</th>
-				<th scope="col">Date Created</th>
-				<th scope="col">Reserved Time</th>
-				<th scope="col">Status</th>
-				<th scope="col">Update</th>
-				<th scope="col">Remove</th>
-			</tr>
-		</thead>
-		<tbody id="queueTable">
-			{% for queues in  restaurant.queue_set.all %}
-			{% if queues.status == "calling" %}
-				<tr class="text-center align-middle">
-					<td>{{queues.queueID}}</td>
-					<td>{{queues.queueCreated}}</td>
-					<td class="text-danger">{{queues.reserveDateTime}}</td>
-					<td>
-						<h5 class="card bg-warning text-danger my-0 py-1"> {{queues.status}} </h5>
-					</td>
-					<td><a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#updateQueueModal">Update</a></td>
-					<td><a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#" >Delete</a></td>
-				</tr>
-			{% endif %}
-				
-				
-			{% endfor %}
-
-			{% for queues in  restaurant.queue_set.all %}
-			{% if queues.status == "waiting" %}
-			<tr class="text-center align-middle">
-				<td>{{queues.queueID}}</td>
-				<td>{{queues.queueCreated}}</td>
-				<td class="text-danger">{{queues.reserveDateTime}}</td>
+<table class="table table-md" id="test">
+	<thead>
+		<tr class="text-center">
+			<th scope="col">Queue</th>
+			<th scope="col">Date Created</th>
+			<th scope="col">Reserved Time</th>
+			<th scope="col">Status</th>
+			<th scope="col">Update</th>
+		</tr>
+	</thead>
+	<tbody id="queueTable">
+		{% for queues_res in  restaurant.queue_set.all %}
+		{% if queues_res.status == "calling" %}
+		<tr class="text-center align-middle">
+			<td>{{queues_res.queueID}}</td>
+			<td>{{queues_res.queueCreated}}</td>
+			<td class="text-danger">{{queues_res.reserveDateTime}}</td>
+			<form action="{% url 'editRole' queues_res.queueID %}" method="post" class="d-flex ">
+				{% csrf_token %}
 				<td>
-					<h5 class="card bg-primary text-white my-0 py-1"> {{queues.status}} </h5>
+					<select class="form-select d-inline me-2" style="width: 150px;" name=role>
+						<option selected hidden>{{queues_res.status}}</option>
+						<option value="success">success</option>
+						<option value="calling">calling</option>
+						<option value="waiting">waiting</option>
+						<option value="fail">fail</option>
+					</select>
 				</td>
-				<td><a class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#updateQueueModal">Update</a></td>
-				<td><a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#" >Delete</a></td>
-			</tr>
-			{% endif %}
-			{% endfor %}
-		</tbody>
-	</table>
- {% include 'queue/updateQueueModal.html' %}
- {% endblock content %} 
+				<td>
+					<button class="btn btn-primary d-blcok" type="submit">Update</button>
+				</td>
+			</form>
+		</tr>
+		{% endif %}
+		{% endfor %}
+
+		{% for queues_res in  restaurant.queue_set.all %}
+		{% if queues_res.status == "waiting" %}
+		<tr class="text-center align-middle">
+			<td>{{queues_res.queueID}}</td>
+			<td>{{queues_res.queueCreated}}</td>
+			<td class="text-danger">{{queues_res.reserveDateTime}}</td>
+			<form action="{% url 'editRole' queues_res.queueID %}" method="post" class="d-flex ">
+				{% csrf_token %}
+				<td>
+					<select class="form-select d-inline me-2" style="width: 150px;" name=role>
+						<option selected hidden>{{queues_res.status}}</option>
+						<option value="success">success</option>
+						<option value="calling">calling</option>
+						<option value="waiting">waiting</option>
+						<option value="fail">fail</option>
+					</select>
+				</td>
+				<td>
+					<button class="btn btn-primary d-blcok" type="submit">Update</button>
+				</td>
+			</form>
+		</tr>
+		{% endif %}
+		{% endfor %}
+	</tbody>
+</table>
+{% include 'queue/updateQueueModal.html' %}
+{% endblock content %}
