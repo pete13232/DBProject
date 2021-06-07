@@ -18,12 +18,9 @@ from restaurants.forms import (
     editMenuForm,
     createMenuForm,
     changeStatusForm,
-<<<<<<< HEAD
     enableCompanyForm,
     enableRestaurantForm,
-=======
     inviteStaffForm,
->>>>>>> c4f2fa53e911d49b3b78db07e8a5dc323da32663
 )
 from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
