@@ -5,9 +5,13 @@
 <div class="container mt-5">
   <div class="row">
     <h2>Company / Store</h2>
-    <input class="form-control mt-4 mb-3" id="Search" type="text" placeholder="Search..">
-    <br>
-    <div class="mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
+    <div class="row">
+      <input class="form-control mt-4 mb-3" id="Search" type="text" placeholder="Search..">
+    </div>
+    <div class="row  justify-content-end">
+      <a href="{%url 'registerRequest'%}" class="btn btn-warning mt-4" style="width : 30%">Registration request</a>
+    </div>
+    <div class="mt-4 mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
       <table class="table border border-3">
         <thead>
           <tr class="text-center align-middle">
@@ -20,30 +24,32 @@
         </thead>
         <tbody id="Table border border-3">
           {% for company in companies %}
-          
+
           {% if company.success == 1 %}
-            <tr class="text-center align-middle">
+          <tr class="text-center align-middle">
             <th scope="row">{{company.companyID}}</th>
             <td>
               {{company.companyName}}
             </td>
             <td>-</td>
-            <td><a href="{% url 'profile' company.companyID %}" class="h6"><button type="button" class="btn btn-primary"> Report </button></a></td>
+            <td><a href="{% url 'profile' company.companyID %}" class="h6"><button type="button"
+                  class="btn btn-primary"> Report </button></a></td>
           </tr>
           {% endif %}
-            
-          
+
+
           {% endfor %}
           {% for restaurant in restaurants %}
-          
+
           {% if restaurant.success == 1 %}
-            <tr class="text-center align-middle">
+          <tr class="text-center align-middle">
             <th scope="row">{{restaurant.resID}}</th>
             <td>
               {{restaurant.companyID.companyName}}
             </td>
             <td>{{restaurant.resName}}</td>
-            <td><a href="{% url 'profile' restaurant.resID %}" class="h6"><button type="button" class="btn btn-primary"> Report </button></a></td>
+            <td><a href="{% url 'profile' restaurant.resID %}" class="h6"><button type="button" class="btn btn-primary">
+                  Report </button></a></td>
           </tr>
           {% endif %}
 
@@ -53,9 +59,7 @@
       </table>
     </div>
   </div>
-  <div class="row  justify-content-end">
-    <a href="{%url 'registerRequest'%}" class="btn btn-warning mt-4" style="width : 30%">Registration request</a>
-  </div>
+
 </div>
 
 {% endblock content %}

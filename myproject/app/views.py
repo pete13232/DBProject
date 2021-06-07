@@ -65,7 +65,6 @@ def registerRequest(request):
     return render(request, "admin/registerRequest.html", context)
 
 
-
 @login_required(login_url="users/login")
 @admin_only
 def dashboard(request):

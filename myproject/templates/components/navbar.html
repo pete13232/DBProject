@@ -20,9 +20,14 @@
             </button>
             {% if user.role == "admin" %}
             <ul class="navbar-nav">
-                    <a class="nav-link" style="margin: 0px 15px; font-size: 18px" href= "{%url 'dashboard' %}" >
-                        DashBoard
-                    </a>
+                <a class="nav-link" style="margin: 0px 15px; font-size: 18px" href="{%url 'dashboard' %}">
+                    DashBoard
+                </a>
+            </ul>
+            <ul class="navbar-nav">
+                <a class="nav-link" style="margin: 0px 15px; font-size: 18px" href="{%url 'adminpage' %}">
+                    Request Registeration
+                </a>
             </ul>
             {% elif user.role ==  "staff" or user.role ==  "manager" %}
             <button type="button" class="btn btn-lg text-white h3" style="margin:0px 15px;background-color:#D0BDF4;"
@@ -84,7 +89,8 @@
                             <h5 class="card-title d-flex justify-content-start">Company : </h5>
                         </td>
                         <td>
-                            <h5 class="card-title d-flex justify-content-center">{{request.user.companyID.companyName}}</h5>
+                            <h5 class="card-title d-flex justify-content-center">{{request.user.companyID.companyName}}
+                            </h5>
                         </td>
                     </tr>
                     <tr>
@@ -96,12 +102,13 @@
                         </td>
                     </tr>
                     {% elif user.role ==  "staff" or user.role ==  "manager" and user.resID is not None%}
-                        <tr>
+                    <tr>
                         <td>
                             <h5 class="card-title d-flex justify-content-start">Company : </h5>
                         </td>
                         <td>
-                            <h5 class="card-title d-flex justify-content-center">{{user.resID.companyID.companyName}}</h5>
+                            <h5 class="card-title d-flex justify-content-center">{{user.resID.companyID.companyName}}
+                            </h5>
                         </td>
                     </tr>
                     <tr>
@@ -109,11 +116,12 @@
                             <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-start">Restaurant :</h6>
                         </td>
                         <td>
-                            <h5 class="card-subtitle mb-2 text-muted d-flex justify-content-center"> {{user.resID.resName}}</h5>
+                            <h5 class="card-subtitle mb-2 text-muted d-flex justify-content-center">
+                                {{user.resID.resName}}</h5>
                         </td>
                     </tr>
                     {% else %}
-                        <tr>
+                    <tr>
                         <td>
                             <h5 class="card-title d-flex justify-content-start">Company : </h5>
                         </td>
