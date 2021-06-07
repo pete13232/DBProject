@@ -34,10 +34,10 @@ import sweetify
 
 
 def index(request):
-    categorys = Category.objects.all()
+    categories = Category.objects.all()
     restaurants = Restaurant.objects.all()
     ratings = Review.objects.values("resID").annotate(average_rating=Avg("rating"))
-    context = {"categorys": categorys, "restaurants": restaurants, "ratings": ratings}
+    context = {"categories": categories, "restaurants": restaurants, "ratings": ratings}
     print(context)
     return render(request, "app/index.html", context)
 
@@ -52,7 +52,8 @@ def admin(request):
 @admin_only
 def registerRequest(request):
     return render(request, "admin/registerRequest.html")
-    
+
+
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 @login_required(login_url="users/login")
 def dashboard(request):

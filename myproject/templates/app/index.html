@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Home{% endblock title %}
 {% block content %}
-<div class="input-group rounded-lg mt-2">
+<div class="input-group rounded-lg mt-2 mb-2">
     <input id="Search-main" type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
         aria-describedby="search-addon" />
     <span class="input-group-text border-0" id="search-addon">
@@ -10,8 +10,9 @@
     </span>
 </div>
 {% comment %}
+<hr style="height:3px;border-width:0;color:gray;background-color:gray">
 <div class="row row-cols-4 row-cols-md-6">
-    {% for category in categorys %}
+    {% for category in categories %}
     {% include 'restaurants/categoryCard.html'%}
     {% endfor %}
 </div> {% endcomment %}
@@ -23,11 +24,11 @@
         {% endfor %}
     </div>
 </div>
-
-{% include 'components/breadcrumb.html' %}
+<hr style="height:3px;border-width:0;color:gray;background-color:gray">
 <div class="row" id="Table-main">
     {% for restaurant in restaurants %}
     {% include 'restaurants/indexResCard.html' %}
     {% endfor %}
 </div>
+<hr style="height:3px;border-width:0;color:gray;background-color:gray">
 {% endblock content %}

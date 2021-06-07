@@ -9,7 +9,7 @@
              </div>
              <div class="modal-body">
                  <h1>Edit Profile</h1>
-                 <div class="card p-3 " style="">
+                 <div class="card p-3  border border-3 " style="">
                      <ul class="nav nav-tabs" id="myTab" role="tablist">
                          <li class="nav-item" role="presentation">
                              <a class="nav-link active" id="restaurant-tab" data-bs-toggle="tab"
@@ -21,129 +21,173 @@
                                  href="#company" role="tab" aria-controls="company" aria-selected="false">Company</a>
                          </li>
                      </ul>
-                     <form class="mt-3 ms-2">
-                         <div class="tab-content profile-tab" id="myTabContent">
-                             <div class="tab-pane fade show active pb-5" id="restaurant" role="tabpanel"
-                                 aria-labelledby="restaurant-tab">
+                     <div class="tab-content profile-tab" id="myTabContent">
+                         <div class="tab-pane fade show active pb-5" id="restaurant" role="tabpanel"
+                             aria-labelledby="restaurant-tab">
+                             <form class="mt-3 ms-2" method="POST" action="{% url 'createRes' %}"
+                                 enctype="multipart/form-data">
+                                 {% csrf_token %}
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Restaurant Name</label>
-                                         <input type="text" class="form-control" placeholder="restaurant name">
+                                         <input type="text" class="form-control" placeholder="" value="" name="resName"
+                                             required>
                                      </div>
                                      <div class="col-md-6">
                                          <label>Address</label>
-                                         <input type="text" class="form-control" placeholder="address">
+                                         <input type="text" class="form-control" placeholder="" value="" name="address"
+                                             required>
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>subDistrict</label>
-                                         <input type="text" class="form-control" placeholder="sub-district">
+                                         <input type="text" class="form-control" placeholder="" name="subDistrict">
                                      </div>
                                      <div class="col-md-6">
                                          <label>District</label>
-                                         <input type="text" class="form-control" placeholder="district">
+                                         <input type="text" class="form-control" placeholder="" value=""
+                                             name="district">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Province</label>
-                                         <input type="text" class="form-control" placeholder="province">
+                                         <input type="text" class="form-control" placeholder="" value="" required
+                                             name="province">
                                      </div>
                                      <div class="col-md-6">
                                          <label>Postal Code</label>
-                                         <input type="text" class="form-control" placeholder="postal code">
+                                         <input type="text" class="form-control" placeholder="" value="" required
+                                             name="postalCode">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
-                                         <label>Email</label>
-                                         <input type="email" class="form-control" placeholder="e-mail">
-                                     </div>
-                                     <div class="col-md-6">
-                                         <label>Tel.</label>
-                                         <input type="tel" class="form-control" placeholder="xxx-xxxxxxx">
-                                     </div>
-                                 </div>
-                                 <div class="form-row d-flex pb-2">
-                                     <div class="col-md-6">
                                          <label>Category</label>
-                                         <select class="form-select" aria-label="Default select example"
-                                             style="width:50%">
-                                             <option value="" disabled selected hidden></option>
-                                             <option value="Fast Food">Fast Food</option>
-                                             <option value="Buffet">Buffet</option>
-                                             <option value="Dessert">Dessert</option>
+                                         <select class="form-select" aria-label="Default select example" required
+                                             style="width:50%" name="categoryID">
+                                             <option selected hidden value="">
+                                             </option>
+                                             {% for category in categories %}
+                                             <option value="{{category.categoryID}}">{{category.categoryName}}
+                                             </option>
+                                             {% endfor %}
                                          </select>
                                      </div>
+
                                      <div class="col-md-6">
-                                         <label>Logo</label>
-                                         <div class=mt-1>
-                                             <label for="files" class="btn btn-primary btn-sm rounded-0">Choose
-                                                 file</label>
-                                             <input id="files" style="visibility:hidden; height:0" type="file">
-                                         </div>
+                                         <label>Tel.</label>
+                                         <input type="tel" class="form-control" placeholder="" value="" name="tel"
+                                             required pattern="^0[0-9]{9}">
                                      </div>
                                  </div>
-                             </div>
-                             <div class="tab-pane fade " id="company" role="tabpanel" aria-labelledby="company-tab">
-                                 <div class="form-row d-flex">
+
+                                 <div class="form-row d-flex pb-2">
+                                     <div class="col-md-12">
+                                         <label>Email</label>
+                                         <input type="email" class="form-control" placeholder="" value="" name="email"
+                                             required>
+                                         </select>
+                                     </div>
+                                 </div>
+                                 <div class="form-row d-flex pb-2">
+                                     <div class="col-md-6">
+                                         <label>Open</label>
+                                         <input class="form-control" type="time" name="open" id="" required>
+                                     </div>
+                                     <div class="col-md-6">
+                                         <label for="">Close</label>
+                                         <input class="form-control" type="time" name="close" id="" required>
+                                     </div>
+                                 </div>
+                                 <div class="form-row d-flex pb-2">
+                                     <div class="col-md-6">
+                                         <label>Logo Profile</label>
+                                         <input class="form-control" type="file" name="profilePic" id="formFile"
+                                             required>
+                                     </div>
+                                     <div class="col-md-6">
+                                         <label for="">Cover Profile</label>
+                                         <input class="form-control" type="file" name="coverPic" id="formFile" required>
+                                     </div>
+                                 </div>
+                                 <div class="d-flex justify-content-end">
+                                     <input type="submit" value="Submit" class="btn btn-primary">
+                                 </div>
+                             </form>
+                         </div>
+                         <div class="tab-pane fade " id="company" role="tabpanel" aria-labelledby="company-tab">
+                             <form class="mt-3 ms-2" method="POST" action="{% url 'createComp' %}"
+                                 enctype="multipart/form-data">
+                                 {% csrf_token %}
+                                 <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Company Name</label>
-                                         <input type="text" class="form-control" placeholder="company name">
+                                         <input type="text" class="form-control" placeholder="" value=""
+                                             name="companyName" required>
                                      </div>
                                      <div class="col-md-6">
                                          <label>Address</label>
-                                         <input type="text" class="form-control" placeholder="address">
+                                         <input type="text" class="form-control" placeholder="" value="" name="address"
+                                             required>
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>subDistrict</label>
-                                         <input type="text" class="form-control" placeholder="sub-district">
+                                         <input type="text" class="form-control" placeholder="" name="subDistrict">
                                      </div>
                                      <div class="col-md-6">
                                          <label>District</label>
-                                         <input type="text" class="form-control" placeholder="district">
+                                         <input type="text" class="form-control" placeholder="" value=""
+                                             name="district">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Province</label>
-                                         <input type="text" class="form-control" placeholder="province">
+                                         <input type="text" class="form-control" placeholder="" value="" required
+                                             name="province">
                                      </div>
                                      <div class="col-md-6">
                                          <label>Postal Code</label>
-                                         <input type="text" class="form-control" placeholder="postal code">
+                                         <input type="text" class="form-control" placeholder="" value="" required
+                                             name="postalCode">
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
-                                     <div class="col-md-6" style="padding-right : 20px">
-                                         <label>Email</label>
-                                         <input type="email" class="form-control" placeholder="e-mail">
-                                     </div>
+
                                      <div class="col-md-6">
                                          <label>Tel.</label>
-                                         <input type="tel" class="form-control" placeholder="xxx-xxxxxxx">
+                                         <input type="tel" class="form-control" placeholder="" value="" name="tel"
+                                             required pattern="^0[0-9]{9}">
                                      </div>
-                                 </div>
-                                 <div class="form-row d-flex justify-content-end pb-2">
                                      <div class="col-md-6">
-                                         <label>Logo</label>
-                                         <div class=mt-1>
-                                             <label for="files" class="btn btn-primary btn-sm rounded-0">Choose file</label>
-                                             <input id="files" style="visibility:hidden; height:0" type="file">
-                                         </div>
+                                         <label>Email</label>
+                                         <input type="email" class="form-control" placeholder="" value="" name="email"
+                                             required>
+                                         </select>
                                      </div>
                                  </div>
-                             </div>
+
+
+                                 <div class="form-row d-flex pb-2">
+                                     <div class="col-md-6">
+                                         <label>Logo Profile</label>
+                                         <input class="form-control" type="file" name="profilePic" id="formFile"
+                                             required>
+                                     </div>
+                                 </div>
+                                 <div class="d-flex justify-content-end">
+                                     <input type="submit" value="Submit" class="btn btn-primary">
+                                 </div>
+                             </form>
                          </div>
-                     </form>
+                     </div>
                  </div>
              </div>
-             <div class="modal-footer">
-                 <input type="submit" value="Submit" class="btn btn-primary" data-bs-dismiss="modal">
-             </div>
+
          </div>
      </div>
  </div>

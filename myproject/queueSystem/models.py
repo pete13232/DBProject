@@ -37,6 +37,7 @@ class Queue(models.Model):
     )
     status = models.CharField(max_length=10, choices=TYPE, default="waiting")
     queueIsPass = models.BooleanField(default=False)
+    point = models.IntegerField(default = 0)
 
 
 class Review(models.Model):

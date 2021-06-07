@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib import messages
 from django.contrib.messages.api import error
+from django.db.models.aggregates import Avg, Count, Sum
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
@@ -8,10 +9,16 @@ from django.contrib.auth.decorators import login_required
 from users.decorators import unauthenticated_user, allowed_users, admin_only
 
 from .forms import CreateMemberForm, editMemberForm
-from restaurants.forms import editMenuForm, editCompanyForm, editRestaurantForm
+from restaurants.forms import (
+    editMenuForm,
+    editCompanyForm,
+    editRestaurantForm,
+    createMenuForm,
+)
 
 from .models import Member
 from restaurants.models import Company, Restaurant, Category
+from queueSystem.models import Queue, Review
 
 import sweetify
 
@@ -59,6 +66,7 @@ def loginPage(request):
 def logoutPage(request):
     logout(request)
     return redirect("/")
+
 
 @login_required(login_url="users/login")
 def profile(request, pk):
@@ -157,15 +165,23 @@ def profile(request, pk):
         company = None
         restaurant = None
         profile = None
+        rating = None
+        queues = None
+        point = None
         categories = Category.objects.all()
         if pk[0] == "C":
             company = Company.objects.get(companyID=pk)
             form = editCompanyForm()
         elif pk[0] == "R":
             restaurant = Restaurant.objects.get(resID=pk)
+            reviews = Review.objects.filter(resID=pk)
+            rating = reviews.aggregate(Avg("rating"))
             form = editRestaurantForm()
         else:
+            queues = Queue.objects.filter(memberID=pk)
             profile = Member.objects.get(memberID=pk)
+            point = queues.aggregate(Sum("point"))
+            print(point)
             form = editMemberForm()
         context = {
             "company": company,
@@ -174,6 +190,9 @@ def profile(request, pk):
             "profile": profile,
             "form": form,
             "pk": pk,
+            "rating": rating,
+            "queues": queues,
+            "point": point,
         }
 
     return render(request, "users/profile.html", context)

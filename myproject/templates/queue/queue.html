@@ -23,8 +23,8 @@
 			<td class="text-danger">{{queues_res.reserveDateTime}}</td>
 			<form action="{% url 'updateQueue' queues_res.queueID %}" method="POST" class="d-flex ">
 				{% csrf_token %}
-				<input type="hidden" name="next" value="{{ request.path }}">
 				<td>
+					<input type="hidden" name="next" value="{{ request.path }}">
 					<select class="form-select d-inline me-2" style="width: 150px;" name="status">
 						<option selected hidden>{{queues_res.status}}</option>
 						<option value="calling">calling</option>
@@ -34,34 +34,38 @@
 				<td>
 					<button class="btn btn-primary d-blcok" type="submit">Update
 						<input type="text" name="queueIsPass" value="false" hidden></button>
+					<input type="number" name="point" value="0" hidden>
 				</td>
 			</form>
 			<form action="{% url 'updateQueue' queues_res.queueID %}" method="POST" class="d-flex ">
 				{% csrf_token %}
-				<input type="hidden" name="next" value="{{ request.path }}">
 				<td>
+					<input type="hidden" name="next" value="{{ request.path }}">
 					<button class="btn btn-success d-blcok" type="submit">Success
 						<input type="text" name="queueIsPass" value="true" hidden>
 						<input type="text" name="status" value="success" hidden>
+						<input type="number" name="point" value="3" hidden>
 					</button>
 				</td>
 			</form>
 			<form action="{% url 'updateQueue' queues_res.queueID %}" method="POST" class="d-flex ">
 				{% csrf_token %}
-				<input type="hidden" name="next" value="{{ request.path }}">
 				<td>
+					<input type="hidden" name="next" value="{{ request.path }}">
 					<button class="btn btn-danger d-blcok" type="submit">Fail
 						<input type="text" name="queueIsPass" value="true" hidden>
 						<input type="text" name="status" value="fail" hidden></button>
+					<input type="number" name="point" value="-10" hidden>
 				</td>
 			</form>
 			<form action="{% url 'updateQueue' queues_res.queueID %}" method="POST" class="d-flex ">
 				{% csrf_token %}
-				<input type="hidden" name="next" value="{{ request.path }}">
 				<td>
+					<input type="hidden" name="next" value="{{ request.path }}">
 					<button class="btn btn-danger d-blcok" type="submit">Cancel
 						<input type="text" name="queueIsPass" value="true" hidden>
 						<input type="text" name="status" value="cancel" hidden></button>
+					<input type="number" name="point" value="0" hidden>
 				</td>
 			</form>
 		</tr>
@@ -87,6 +91,7 @@
 				<td>
 					<button class="btn btn-primary d-blcok" type="submit">Update
 						<input type="text" name="queueIsPass" value="false" hidden></button>
+					<input type="number" name="point" value="0" hidden>
 				</td>
 			</form>
 			<form action="{% url 'updateQueue' queues_res.queueID %}" method="POST" class="d-flex ">
@@ -96,6 +101,7 @@
 					<button class="btn btn-success d-blcok" type="submit">Success
 						<input type="text" name="queueIsPass" value="true" hidden>
 						<input type="text" name="status" value="success" hidden>
+						<input type="number" name="point" value="3" hidden>
 					</button>
 				</td>
 			</form>
@@ -106,6 +112,7 @@
 					<button class="btn btn-danger d-blcok" type="submit">Fail
 						<input type="text" name="queueIsPass" value="true" hidden>
 						<input type="text" name="status" value="fail" hidden></button>
+					<input type="number" name="point" value="-10" hidden>
 				</td>
 			</form>
 			<form action="{% url 'updateQueue' queues_res.queueID %}" method="POST" class="d-flex ">
@@ -115,6 +122,7 @@
 					<button class="btn btn-danger d-blcok" type="submit">Cancel
 						<input type="text" name="queueIsPass" value="true" hidden>
 						<input type="text" name="status" value="cancel" hidden></button>
+					<input type="number" name="point" value="0" hidden>
 				</td>
 			</form>
 		</tr>

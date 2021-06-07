@@ -1,4 +1,5 @@
 from django import forms
+from django.db import models
 from django.db.models import fields
 from django.forms import widgets
 from restaurants.models import Menu, Company, Restaurant
@@ -39,3 +40,15 @@ class editRestaurantForm(forms.ModelForm):
     class Meta:
         model = Restaurant
         exclude = ["open", "close", "companyID"]
+
+
+class createResForm(forms.ModelForm):
+    class Meta:
+        model = Restaurant
+        exclude = ["resID"]
+
+
+class createCompForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        exclude = ["companyID"]
