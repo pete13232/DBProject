@@ -194,7 +194,10 @@ def manageStaff(request, pk):
 @allowed_users(allowed_roles=["admin", "manager"])
 def managerHome(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
-    context = {"restaurant": restaurant}
+    queues = Queue.objects.all()
+    context = {"restaurant": restaurant,
+                "queues": queues,
+                }
     return render(request, "restaurants/managerHome.html", context)
 
 
