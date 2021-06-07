@@ -33,8 +33,10 @@
                 </div>
             </div>
             <div class="col-3 mt-4">
+                {% if request.user.role == 'executive' %}
                 <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#edit-company"
                     name="Edit Company" value="Edit Company" />
+                {% endif %}
             </div>
         </div>
         <div class="row">
@@ -47,9 +49,11 @@
 
                         <div class="col-md-6">
                             {% for member in company.member_set.all  %}
+                            {% if member.role == 'executive' %}
                             <a href="{% url 'profile' member.memberID %}">
                                 <p>{{member.fullName}}</p>
                             </a>
+                            {% endif %}
                             {% endfor %}
                         </div>
 
@@ -171,9 +175,13 @@
                     </ul>
                 </div>
             </div>
+
+
             <div class="col-3 mt-4">
+                {% if request.user.role == 'manager' %}
                 <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#edit-res"
                     name="Edit Restaurant" value="Edit Restaurant" />
+                {% endif %}
             </div>
         </div>
         <div class="row">
@@ -184,7 +192,7 @@
                             <label>Assosiated Company </label>
                         </div>
                         <div class="col-md-6">
-                            <a href="{% url 'profile' restaurant.resID %}">
+                            <a href="{% url 'profile' restaurant.companyID %}">
                                 <p>{{restaurant.companyID.companyName}}</p>
                             </a>
                         </div>
@@ -316,8 +324,10 @@
                 </div>
             </div>
             <div class="col-3 mt-4">
+                {% if request.user.memberID ==  profile.memberID %}
                 <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editProfile"
                     name="btnAddMore" value="Edit Profile" />
+                {% endif %}
             </div>
         </div>
         <div class="row">
@@ -436,8 +446,10 @@
                 </div>
             </div>
             <div class="col-3 mt-4">
+            {% if request.user.memberID ==  profile.memberID %}
                 <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editProfile"
                     name="btnAddMore" value="Edit Profile" />
+            {% endif %}
             </div>
         </div>
         <div class="row">
