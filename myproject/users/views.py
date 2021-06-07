@@ -59,7 +59,7 @@ def logoutPage(request):
     logout(request)
     return redirect("/")
 
-
+@login_required(login_url="users/login")
 def profile(request, pk):
     if request.method == "POST":
         if pk[0] == "C":

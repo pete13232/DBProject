@@ -123,7 +123,8 @@ def editMenu(request, pk):
     else:
         form = editMenuForm()
 
-
+@login_required(login_url="users/login")
+@allowed_users(allowed_roles=["admin", "manager",])
 def deleteMenu(request, pk):
     menu = Menu.objects.get(menuID=pk)
     if request.method == "POST":
@@ -171,15 +172,16 @@ def managerHome(request, pk):
     context = {"restaurant": restaurant}
     return render(request, "restaurants/managerHome.html", context)
 
-
+@login_required(login_url="users/login")
+@allowed_users(allowed_roles=["admin", "executive"])
 def executiveHome(request, pk):  # ยังไม่ได้เชื่อมผ่าน company
     restaurants = Restaurant.objects.filter(companyID=pk)
     context = {"restaurants": restaurants}
     return render(request, "restaurants/executiveHome.html", context)
 
-
+@login_required(login_url="users/login")
+@allowed_users(allowed_roles=["admin", "executive", "manager"])
 def editRole(request, pk):
-
     if request.method == "POST":
         instance = get_object_or_404(Member, memberID=request.POST["memberID"])
         form = editRoleForm(request.POST or None, instance=instance)
@@ -208,7 +210,8 @@ def editRole(request, pk):
             )
             return redirect("/res/manageStaff/" + pk)
 
-
+@login_required(login_url="users/login")
+@allowed_users(allowed_roles=["admin", "executive", "manager"])
 def removeStaff(request, pk):
     if request.method == "POST":
         memberID = request.POST["memberID"]

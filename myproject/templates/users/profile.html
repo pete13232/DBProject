@@ -316,8 +316,15 @@
                 </div>
             </div>
             <div class="col-3 mt-4">
+            <p>{{request.user.id}}</p>
+            <p>{{profile.id}}</p>
+            
+            {% if  request.user.id == profile.id %}
                 <input type="submit" class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editProfile"
                     name="btnAddMore" value="Edit Profile" />
+            {% endif %}
+                
+                
             </div>
         </div>
         <div class="row">

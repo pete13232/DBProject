@@ -50,7 +50,9 @@ def admin(request):
 @admin_only
 def registerRequest(request):
     return render(request, "admin/registerRequest.html")
-
-
+    
+@allowed_users(allowed_roles=["admin", "executive", "manager"])
+@login_required(login_url="users/login")
 def dashboard(request):
     return render(request, "admin/dashboard.html")
+
