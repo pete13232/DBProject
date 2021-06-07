@@ -37,13 +37,13 @@
                 <tr>
                     <th scope="row">1</th>
                     <td>
-                        <a href="{% url 'userprofile' staff.id %}" >{{staff.fullName}} </a>
+                        <a href="{% url 'profile' staff.memberID %}">{{staff.fullName}} </a>
                     </td>
                     <td>{{staff.role}}</td>
                     <td style="width: 300px;">
                         <form action="{% url 'editRole' staff.resID %}" method="post" class="d-flex ">
                             {% csrf_token %}
-                            <input type="text" name="id" value="{{staff.memberID}}" hidden>
+                            <input type="text" name="memberID" value="{{staff.memberID}}" hidden>
                             <select class="form-select d-inline me-2" style="width: 150px;" name=role>
                                 <option selected hidden>{{staff.role}}</option>
                                 <option value="manager">executive</option>
@@ -99,6 +99,6 @@
         <a href="{%url 'usermanage'%}" class="btn btn-warning mt-4" style="width : 30%">Registration request</a>
     </div> {% endcomment %}
 </div>
-{% include 'app/modalEditRole.html' %}
-{% include 'app/modalDeleteStaff.html' %}
+{% include 'restaurants/editRoleModal.html' %}
+{% include 'restaurants/removeStaffModal.html' %}
 {% endblock content %}

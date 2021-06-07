@@ -195,7 +195,7 @@ def editRole(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/manageStaff/" + pk)
+            return redirect("/res/manageStaff/" + pk)
         else:
             sweetify.error(
                 request,
@@ -206,7 +206,7 @@ def editRole(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/manageStaff/" + pk)
+            return redirect("/res/manageStaff/" + pk)
 
 
 def removeStaff(request, pk):
@@ -226,7 +226,7 @@ def removeStaff(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/manageStaff/" + pk)
+            return redirect("/res/manageStaff/" + pk)
         else:
             sweetify.error(
                 request,
@@ -238,6 +238,6 @@ def removeStaff(request, pk):
                 allowOutsideClick=True,
             )
             print(form)
-            return redirect("/manageStaff/" + pk)
+            return redirect("/res/manageStaff/" + pk)
     else:
         form = deleteStaffForm()
