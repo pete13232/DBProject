@@ -28,9 +28,18 @@ class createNowQueueForm(forms.ModelForm):
             "memberID",
             "peopleNum",
         )
-
+        
+class updateQueueForm(forms.ModelForm):
+    class Meta:
+        model = Queue
+        fields = (
+            "status",
+            # "queueIsPass",
+        )
 
 class createReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         exclude = ["reviewID"]
+
+

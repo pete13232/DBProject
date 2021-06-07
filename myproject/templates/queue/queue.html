@@ -18,10 +18,10 @@
 			<td>{{queues_res.queueID}}</td>
 			<td>{{queues_res.queueCreated}}</td>
 			<td class="text-danger">{{queues_res.reserveDateTime}}</td>
-			<form action="{% url 'editRole' queues_res.queueID %}" method="post" class="d-flex ">
+			<form action="{% url 'updateQueue' queues_res.queueID %}" method="POST" class="d-flex ">
 				{% csrf_token %}
 				<td>
-					<select class="form-select d-inline me-2" style="width: 150px;" name=role>
+					<select class="form-select d-inline me-2" style="width: 150px;" name="status">
 						<option selected hidden>{{queues_res.status}}</option>
 						<option value="success">success</option>
 						<option value="calling">calling</option>
@@ -43,10 +43,10 @@
 			<td>{{queues_res.queueID}}</td>
 			<td>{{queues_res.queueCreated}}</td>
 			<td class="text-danger">{{queues_res.reserveDateTime}}</td>
-			<form action="{% url 'editRole' queues_res.queueID %}" method="post" class="d-flex ">
+			<form action="{% url 'updateQueue' queues_res.queueID %}" method="POST" class="d-flex ">
 				{% csrf_token %}
 				<td>
-					<select class="form-select d-inline me-2" style="width: 150px;" name=role>
+					<select class="form-select d-inline me-2" style="width: 150px;" name="status">
 						<option selected hidden>{{queues_res.status}}</option>
 						<option value="success">success</option>
 						<option value="calling">calling</option>
@@ -55,7 +55,7 @@
 					</select>
 				</td>
 				<td>
-					<button class="btn btn-primary d-blcok" type="submit">Update</button>
+					<button class="btn btn-primary d-blcok" type="submit" >Update</button>
 				</td>
 			</form>
 		</tr>
