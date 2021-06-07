@@ -42,7 +42,7 @@ def createQueue(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/resCard/" + pk)
+            return redirect("/res/resCard/" + pk)
 
         if form.is_valid():
             form.save()
@@ -56,7 +56,7 @@ def createQueue(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/resCard/" + pk)
+            return redirect("/res/resCard/" + pk)
         else:
             sweetify.error(
                 request,
@@ -72,7 +72,7 @@ def createQueue(request, pk):
         form = createQueueForm()
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "manager", "staff"])
+@allowed_users(allowed_roles=["member"])
 def createNowQueue(request, pk):
     count = Queue.objects.filter(queueIsPass=False).count()
     if request.method == "POST":
@@ -88,7 +88,7 @@ def createNowQueue(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/resCard/" + pk)
+            return redirect("/res/resCard/" + pk)
         if form.is_valid():
             form.save()
             queue = Queue.objects.get(memberID=member, queueIsPass=False)
@@ -101,7 +101,7 @@ def createNowQueue(request, pk):
                 timerProgressBar=True,
                 allowOutsideClick=True,
             )
-            return redirect("/resCard/" + pk)
+            return redirect("/res/resCard/" + pk)
         else:
             sweetify.error(
                 request,

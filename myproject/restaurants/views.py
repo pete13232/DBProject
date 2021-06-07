@@ -277,5 +277,10 @@ def removeStaff(request, pk):
         form = deleteStaffForm()
 
 
-def staffHome(request):
-    return render(request, "restaurants/staffHome.html")
+def staffHome(request,pk):
+    restaurant = Restaurant.objects.get(resID=pk)
+    queues = Queue.objects.all()
+    context = {"restaurant": restaurant,
+                "queues": queues,
+                }
+    return render(request, "restaurants/staffHome.html", context)
