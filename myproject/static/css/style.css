@@ -4,7 +4,7 @@ html {
   padding: 0;
   height: 100%;
   background: #f0f0f3 !important;
-  font-family: "Prompt", sans-serif;
+  font-family: "Prompt", sans-serif !important;
 }
 .footer {
   height: 50px;

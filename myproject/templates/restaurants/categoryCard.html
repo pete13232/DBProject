@@ -1,22 +1,24 @@
 {% load static %}
-
-{% comment %} <div id="{{category.fullCate}}" class="card p-2 border-0 text-white category-title">
-    <img src="{% static 'images/categoryCard.jpg' %}" class="card-img catImg img-cover " style="filter: contrast(40%);">
-    <div class="card-img-overlay ">
-        <div class="d-flex align-items-center justify-content-center h-100">
-            <h2 id="" class="text-center ">{{category.categoryName}}</h2>
+<div class="col">
+    <div id="{{category.fullCate}}" class="card  border-0 text-white category-title">
+        <img src="{% static 'images/categoryCard.jpg' %}" class="card-img catImg img-cover "
+            style="filter: contrast(40%);">
+        <div class="card-img-overlay ">
+            <div class="d-flex align-items-center justify-content-center h-100">
+                <h2 id="" class="text-center ">{{category.categoryName}}</h2>
+            </div>
         </div>
     </div>
-</div> {% endcomment %}
-
+</div>
+{% comment %}
 <div class="child" id="{{category.fullCate}}">
     <div class="card p-2 border-0 text-white category-title">
         <img src="{% static 'images/categoryCard.jpg' %}" class="card-img catImg img-cover"
             style="filter: contrast(40%);">
         <div class="card-img-overlay">
             <div class="d-flex align-items-center justify-content-center h-100">
-                <h2 id="" class = "text-center">{{category.categoryName}}</h2>
+                <h2 id="" class="text-center">{{category.categoryName}}</h2>
             </div>
         </div>
     </div>
-</div>
+</div> {% endcomment %}
