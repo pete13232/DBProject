@@ -68,3 +68,8 @@ class inviteStaffForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = ("resID", "email")
+
+class removeStaffForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ("memberID", "resID","role")

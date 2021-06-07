@@ -21,6 +21,7 @@ from restaurants.forms import (
     enableCompanyForm,
     enableRestaurantForm,
     inviteStaffForm,
+    removeStaffForm,
 )
 from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
@@ -288,7 +289,7 @@ def removeStaff(request, pk):
     if request.method == "POST":
         memberID = request.POST["memberID"]
         instance = get_object_or_404(Member, memberID=memberID)
-        form = deleteStaffForm(request.POST or None, instance=instance)
+        form = removeStaffForm(request.POST or None, instance=instance)
         if form.is_valid():
             form.save()
             sweetify.success(
