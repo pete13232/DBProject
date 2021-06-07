@@ -44,8 +44,7 @@ def resCard(request, pk):
     return render(request, "restaurants/resCard.html", context)
 
 
-@login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "manager", "staff", "member", "executive"])
+
 def menu(request, pk):
     if request.method == "POST":
         instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
