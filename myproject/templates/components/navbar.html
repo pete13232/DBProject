@@ -60,13 +60,14 @@
                             <h5 class="card-title d-flex justify-content-start">Queue Number : </h5>
                         </td>
                         <td>
-                                    {% for queues in request.user.queue_set.all %}
-                                        {% if  queues.status == "waiting" %}
-                                            <h5 class="card-title d-flex justify-content-center">{{queues.queueID}}</h5>
-                                        {% endif %}
-                                    {% endfor %}
-
-                                {% comment %} <h5 class="card-title d-flex justify-content-center">None</h5> {% endcomment %}
+                            {% if request.user.queue_set.all.count != 1 %}
+                            <h5 class="card-title d-flex justify-content-center">None</h5>
+                            {% endif %}
+                            {% for queues in request.user.queue_set.all %}
+                            {% if  queues.status == "waiting" and request.user.queue_set.all.count == 1 %}
+                            <h5 class="card-title d-flex justify-content-center">{{queues.queueID}}</h5>
+                            {% endif %}
+                            {% endfor %}
 
                         </td>
                     </tr>
@@ -75,12 +76,15 @@
                             <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-start">Status :</h6>
                         </td>
                         <td>
-                             {% for queues in request.user.queue_set.all %}
-                                        {% if  queues.status == "waiting" %}
-                                            <h5 class="card-title d-flex justify-content-center">{{queues.status}}</h5>
-                                        {% endif %}
-                                    {% endfor %}
-                            {% comment %} <h5 class="card-subtitle mb-2 text-muted d-flex justify-content-center"> No queue</h5> {% endcomment %}
+                            {% if request.user.queue_set.all.count != 1 %}
+                            <h5 class="card-title d-flex justify-content-center">None</h5>
+                            {% endif %}
+                            {% for queues in request.user.queue_set.all %}
+                            {% if  queues.status == "waiting"  and request.user.queue_set.all.count == 1  %}
+                            <h5 class="card-title d-flex justify-content-center">{{queues.status}}</h5>
+                            {% endif %}
+                            {% endfor %}
+
                         </td>
                     </tr>
                     {% elif user.role ==  "staff" or user.role ==  "manager" or user.role ==  "executive" %}

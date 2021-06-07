@@ -8,16 +8,17 @@
         <i class="fas fa-search"></i>
     </span>
 </div>
-
+<hr style="height:3px;border-width:0;color:gray;background-color:gray">
 <div class="row row-cols-4 row-cols-md-6">
     {% for category in categories %}
     {% include 'restaurants/categoryCard.html'%}
     {% endfor %}
 </div>
-{% include 'components/breadcrumb.html' %}
+<hr style="height:3px;border-width:0;color:gray;background-color:gray">
 <div class="row" id="Table-main">
     {% for restaurant in restaurants %}
     {% include 'restaurants/indexResCard.html' %}
     {% endfor %}
 </div>
+<hr style="height:3px;border-width:0;color:gray;background-color:gray">
 {% endblock content %}
