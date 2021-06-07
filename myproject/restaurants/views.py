@@ -241,3 +241,6 @@ def removeStaff(request, pk):
             return redirect("/res/manageStaff/" + pk)
     else:
         form = deleteStaffForm()
+
+def staffHome(request):
+    return render(request, "restaurants/staffHome.html")
