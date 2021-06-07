@@ -46,3 +46,13 @@ class createResForm(forms.ModelForm):
     class Meta:
         model = Restaurant
         exclude = ["resID"]
+
+class enableCompanyForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        fields = ("success",)
+
+class enableRestaurantForm(forms.ModelForm):
+    class Meta:
+        model = Restaurant
+        fields = ("success",)

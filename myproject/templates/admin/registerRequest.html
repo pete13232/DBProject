@@ -10,7 +10,7 @@
             <h2>Register request</h2>
         </div>
         <div class="col-2 text-end">
-            <a href = "{%url 'adminpage'%}" type="button" class="btn btn-secondary mt-1" >
+            <a href="{%url 'adminpage'%}" type="button" class="btn btn-secondary mt-1">
                 <i class="bi bi-house-door-fill fa-lg"></i>
             </a>
         </div>
@@ -19,139 +19,95 @@
         <div class="mb-3" style="overflow-x: hidden; overflow-y : scroll; height : 600px">
             <table class="table">
                 <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Username</th>
+
+                    <tr class="text-center align-middle">
+                        <th scope="col">ID</th>
+                        <th scope="col">Owner</th>
                         <th scope="col">Type</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Enable</th>
+                        <th scope="col">Disable</th>
+                        <th scope="col">Detail</th>
                     </tr>
+
                 </thead>
                 <tbody id="myTable">
-                    <tr>
-                        <th scope="row">1</th>
+                    {% for company in companies %}
+                    <tr class="text-center align-middle">
+                        <th scope="row">{{company.companyID}}</th>
                         <td>
-                            <a href="#">Ferb123</a> {% comment %} (optional) สามารถดูกดไปดูข้อมูลส่วนบุคคล user ได้
-                            {% endcomment %}
+                            <a
+                                href="{% url 'profile' company.member_set.first.memberID %}">{{company.member_set.first.fullName}}</a>
                         </td>
                         <td>Company</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+
+                        {% if company.success == 1 %}
+                        <td class="text-success"><strong>Enable</strong> </td>
+                        {% elif company.success == 0 %}
+                        <td class="text-danger"><strong>Disable</strong> </td>
+                        {% endif %}
+
+
+                        <form action="{% url 'enableComAndRes' company.companyID %}" method="POST" class="d-flex ">
+                            {% csrf_token %}
+                            <td>
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button class="btn btn-success d-blcok" type="submit">Enable
+                                    <input type="boolean" name="success" value="true" hidden></button>
+                            </td>
+                        </form>
+                        <form action="{% url 'enableComAndRes' company.companyID %}" method="POST" class="d-flex ">
+                            {% csrf_token %}
+                            <td>
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button class="btn btn-danger d-blcok" type="submit">Disable
+                                    <input type="boolean" name="success" value="false" hidden>
+                            </td>
+                        </form>
+                        <td><a href="{% url 'profile' company.companyID %}" class="btn btn-sm btn-primary">Detail</a></td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
+                    {% endfor %}
+                    {% for restaurant in restaurants %}
+                    <tr class="text-center align-middle">
+                        <th scope="row">{{restaurant.resID}}</th>
+                        {% for manager in restaurant.member_set.all %}
+                        {% if manager.role == "manager" %}
                         <td>
-                            <a href="#">phineas55</a>
+                            <a href="{% url 'profile' restaurant.member_set.first.memberID %}">{{manager.fullName}}</a>
                         </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
+                        {% endif %}
+                        {% endfor %}
+                        <td>Restaurant</td>
+
+                        {% if restaurant.success == 1 %}
+                        <td class="text-success"><strong>Enable</strong> </td>
+                        {% elif restaurant.success == 0 %}
+                        <td class="text-danger"><strong>Disable</strong> </td>
+                        {% endif %}
+
+
+                        <form action="{% url 'enableComAndRes' restaurant.resID %}" method="POST" class="d-flex ">
+                            {% csrf_token %}
+                            <td>
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button class="btn btn-success d-blcok" type="submit">Enable
+                                    <input type="boolean" name="success" value="true" hidden></button>
+                            </td>
+                        </form>
+                        <form action="{% url 'enableComAndRes' restaurant.resID %}" method="POST" class="d-flex ">
+                            {% csrf_token %}
+                            <td>
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button class="btn btn-danger d-blcok" type="submit">Disable
+                                    <input type="boolean" name="success" value="false" hidden>
+                            </td>
+                        </form>
+                        <td><a href="{% url 'profile' restaurant.resID %}" class="btn btn-sm btn-primary">Detail</a></td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="#">phineas55</a>
-                        </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="#">phineas55</a>
-                        </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="#">phineas55</a>
-                        </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="#">phineas55</a>
-                        </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="#">phineas55</a>
-                        </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="#">phineas55</a>
-                        </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="#">phineas55</a>
-                        </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="#">phineas55</a>
-                        </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="#">phineas55</a>
-                        </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="#">phineas55</a>
-                        </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <a href="#">phineas55</a>
-                        </td>
-                        <td>Store</td>
-                        <td><a class="btn btn-sm btn-success" href="#">Accept</a></td>
-                        <td><a class="btn btn-sm btn-danger" href="#">Reject</a></td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="row">
-        <a href="#" class="btn btn-primary mt-4">Confirm</a>
     </div>
 </div>
 

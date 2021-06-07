@@ -17,6 +17,8 @@ from restaurants.forms import (
     editMenuForm,
     createMenuForm,
     changeStatusForm,
+    enableCompanyForm,
+    enableRestaurantForm,
 )
 from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
@@ -319,3 +321,61 @@ def createRes(request):
             return redirect("/")
     else:
         form = createResForm()
+
+def enableComAndRes(request, pk):
+    if pk[0] == "C":
+        if request.method == "POST":
+            instance = get_object_or_404(Company, companyID=pk)
+            form = enableCompanyForm(request.POST or None, instance=instance)
+            next = request.POST.get('next')
+            if form.is_valid():
+                form.save()
+                sweetify.success(
+                    request,
+                    icon="success",
+                    title="DONE !",
+                    text="Company status is update" ,
+                    timer=1000,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect(next)
+            else:
+                sweetify.error(
+                    request,
+                    icon="error",
+                    title="Oops !",
+                    text="Somethings went wrong! Try again.",
+                    timer=2500,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect(next)
+    if pk[0] == "R":
+        if request.method == "POST":
+            instance = get_object_or_404(Restaurant, resID=pk)
+            form = enableRestaurantForm(request.POST or None, instance=instance)
+            next = request.POST.get('next')
+            if form.is_valid():
+                form.save()
+                sweetify.success(
+                    request,
+                    icon="success",
+                    title="DONE !",
+                    text="Company status is update" ,
+                    timer=1000,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect(next)
+            else:
+                sweetify.error(
+                    request,
+                    icon="error",
+                    title="Oops !",
+                    text="Somethings went wrong! Try again.",
+                    timer=2500,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect(next)

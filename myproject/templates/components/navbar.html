@@ -61,7 +61,7 @@
                         </td>
                         <td>
                                     {% for queues in request.user.queue_set.all %}
-                                        {% if  queues.status == "waiting" %}
+                                        {% if  queues.status == "waiting" or queues.status == "calling"%}
                                             <h5 class="card-title d-flex justify-content-center">{{queues.queueID}}</h5>
                                         {% endif %}
                                     {% endfor %}
@@ -76,7 +76,7 @@
                         </td>
                         <td>
                              {% for queues in request.user.queue_set.all %}
-                                        {% if  queues.status == "waiting" %}
+                                         {% if  queues.status == "waiting" or queues.status == "calling"%}
                                             <h5 class="card-title d-flex justify-content-center">{{queues.status}}</h5>
                                         {% endif %}
                                     {% endfor %}
