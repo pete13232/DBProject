@@ -1,4 +1,5 @@
 {% extends 'components/base.html' %}
+{% load static %}
 {% block title %}Home{% endblock title %}
 {% block content %}
 <div class="input-group rounded-lg mt-2">
@@ -8,12 +9,21 @@
         <i class="fas fa-search"></i>
     </span>
 </div>
-
+{% comment %}
 <div class="row row-cols-4 row-cols-md-6">
     {% for category in categorys %}
     {% include 'restaurants/categoryCard.html'%}
     {% endfor %}
+</div> {% endcomment %}
+
+<div class="wrapper" style = "overflow-y : hidden; overflow-x : scroll">
+    <div class="inner">
+        {% for category in categorys %}
+            {% include 'restaurants/categoryCard.html' %}
+        {% endfor %}
+    </div>
 </div>
+
 {% include 'components/breadcrumb.html' %}
 <div class="row" id="Table-main">
     {% for restaurant in restaurants %}

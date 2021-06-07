@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "queueSystem",
     "sweetify",
     "imagekit",
+    "chartjs",
 ]
 
 MIDDLEWARE = [

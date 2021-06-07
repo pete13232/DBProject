@@ -277,5 +277,5 @@ def removeStaff(request, pk):
         form = deleteStaffForm()
 
 
-def staffHome(request):
-    return render(request, "restaurants/staffHome.html")
+# def staffHome(request):
+#     return render(request, "restaurants/staffHome.html")
