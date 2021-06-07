@@ -11,7 +11,7 @@ from users.decorators import unauthenticated_user, allowed_users, admin_only
 from users.models import Member
 from queueSystem.models import Queue, Review
 
-from app.forms import deleteStaffForm, editRoleForm
+from app.forms import editRoleForm
 from restaurants.forms import (
     createCompForm,
     createResForm,
