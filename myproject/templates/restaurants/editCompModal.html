@@ -9,7 +9,7 @@
              </div>
              <div class="modal-body">
                  <h1>Edit Profile</h1>
-                 <div class="card p-3 " style="">
+                 <div class="card p-3 rounded-3 border border-3 " style="">
                      <form class="mt-3 ms-2" method="POST" action="{% url 'profile' company.companyID %}"
                          enctype="multipart/form-data">
                          {% csrf_token %}

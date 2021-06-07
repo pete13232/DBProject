@@ -12,7 +12,12 @@ from users.models import Member
 from queueSystem.models import Queue, Review
 
 from app.forms import deleteStaffForm, editRoleForm
-from restaurants.forms import editMenuForm, createMenuForm, changeStatusForm
+from restaurants.forms import (
+    createResForm,
+    editMenuForm,
+    createMenuForm,
+    changeStatusForm,
+)
 from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
 
@@ -144,12 +149,7 @@ def editMenu(request, pk):
 
 
 @login_required(login_url="users/login")
-@allowed_users(
-    allowed_roles=[
-        "admin",
-        "manager",
-    ]
-)
+@allowed_users(allowed_roles=["admin", "manager"])
 def deleteMenu(request, pk):
     menu = Menu.objects.get(menuID=pk)
     if request.method == "POST":
@@ -195,9 +195,10 @@ def manageStaff(request, pk):
 def managerHome(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     queues = Queue.objects.all()
-    context = {"restaurant": restaurant,
-                "queues": queues,
-                }
+    context = {
+        "restaurant": restaurant,
+        "queues": queues,
+    }
     return render(request, "restaurants/managerHome.html", context)
 
 
@@ -277,10 +278,44 @@ def removeStaff(request, pk):
         form = deleteStaffForm()
 
 
-def staffHome(request,pk):
+def staffHome(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     queues = Queue.objects.all()
-    context = {"restaurant": restaurant,
-                "queues": queues,
-                }
+    context = {
+        "restaurant": restaurant,
+        "queues": queues,
+    }
     return render(request, "restaurants/staffHome.html", context)
+
+
+def createRes(request):
+
+    if request.method == "POST":
+        form = createResForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            res = request.POST["resName"]
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE!",
+                text="Restaurant " + res + " was created, Please wait for accepting",
+                timer=3000,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/")
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            print(form.errors)
+            return redirect("/")
+    else:
+        form = createResForm()

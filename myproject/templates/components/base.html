@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@100;300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
     </script>
@@ -37,7 +39,7 @@
 
 </head>
 
-<body style="background-color:;">
+<body>
     {% include 'components/navbar.html' %}
     <div class="container">
         {% block content %}
@@ -46,16 +48,14 @@
         {% load sweetify %}
         {% sweetify %}
     </div>
+    <footer class="bg-light  text-center footer ">
+        <span class="text-center .text-muted ">
+            © 2021 Copyright:
+        </span>
+        <a class="text-muted" href="/">YENYEN</a>
+    </footer>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
-<script src="{% static 'js/main.js' %}"></script>
 
-<footer class="bg-light text-center text-lg-start mt-5">
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2021 Copyright:
-        <a class="text-dark" href="">YENYEN</a>
-    </div>
-    <!-- Copyright -->
-</footer>
 
 </html>
