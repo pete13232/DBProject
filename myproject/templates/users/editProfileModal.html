@@ -73,9 +73,19 @@
                                      placeholder="{{profile.tel}}" value="{{profile.tel}}">
                              </div>
                          </div>
-                         <div class="d-flex justify-content-end">
-                             <button type="reset" class="btn btn-warning me-4">Reset</button>
-                             <button type="submit" value="Submit" class="btn btn-primary">Save</button>
+                         <div class="form-row d-flex pb-2">
+                             <div class="col-md-6">
+                                 <label>Logo</label>
+                                 <div class="mt-1">
+                                     <label for="files" class="btn btn-primary btn-sm rounded-0">Choose
+                                         file</label>
+                                     <input id="files" style="visibility:hidden; height:0" type="file" name="profilePic"
+                                         value="{{restaurant.profilePic}}">
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="modal-footer">
+                             <input type="submit" value="Submit" class="btn btn-primary">
                          </div>
                      </form>
                  </div>

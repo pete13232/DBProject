@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
-
+from django.contrib.auth.decorators import login_required
 from users.decorators import unauthenticated_user, allowed_users, admin_only
 
 from .forms import CreateMemberForm, editMemberForm
@@ -59,7 +59,7 @@ def logoutPage(request):
     logout(request)
     return redirect("/")
 
-
+@login_required(login_url="users/login")
 def profile(request, pk):
     if request.method == "POST":
         if pk[0] == "C":
