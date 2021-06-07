@@ -20,10 +20,10 @@ def index(request):
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "manager", "staff"])
-def queueManagement(request, pk):
+def staffHome(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     context = {"restaurant": restaurant}
-    return render(request, "queue/queueManagement.html", context)
+    return render(request, "queue/staffHome.html", context)
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["member"])

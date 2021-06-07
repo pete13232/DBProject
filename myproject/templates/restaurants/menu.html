@@ -11,33 +11,57 @@
         <p class="card-text">
           {{menu.description}}
         </p>
-        <p class="card-text mt-auto">
+        <p class="card-text mt-auto text-center">
           {{menu.price}} Bath
         </p>
+
         {% if menu.avaliable %}
-        <div class="alert alert-success mt-auto text-center" role="alert">
+        <div class="alert alert-success mt-auto text-center " role="alert">
+          <input name="avaliable" hidden type="text" value="False">
           Avaliable
         </div>
         {% else %}
-        <div class="alert alert-danger mt-auto text-center" role="alert">
+        <div class="alert alert-danger mt-auto text-center " role="alert">
           Not avaliable
+          <input name="avaliable" hidden type="text" value="True">
         </div>
+        {% endif %}
+        {% if request.user.role == 'staff' and request.user.resID_id == menu.resID_id %}
+        <form action="" class="" method="post" style="height: 30px;">
+          {% csrf_token %}
+          {% if menu.avaliable %}
+          <input name="avaliable" hidden type="text" value="False">
+          {% else %}
+          <input name="avaliable" hidden type="text" value="True">
+          {% endif %}
+          <button type="submit" class="btn btn-sm btn-warning rounded-lg d-block form-control">Change Status</button>
+          <input name="menuID" hidden type="text" value="{{menu.menuID}}">
+        </form>
         {% endif %}
       </div>
     </div>
   </div>
   {% endfor %}
-  {% if user.role != "member" and user.role != "staff" and request.user.resID_id == restaurant.resID %}
+  {% if user.role == "manager" and request.user.resID_id == restaurant.resID %}
   <div class="row g-4 d-flex justify-content-end">
     <div class="row" style="width : 20%;">
       <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#menuModal">
         Edit
       </button>
-
     </div>
   </div>
 </div>
-  {% endif %}
+
+  {% elif user.role == "executive" and request.user.companyID_id == restaurant.companyID_id %}
+  <div class="row g-4 d-flex justify-content-end">
+    <div class="row" style="width : 20%;">
+      <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#menuModal">
+        Edit
+      </button>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% include 'restaurants/menuModal.html' with menus=menus %}
 </div>
 

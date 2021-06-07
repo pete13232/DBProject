@@ -1,6 +1,3 @@
-from django import forms
-from django.contrib import messages
-from django.utils import timezone
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect, render, get_object_or_404
 
@@ -15,12 +12,7 @@ from users.models import Member
 from queueSystem.models import Queue, Review
 
 from app.forms import deleteStaffForm, editRoleForm
-from restaurants.forms import (
-    editMenuForm,
-    createMenuForm,
-    editCompanyForm,
-    editRestaurantForm,
-)
+from restaurants.forms import editMenuForm, createMenuForm, changeStatusForm
 from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
 
@@ -45,10 +37,37 @@ def resCard(request, pk):
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "manager", "staff", "member", "executive"])
 def menu(request, pk):
-    restaurant = Restaurant.objects.get(resID=pk)
-    menus = Menu.objects.filter(resID=restaurant)
-    edit = editMenuForm()
-    create = createMenuForm()
+    if request.method == "POST":
+        instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
+        form = changeStatusForm(request.POST or None, instance=instance)
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Menu was updated",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/res/menu/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/res/menu/" + pk)
+    else:
+        restaurant = Restaurant.objects.get(resID=pk)
+        menus = Menu.objects.filter(resID=restaurant)
+        edit = editMenuForm()
+        create = createMenuForm()
     context = {"menus": menus, "restaurant": restaurant, "edit": edit, "create": create}
     return render(request, "restaurants/menu.html", context)
 
@@ -89,7 +108,7 @@ def createMenu(request, pk):
 
 
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "manager", "staff", "member"])
+@allowed_users(allowed_roles=["admin", "manager", "staff", "member", "executive"])
 def editMenu(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
     menus = Menu.objects.filter(resID=restaurant)
@@ -123,8 +142,14 @@ def editMenu(request, pk):
     else:
         form = editMenuForm()
 
+
 @login_required(login_url="users/login")
-@allowed_users(allowed_roles=["admin", "manager",])
+@allowed_users(
+    allowed_roles=[
+        "admin",
+        "manager",
+    ]
+)
 def deleteMenu(request, pk):
     menu = Menu.objects.get(menuID=pk)
     if request.method == "POST":
@@ -175,12 +200,14 @@ def managerHome(request, pk):
                 }
     return render(request, "restaurants/managerHome.html", context)
 
+
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive"])
 def executiveHome(request, pk):  # ยังไม่ได้เชื่อมผ่าน company
     restaurants = Restaurant.objects.filter(companyID=pk)
     context = {"restaurants": restaurants}
     return render(request, "restaurants/executiveHome.html", context)
+
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
@@ -212,6 +239,7 @@ def editRole(request, pk):
                 allowOutsideClick=True,
             )
             return redirect("/res/manageStaff/" + pk)
+
 
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
@@ -247,3 +275,7 @@ def removeStaff(request, pk):
             return redirect("/res/manageStaff/" + pk)
     else:
         form = deleteStaffForm()
+
+
+def staffHome(request):
+    return render(request, "restaurants/staffHome.html")

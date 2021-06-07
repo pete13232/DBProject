@@ -29,6 +29,12 @@ class editCompanyForm(forms.ModelForm):
         fields = "__all__"
 
 
+class changeStatusForm(forms.ModelForm):
+    class Meta:
+        model = Menu
+        fields = ("menuID", "avaliable")
+
+
 class editRestaurantForm(forms.ModelForm):
     class Meta:
         model = Restaurant
