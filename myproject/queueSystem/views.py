@@ -101,10 +101,13 @@ def createQueue(request, pk):
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["member"])
 def createNowQueue(request, pk):
-    count = Queue.objects.filter(queueIsPass=False).count()
     member = request.POST["memberID"]
+    resID = request.POST["resID"]
     queues = Queue.objects.filter(memberID=member)
+    count = Queue.objects.filter(memberID=member, queueIsPass=False).count()
     point = queues.aggregate(Sum("point"))
+    resQueues = Queue.objects.filter(resID=resID)
+    queueSum = Queue.objects.filter(memberID=member, queueIsPass=False).count()
     my_point = point.get("point__sum")
     print(point)
     print(my_point)
