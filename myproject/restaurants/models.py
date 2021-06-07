@@ -47,6 +47,19 @@ class Company(models.Model):
             + "&color=7F9CF5&background=EBF4FF"
         )
 
+    def fullAddress(self):
+        return (
+            self.address
+            + " "
+            + self.subDistrict
+            + " "
+            + self.district
+            + " "
+            + self.province
+            + " "
+            + self.postalCode
+        )
+
     def __str__(self):
         return self.companyID
 
@@ -65,7 +78,7 @@ class Company(models.Model):
         format="PNG",
         options={"quality": 60},
     )
-    success = models.BooleanField(default=False)
+    success = models.BooleanField(default=False, null=True)
 
 
 class Restaurant(models.Model):
@@ -143,7 +156,7 @@ class Restaurant(models.Model):
         format="PNG",
         options={"quality": 60},
     )
-    success = models.BooleanField(default=False)
+    success = models.BooleanField(default=False, null=True)
 
 
 class Menu(models.Model):

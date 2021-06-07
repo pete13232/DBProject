@@ -13,12 +13,17 @@ from queueSystem.models import Queue, Review
 
 from app.forms import deleteStaffForm, editRoleForm
 from restaurants.forms import (
+    createCompForm,
     createResForm,
     editMenuForm,
     createMenuForm,
     changeStatusForm,
+<<<<<<< HEAD
     enableCompanyForm,
     enableRestaurantForm,
+=======
+    inviteStaffForm,
+>>>>>>> c4f2fa53e911d49b3b78db07e8a5dc323da32663
 )
 from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
@@ -193,6 +198,42 @@ def manageStaff(request, pk):
 
 
 @login_required(login_url="users/login")
+@allowed_users(allowed_roles=["admin", "executive", "manager"])
+def inviteStaff(request, pk):
+
+    if request.method == "POST":
+        email = request.POST["email"]
+        instance = get_object_or_404(Member, email=email)
+        name = Member.objects.get(email=email)
+        form = inviteStaffForm(request.POST or None, instance=instance)
+        print(instance)
+        if form.is_valid():
+            form.save()
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE !",
+                text="Member  " + name.fullName() + " was invited",
+                timer=1500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/res/manageStaff/" + pk)
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            print(print(request.POST["resID"]))
+            return redirect("/res/manageStaff/" + pk)
+
+
+@login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "manager"])
 def managerHome(request, pk):
     restaurant = Restaurant.objects.get(resID=pk)
@@ -251,7 +292,6 @@ def removeStaff(request, pk):
         memberID = request.POST["memberID"]
         instance = get_object_or_404(Member, memberID=memberID)
         form = deleteStaffForm(request.POST or None, instance=instance)
-        # name = request.POST["fullName"]
         if form.is_valid():
             form.save()
             sweetify.success(
@@ -379,3 +419,34 @@ def enableComAndRes(request, pk):
                     allowOutsideClick=True,
                 )
                 return redirect(next)
+
+def createComp(request):
+    if request.method == "POST":
+        form = createCompForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            comp = request.POST["companyName"]
+            sweetify.success(
+                request,
+                icon="success",
+                title="DONE!",
+                text="Company " + comp + " was created, Please wait for accepting",
+                timer=3000,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            return redirect("/")
+        else:
+            sweetify.error(
+                request,
+                icon="error",
+                title="Oops !",
+                text="Something went wrong! Try again",
+                timer=2500,
+                timerProgressBar=True,
+                allowOutsideClick=True,
+            )
+            print(form.errors)
+            return redirect("/")
+    else:
+        form = createCompForm()

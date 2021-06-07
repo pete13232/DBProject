@@ -7,7 +7,7 @@
                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
              <div class="modal-body">
-                 <div class="card p-3 rounded-3 border border-3" style="">
+                 <div class="card p-3  border border-3" style="">
                      <img src="{{restaurant.getCoverPic}}" class="img imgBg" alt="Responsive image" />
                      <img src="{{restaurant.getProfilePic}}" class="img imgCollabM" alt="Responsive image" />
                      <div class="row" style="margin-top:50px ;">
@@ -18,24 +18,16 @@
                          <form method="POST" action="{% url 'createQueue' restaurant.resID %}">
                              {% csrf_token %}
                              <input type="text" id="resID" name="resID" value="{{restaurant.resID}}" hidden />
-                             <input type="text" id="memberID" name="memberID" value="{{request.user.memberID}}" hidden />
+                             <input type="text" id="memberID" name="memberID" value="{{request.user.memberID}}"
+                                 hidden />
                              <div class="row mb-3">
                                  <div class="col-6 ">
-                                     <label for="date" class="card-text col-form-label-lg">วัน</label>
+                                     <label for="time" class="card-text col-form-label-lg">วัน/เวลา</label>
                                  </div>
                                  <div class="col-6">
-                                     {% comment %} <input type="date" class="form-control" id="date" name="reserveDate" value=""> {% endcomment %}
-                                     <div id="dateHelp" class="form-text">ระบุวันที่ต้องการจอง</div>
-                                 </div>
-                             </div>
-
-                             <div class="row mb-3">
-                                 <div class="col-6 ">
-                                     <label for="time" class="card-text col-form-label-lg">เวลา</label>
-                                 </div>
-                                 <div class="col-6">
-                                     <input type="datetime-local" class="form-control" id="time" name="reserveDateTime" value="">
-                                     <div id="dateHelp" class="form-text">ระบุเวลาที่ต้องการจอง</div>
+                                     <input type="datetime-local" class="form-control" id="time" name="reserveDateTime"
+                                         value="">
+                                     <div id="dateHelp" class="form-text">ระบุเวันที่และวลาที่ต้องการจอง</div>
                                  </div>
                              </div>
 
@@ -44,7 +36,7 @@
                                      <label for="peopleNum" class="card-text col-form-label-lg">จำนวนผู้เข้าใช้</label>
                                  </div>
                                  <div class="col-6 text-center">
-                                     <input type="number" class="form-control  d-inline me-2" style="width: 150px;"
+                                     <input type="number" class="form-control  d-inline me-2" style="width: 140px;"
                                          id="peopleNum" name="peopleNum" min=1 max=50 value="">
                                      <label for="peopleNum" class="card-text col-form-label-lg">คน</label>
                                  </div>

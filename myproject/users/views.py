@@ -180,7 +180,7 @@ def profile(request, pk):
         else:
             queues = Queue.objects.filter(memberID=pk)
             profile = Member.objects.get(memberID=pk)
-            # point = queues.aggregate(Sum("point"))
+            point = queues.aggregate(Sum("point"))
             print(point)
             form = editMemberForm()
         context = {

@@ -16,7 +16,10 @@ html {
   padding: 1rem;
   border-radius: 1rem;
   min-height: 100%;
-  background: #ffffff !important;
+  /* background: #ffffff !important; */
+}
+.card {
+  border-radius: 18px !important;
 }
 .imgBg {
   width: 98% !important;

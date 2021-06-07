@@ -9,7 +9,7 @@
              </div>
              <div class="modal-body">
                  <h1>Edit Profile</h1>
-                 <div class="card p-3 rounded-3 border border-3 " style="">
+                 <div class="card p-3  border border-3 " style="">
                      <ul class="nav nav-tabs" id="myTab" role="tablist">
                          <li class="nav-item" role="presentation">
                              <a class="nav-link active" id="restaurant-tab" data-bs-toggle="tab"
@@ -27,10 +27,6 @@
                              <form class="mt-3 ms-2" method="POST" action="{% url 'createRes' %}"
                                  enctype="multipart/form-data">
                                  {% csrf_token %}
-                                 <input type="text" class="form-control" id="name" name="resID" hidden
-                                     value="{{restaurant.resID}}">
-                                 <input type="text" class="form-control" id="name" name="companyID" hidden
-                                     value="{{restaurant.companyID}}">
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Restaurant Name</label>
@@ -122,13 +118,9 @@
                              </form>
                          </div>
                          <div class="tab-pane fade " id="company" role="tabpanel" aria-labelledby="company-tab">
-                             <form class="mt-3 ms-2" method="POST" action="{% url 'createRes' %}"
+                             <form class="mt-3 ms-2" method="POST" action="{% url 'createComp' %}"
                                  enctype="multipart/form-data">
                                  {% csrf_token %}
-                                 <input type="text" class="form-control" id="name" name="resID" hidden
-                                     value="{{restaurant.resID}}">
-                                 <input type="text" class="form-control" id="name" name="companyID" hidden
-                                     value="{{restaurant.companyID}}">
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6" style="padding-right : 20px">
                                          <label>Company Name</label>
@@ -165,34 +157,20 @@
                                      </div>
                                  </div>
                                  <div class="form-row d-flex pb-2">
-                                     <div class="col-md-6" style="padding-right : 20px">
-                                         <label>Category</label>
-                                         <select class="form-select" aria-label="Default select example" required
-                                             style="width:50%" name="categoryID">
-                                             <option selected hidden value="">
-                                             </option>
-                                             {% for category in categories %}
-                                             <option value="{{category.categoryID}}">{{category.categoryName}}
-                                             </option>
-                                             {% endfor %}
-                                         </select>
-                                     </div>
 
                                      <div class="col-md-6">
                                          <label>Tel.</label>
                                          <input type="tel" class="form-control" placeholder="" value="" name="tel"
                                              required pattern="^0[0-9]{9}">
                                      </div>
-                                 </div>
-
-                                 <div class="form-row d-flex pb-2">
-                                     <div class="col-md-12">
+                                     <div class="col-md-6">
                                          <label>Email</label>
                                          <input type="email" class="form-control" placeholder="" value="" name="email"
                                              required>
                                          </select>
                                      </div>
                                  </div>
+
 
                                  <div class="form-row d-flex pb-2">
                                      <div class="col-md-6">

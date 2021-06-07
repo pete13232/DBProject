@@ -63,41 +63,10 @@
                                 <label>Address</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{company.address}}</p>
+                                <p>{{company.fullAddress}}</p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>District</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{company.district}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Sub-district</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{company.subDistrict}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Province</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{company.province}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Postal Code</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{company.postalCode}}</p>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Email</label>
@@ -397,7 +366,7 @@
                             {{profile.fullName}}
                         </h5>
 
-                        <span class="text-muted"> Point : {{point}}</span>
+                        <span class="text-muted"> Point : {{point.point__sum}}/100</span>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"

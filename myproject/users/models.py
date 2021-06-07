@@ -19,7 +19,6 @@ class Member(AbstractUser):
         else:
             return "M" + str(n + 1).zfill(3)
 
-
     def fullName(self):
         return self.fName + " " + self.lName
 
@@ -36,6 +35,19 @@ class Member(AbstractUser):
             "https://ui-avatars.com/api/?name="
             + self.fullName()
             + "&color=7F9CF5&background=EBF4FF"
+        )
+
+    def fullAddress(self):
+        return (
+            self.address
+            + " "
+            + self.subDistrict
+            + " "
+            + self.district
+            + " "
+            + self.province
+            + " "
+            + self.postalCode
         )
 
     memberID = models.CharField(max_length=50, primary_key=True, default=genID)
