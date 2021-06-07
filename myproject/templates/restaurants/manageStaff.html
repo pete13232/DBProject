@@ -20,7 +20,7 @@
             <form action="{% url 'inviteStaff' pk %}" method="post">
                 {% csrf_token %}
                 <input class="form-control m-3" id="myInput" type="text" name="resID" hidden value="{{pk}}">
-                <input class="form-control m-3" id="myInput" type="email" name="email">
+                <input class="form-control m-3" id="myInput" type="email" name="email" placeholder = "E-mail">
         </div>
         <div class="col-md-6">
             <input class="btn btn-primary mt-3 ms-2" type="submit" value="invite">
@@ -41,8 +41,10 @@
             </thead>
             <tbody id="Table">
             
-                {% for staff in staffs %}
-                    {% if  request.user.role == "manager" and staff.role == "staff"%}
+               
+                    
+                     {% for staff in staffs %}
+                     {% if  request.user.role == "manager" and staff.role == "staff" %}
                     <tr>
                         <th scope="row">{{staff.memberID}}</th>
                         <td>
@@ -53,6 +55,7 @@
                             <form action="{% url 'editRole' staff.resID %}" method="post" class="d-flex ">
                                 {% csrf_token %}
                                 <input type="text" name="memberID" value="{{staff.memberID}}" hidden>
+                                <input type="text" name="next" value="{{request.path}}" hidden>
                                 <select class="form-select d-inline me-2" style="width: 150px;" name=role>
                                     <option selected hidden>{{staff.role}}</option>
                                     <option value="manager">manager</option>
@@ -66,7 +69,10 @@
                                 data-bs-target="#removeStaff{{staff.memberID}}">Delete</a>
                         </td>
                     </tr>
-                    {% elif request.user.role == "executive" and staff.resID.companyID == company.companyID %}
+
+                    
+                    {% elif request.user.role == "executive" %}
+                    
                     <tr>
                         <th scope="row">{{staff.memberID}}</th>
                         <td>
@@ -77,6 +83,7 @@
                             <form action="{% url 'editRole' staff.resID %}" method="post" class="d-flex ">
                                 {% csrf_token %}
                                 <input type="text" name="memberID" value="{{staff.memberID}}" hidden>
+                                <input type="text" name="next" value="{{request.path}}" hidden>
                                 <select class="form-select d-inline me-2" style="width: 150px;" name=role>
                                     <option selected hidden>{{staff.role}}</option>
                                     <option value="manager">manager</option>
@@ -91,7 +98,9 @@
                         </td>
                     </tr>
                     {% endif %}
-                {% endfor %}
+                    {% endfor %}
+
+                
 
 
 

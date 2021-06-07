@@ -17,6 +17,7 @@
                 <form action="{% url 'removeStaff' pk %}" method="POST">
                     {% csrf_token %}
                     <input type="text" class="form-control" id="name" name="memberID" hidden value="{{staff.memberID}}">
+                     <input type="text" class="form-control" id="name" name="companyID" hidden value="">
                     <input type="text" class="form-control" id="name" name="resID" hidden value="">
                     <input type="text" class="form-control" id="name" name="role" hidden value="staff">
                     <button type="submit" class="btn btn-danger">Confirm</button>

@@ -20,24 +20,33 @@
         </thead>
         <tbody id="Table border border-3">
           {% for company in companies %}
-          <tr class="text-center align-middle">
+          
+          {% if company.success == 1 %}
+            <tr class="text-center align-middle">
             <th scope="row">{{company.companyID}}</th>
             <td>
-              <a href="{% url 'profile' company.companyID %}" class="h6">{{company.companyName}}</a>
+              {{company.companyName}}
             </td>
             <td>-</td>
-            <td><button type="button" class="btn btn-primary"> Report </button></td>
+            <td><a href="{% url 'profile' company.companyID %}" class="h6"><button type="button" class="btn btn-primary"> Report </button></a></td>
           </tr>
+          {% endif %}
+            
+          
           {% endfor %}
           {% for restaurant in restaurants %}
-          <tr class="text-center align-middle">
+          
+          {% if restaurant.success == 1 %}
+            <tr class="text-center align-middle">
             <th scope="row">{{restaurant.resID}}</th>
             <td>
-              <a href="{% url 'profile' restaurant.companyID %}" class="h6">{{restaurant.companyID.companyName}}</a>
+              {{restaurant.companyID.companyName}}
             </td>
-            <td><a href="{% url 'profile' restaurant.resID %}" class="h6">{{restaurant.resName}}</a></td>
-            <td><button type="button" class="btn btn-primary"> Report </button></td>
+            <td>{{restaurant.resName}}</td>
+            <td><a href="{% url 'profile' restaurant.resID %}" class="h6"><button type="button" class="btn btn-primary"> Report </button></a></td>
           </tr>
+          {% endif %}
+
           {% endfor %}
 
         </tbody>
