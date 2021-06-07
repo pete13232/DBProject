@@ -46,39 +46,45 @@ def resCard(request, pk):
 
 
 def menu(request, pk):
-    if request.method == "POST":
-        instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
-        form = changeStatusForm(request.POST or None, instance=instance)
-        if form.is_valid():
-            form.save()
-            sweetify.success(
-                request,
-                icon="success",
-                title="DONE !",
-                text="Menu was updated",
-                timer=1500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-            )
-            return redirect("/res/menu/" + pk)
+    if request.user.resID_id == pk:
+        if request.method == "POST":
+            instance = get_object_or_404(Menu, menuID=request.POST["menuID"])
+            form = changeStatusForm(request.POST or None, instance=instance)
+            if form.is_valid():
+                form.save()
+                sweetify.success(
+                    request,
+                    icon="success",
+                    title="DONE !",
+                    text="Menu was updated",
+                    timer=1500,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect("/res/menu/" + pk)
+            else:
+                sweetify.error(
+                    request,
+                    icon="error",
+                    title="Oops !",
+                    text="Something went wrong! Try again",
+                    timer=2500,
+                    timerProgressBar=True,
+                    allowOutsideClick=True,
+                )
+                return redirect("/res/menu/" + pk)
         else:
-            sweetify.error(
-                request,
-                icon="error",
-                title="Oops !",
-                text="Something went wrong! Try again",
-                timer=2500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-            )
-            return redirect("/res/menu/" + pk)
+            restaurant = Restaurant.objects.get(resID=pk)
+            menus = Menu.objects.filter(resID=restaurant)
+            edit = editMenuForm()
+            create = createMenuForm()
+        context = {"menus": menus, "restaurant": restaurant, "edit": edit, "create": create}
+        return render(request, "restaurants/menu.html", context)
+
     else:
-        restaurant = Restaurant.objects.get(resID=pk)
-        menus = Menu.objects.filter(resID=restaurant)
-        edit = editMenuForm()
-        create = createMenuForm()
-    context = {"menus": menus, "restaurant": restaurant, "edit": edit, "create": create}
-    return render(request, "restaurants/menu.html", context)
+        print(request.user.resID)
+        print(pk)
+        return redirect("/")
 
 
 @login_required(login_url="users/login")
