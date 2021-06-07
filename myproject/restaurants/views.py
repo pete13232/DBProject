@@ -284,3 +284,4 @@ def staffHome(request,pk):
                 "queues": queues,
                 }
     return render(request, "restaurants/staffHome.html", context)
+    
