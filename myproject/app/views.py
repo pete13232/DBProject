@@ -65,8 +65,9 @@ def registerRequest(request):
     return render(request, "admin/registerRequest.html", context)
 
 
-@allowed_users(allowed_roles=["admin", "executive", "manager"])
+
 @login_required(login_url="users/login")
+@admin_only
 def dashboard(request):
     allQueue = Queue.objects.all()
     memberPoint = allQueue.values("memberID").annotate(my_sum=Sum("point"))
