@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import messages
+from django.db.models.aggregates import Sum
 from django.utils import timezone
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect, render, get_object_or_404
@@ -66,4 +67,7 @@ def registerRequest(request):
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 @login_required(login_url="users/login")
 def dashboard(request):
+    allQueue = Queue.objects.all()
+    memberPoint = allQueue.values("memberID").annotate(my_sum=Sum("point"))
+    print(memberPoint)
     return render(request, "admin/dashboard.html")
