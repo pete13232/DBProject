@@ -1,0 +1,28 @@
+.wrapper{
+    /* max-height : 500px;
+    border: 1px solid #ddd;
+    display: flex;
+    overflow-x:auto
+    width */
+    max-height: 30%;
+    /* background-color: red; */
+    overflow: hidden;
+    max-width: 100%;
+}
+
+/* .wrapper::-webkit-scrollbar{
+    width: 0;
+} */
+.wrapper .inner{
+    overflow: hidden;
+    width: 5000px;
+}
+
+.wrapper .child{
+    float: left;
+    /* background-color: blue; */
+    min-width: 110px;
+    height: 100%;
+    line-height: 110px;
+}
+

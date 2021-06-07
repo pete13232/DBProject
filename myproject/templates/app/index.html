@@ -1,4 +1,5 @@
 {% extends 'components/base.html' %}
+{% load static %}
 {% block title %}Home{% endblock title %}
 {% block content %}
 <div class="input-group rounded-lg mt-2 mb-2">
@@ -8,11 +9,20 @@
         <i class="fas fa-search"></i>
     </span>
 </div>
+{% comment %}
 <hr style="height:3px;border-width:0;color:gray;background-color:gray">
 <div class="row row-cols-4 row-cols-md-6">
     {% for category in categories %}
     {% include 'restaurants/categoryCard.html'%}
     {% endfor %}
+</div> {% endcomment %}
+
+<div class="wrapper" style = "overflow-y : hidden; overflow-x : scroll">
+    <div class="inner">
+        {% for category in categorys %}
+            {% include 'restaurants/categoryCard.html' %}
+        {% endfor %}
+    </div>
 </div>
 <hr style="height:3px;border-width:0;color:gray;background-color:gray">
 <div class="row" id="Table-main">

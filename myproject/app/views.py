@@ -26,6 +26,8 @@ from users.forms import editMemberForm
 from queueSystem.forms import createQueueForm, createNowQueueForm, createReviewForm
 
 from django.db.models import Avg
+from django.views.generic import TemplateView
+from chartjs.views.lines import BaseLineChartView
 
 import sweetify
 

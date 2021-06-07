@@ -23,6 +23,7 @@
                     </svg>
                     Customer log & Queue
                 </a>
+            </li>
             <li>
                 <a href="{%url 'manageStaff' request.user.resID %}" class="nav-link text-white">
                     <svg class="bi me-2" width="16" height="16">
@@ -33,32 +34,62 @@
             </li>
 
             {% elif user.role == "staff"%}
-            <a href="{%url 'staffHome' request.user.resID %}" class="nav-link text-white" aria-current="page">
-                <svg class="bi me-2" width="16" height="16">
-                    <use xlink:href="#home"></use>
-                </svg>
-                Queue
-            </a>
-            <a href="{%url 'staffHome' request.user.resID  %}" class="nav-link text-white" aria-current="page"
-                data-bs-toggle="modal" data-bs-target="#business" href="#home">
-                <svg class="bi me-2" width="16" height="16">
-                    <use xlink:href="#home"></use>
-                </svg>
-                Start my own
-            </a>
-
-
-            {% endif %}
-
+            <li>
+                <a href="{%url 'staffHome' request.user.resID %}" class="nav-link text-white" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#home"></use>
+                    </svg>
+                    Queue
+                </a>
             </li>
             <li>
-                <a href="{%url 'menu' request.user.resID %}" class="nav-link text-white">
+                <a href="{%url 'staffHome' request.user.resID  %}" class="nav-link text-white" aria-current="page"
+                    data-bs-toggle="modal" data-bs-target="#business" href="#home">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#home"></use>
+                    </svg>
+                    Start my own
+                </a>
+            </li>
+            
+            <li>
+                <a href="{%url 'menu' request.user.resID %}" class="nav-link text-white"> <!-- ลิงค์ไปที่ร้านตัวเอง -->
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#table"></use>
                     </svg>
                     Edit menu
                 </a>
             </li>
+            {% endif %}
+
+            {% if  user.role == "manager" %}
+            <li>
+                <a href="{%url 'dashboard'%}" class="nav-link text-white">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#table"></use>
+                    </svg>
+                    DashBoard
+                </a>
+            </li>
+            <li>
+                <button class="btn btn-toggle align-items-center rounded collapsed text-white" data-bs-toggle="collapse"
+                    data-bs-target="#dashboard-collapse" aria-expanded="false">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#speedometer2"></use>
+                    </svg>
+                    Edit menu
+                </button>
+                <div class="collapse" id="dashboard-collapse" style="">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-5">
+                        <li><a href="#" class="link-dark rounded text-white">Overview</a></li>
+                        <li><a href="#" class="link-dark rounded text-white">Weekly</a></li>
+                        <li><a href="#" class="link-dark rounded text-white">Monthly</a></li>
+                        <li><a href="#" class="link-dark rounded text-white">Annually</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+
         </ul>
     </div>
     <hr>
@@ -95,7 +126,8 @@
     <div class="offcanvas-body">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="{%url 'executiveHome' request.user.companyID %}" class="nav-link text-white" aria-current="page">
+                <a href="{%url 'executiveHome' request.user.companyID %}" class="nav-link text-white"
+                    aria-current="page">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#home"></use>
                     </svg>
@@ -111,17 +143,36 @@
                 </a>
             </li>
             <li>
-                <a href="{%url 'menu' request.user.companyID %}" class="nav-link text-white">
+                <a href="{%url 'dashboard'%}" class="nav-link text-white">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#table"></use>
                     </svg>
-                    Edit menu
+                    DashBoard
                 </a>
+            </li>
+            <li>
+                <button class="btn btn-toggle align-items-center rounded collapsed text-white" data-bs-toggle="collapse"
+                    data-bs-target="#dashboard-collapse" aria-expanded="false">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#speedometer2"></use>
+                    </svg>
+                    Edit menu
+                </button>
+                <div class="collapse" id="dashboard-collapse" style="">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-5">
+                        <li><a href="#" class="link-dark rounded text-white">Overview</a></li>
+                        <li><a href="#" class="link-dark rounded text-white">Weekly</a></li>
+                        <li><a href="#" class="link-dark rounded text-white">Monthly</a></li>
+                        <li><a href="#" class="link-dark rounded text-white">Annually</a></li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </div>
     <hr>
 </div>
 {% endif %}
+
+
 
 {% include 'restaurants/createBusModal.html' %}

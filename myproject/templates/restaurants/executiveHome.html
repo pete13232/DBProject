@@ -24,7 +24,7 @@
                  <tr>
                      <th scope="row">1</th>
                      <td>
-                         <a href="{% url 'resProfile' restaurant.resID %}" class="text-decoration-none text-reset">
+                         <a href="{% url 'profile' restaurant.resID %}" class="text-decoration-none text-reset">
                              {{restaurant.resName}}
                          </a>
                      </td>
@@ -36,20 +36,6 @@
                      </td>
                  </tr>
                  {% endfor %}
-                 <tr>
-                     <th scope="row">2</th>
-                     <td>
-                         <a href="#">BBB</a>
-                     </td>
-                     <td>123 บางมด</td>
-                 </tr>
-                 <tr>
-                     <th scope="row">3</th>
-                     <td>
-                         <a href="#">CCC</a>
-                     </td>
-                     <td>123 บางมด</td>
-                 </tr>
              </tbody>
          </table>
      </div>
