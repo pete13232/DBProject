@@ -19,7 +19,6 @@
                     <h5>
                         {{company.companyName}}
                     </h5>
-                    <p class="proile-rating"> Rating : <span>8.3/10</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
@@ -166,7 +165,7 @@
                     <h5>
                         {{restaurant.resName}}
                     </h5>
-                    <p class="proile-rating"> Rating : <span>8.3/10</span></p>
+                    <p class="proile-rating"> Rating : <span>8.3</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
@@ -216,39 +215,7 @@
                             <label>Address</label>
                         </div>
                         <div class="col-md-6">
-                            <p>{{restaurant.address}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>District</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{restaurant.district}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Sub-district</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{restaurant.subDistrict}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Province</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{restaurant.province}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Postal Code</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{restaurant.postalCode}}</p>
+                            <p>{{restaurant.fullAddress}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -273,22 +240,6 @@
                         </div>
                         <div class="col-md-6">
                             <p>{{restaurant.categoryID.categoryName}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Instragram</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{restaurant.ig}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Facebook</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>{{restaurant.fb}}</p>
                         </div>
                     </div>
                 </div>
