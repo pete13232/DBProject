@@ -19,8 +19,9 @@
         <div class="col-md-6">
             <form action="{% url 'inviteStaff' pk %}" class="align-middle" method="post">
                 {% csrf_token %}
-                {% comment %} <input class="form-control m-3" id="myInput" type="text" name="resID" hidden
-                    value="{{pk}}"> {% endcomment %}
+                {% if request.user.role != "executive" %}
+                <input class="form-control m-3" id="myInput" type="text" name="resID" hidden value="{{pk}}">
+                {% endif %}
                 <input class="form-control d-inline m-3" style="width: 300px;" id="myInput" type="email" name="email"
                     placeholder="E-mail">
                 {% if request.user.role == "executive" %}
