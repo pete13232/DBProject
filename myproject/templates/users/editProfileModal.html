@@ -62,16 +62,16 @@
                                  <label class="form-label">Tel</label>
                              </div>
                          </div>
-                         <div class="form-row d-flex pb-2">
+                         <input id="files" style="visibility:hidden; height:0" hidden type="file" name="profilePic"
+                             value="{{restaurant.profilePic}}">
+                         {% comment %} <div class="form-row d-flex pb-2">
                              <div class="col-md-6">
                                  <label>Logo</label>
                                  <div class="mt-1">
                                      <label for="files" class="btn btn-primary btn-sm rounded-0">Choose
                                          file</label>
-                                     <input id="files" style="visibility:hidden; height:0" type="file" name="profilePic"
-                                         value="{{restaurant.profilePic}}">
                                  </div>
-                             </div>
+                             </div> {% endcomment %}
                          </div>
                          <div class="modal-footer">
                              <input type="submit" value="Submit" class="btn btn-primary">

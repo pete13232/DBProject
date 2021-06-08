@@ -68,7 +68,7 @@ class CreateMemberForm(UserCreationForm):
                 }
             ),
         }
-
+    
 
 class editMemberForm(forms.ModelForm):
     class Meta:

@@ -154,12 +154,12 @@ def profile(request, pk):
                     request,
                     icon="error",
                     title="Oops !",
-                    text="Something went wrong! Try again" + member,
+                    text="Something went wrong! Try again",
                     timer=2500,
                     timerProgressBar=True,
                     allowOutsideClick=True,
                 )
-                print(form)
+                print(form.errors)
                 return redirect("/users/profile/" + pk)
     else:
         company = None

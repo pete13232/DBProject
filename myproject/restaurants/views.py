@@ -77,7 +77,12 @@ def menu(request, pk):
             menus = Menu.objects.filter(resID=restaurant)
             edit = editMenuForm()
             create = createMenuForm()
-        context = {"menus": menus, "restaurant": restaurant, "edit": edit, "create": create}
+        context = {
+            "menus": menus,
+            "restaurant": restaurant,
+            "edit": edit,
+            "create": create,
+        }
         return render(request, "restaurants/menu.html", context)
 
     else:
@@ -223,7 +228,6 @@ def manageStaff(request, pk):
 @login_required(login_url="users/login")
 @allowed_users(allowed_roles=["admin", "executive", "manager"])
 def inviteStaff(request, pk):
-
     if request.method == "POST":
         email = request.POST["email"]
         instance = get_object_or_404(Member, email=email)
@@ -241,17 +245,18 @@ def inviteStaff(request, pk):
                 allowOutsideClick=True,
             )
             return redirect("/res/manageStaff/" + pk)
-        else:
-            sweetify.error(
-                request,
-                icon="error",
-                title="Oops !",
-                text="Something went wrong! Try again",
-                timer=2500,
-                timerProgressBar=True,
-                allowOutsideClick=True,
-            )
-            return redirect("/res/manageStaff/" + pk)
+
+    else:
+        sweetify.error(
+            request,
+            icon="error",
+            title="Oops !",
+            text="Something went wrong! Try again",
+            timer=2500,
+            timerProgressBar=True,
+            allowOutsideClick=True,
+        )
+        return redirect("/res/manageStaff/" + pk)
 
 
 @login_required(login_url="users/login")
